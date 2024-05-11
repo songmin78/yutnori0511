@@ -9,6 +9,11 @@ public class player : MonoBehaviour
 
     bool playertype = false;
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
