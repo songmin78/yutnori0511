@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gamemanager : MonoBehaviour
 {
+    public static Gamemanager Instance;
 
     public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
 
