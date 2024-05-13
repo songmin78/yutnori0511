@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
             tests = false;
             Debug.Log("º±≈√µ ");
         }
+        tests = false;
     }
 
 }

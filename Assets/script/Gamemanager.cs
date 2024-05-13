@@ -16,7 +16,7 @@ public class Gamemanager : MonoBehaviour
     //    set { player = value; }
     //}
 
-    public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
+    //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
 
     void Start()
     {
@@ -35,12 +35,10 @@ public class Gamemanager : MonoBehaviour
             //Player player = gameObject.GetComponent<Player>();
 
             GameObject playerfind = GameObject.Find("Player1");
-            Debug.Log(playerfind);
+            //Debug.Log(playerfind);
             Player player = playerfind.GetComponent<Player>();
             player.tests = true;
-            playertouch = true;
-            Debug.Log("작동");
+            //Debug.Log("작동");
         }
-        playertouch = false;
     }
 }
