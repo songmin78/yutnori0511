@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 201806435}
   - component: {fileID: 201806436}
   m_Layer: 0
-  m_Name: ButtonManager
+  m_Name: Yutstartbutton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,6 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startbutton: {fileID: 1353190356}
+  yutdisposition: 
 --- !u!1001 &294445561
 PrefabInstance:
   m_ObjectHideFlags: 0
