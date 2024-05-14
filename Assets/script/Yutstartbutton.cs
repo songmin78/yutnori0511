@@ -45,10 +45,10 @@ public class Yutstartbutton : MonoBehaviour
         {
             for(int yutstick = 0; yutstick < 4; yutstick++)//윷을 빽도를 제외한 3개를 던져 리스트에 나열 하도록 설정
             {
-                //test = Random.Range(0, 2);//Random.Range는 int일 경우 마지막 숫자 -1를 하여 계산 (0,2)일 경우 0과  1만 작동함
-                //yutdisposition.Add(test);
+                test = Random.Range(0, 2);//Random.Range는 int일 경우 마지막 숫자 -1를 하여 계산 (0,2)일 경우 0과  1만 작동함
+                yutdisposition.Add(test);
                 //Debug.Log(test);
-                yutdisposition.Add(Random.Range(0, 2));//Random.Range는 int일 경우 마지막 숫자 -1를 하여 계산 (0,2)일 경우 0과  1만 작동함
+                //yutdisposition.Add(Random.Range(0, 2));//Random.Range는 int일 경우 마지막 숫자 -1를 하여 계산 (0,2)일 경우 0과  1만 작동함
                 randomcheck = true;
             }
             //yutdisposition.Add(Random.Range(0, 2));
@@ -62,8 +62,17 @@ public class Yutstartbutton : MonoBehaviour
         {
             for(int yutcheck = 0; yutcheck < 4; yutcheck++)
             {
-                
+                int a = yutdisposition.Find(test => test >= 0);
+                if(a == 1)
+                {
+                    Debug.Log("1");
+                }
+                else
+                {
+                    Debug.Log("0");
+                }
             }
+            randomcheck = false;
         }
         //리스트에 1이 얼마나 있는지 확인하는 코드
     }
