@@ -10,6 +10,7 @@ public class Yutstartbutton : MonoBehaviour
     //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
     [SerializeField] Button startbutton;
     bool yutstart;
+    bool randomcheck;//윷이 뭘 떴는지 확인 해주는 코드
     int test;
 
 
@@ -33,6 +34,7 @@ public class Yutstartbutton : MonoBehaviour
     void Update()
     {
         startyutnbutton();
+        moveyut();
     }
 
 
@@ -47,7 +49,7 @@ public class Yutstartbutton : MonoBehaviour
                 //yutdisposition.Add(test);
                 //Debug.Log(test);
                 yutdisposition.Add(Random.Range(0, 2));//Random.Range는 int일 경우 마지막 숫자 -1를 하여 계산 (0,2)일 경우 0과  1만 작동함
-                moveyut();
+                randomcheck = true;
             }
             //yutdisposition.Add(Random.Range(0, 2));
             yutstart = false;
@@ -56,8 +58,13 @@ public class Yutstartbutton : MonoBehaviour
 
     private void moveyut()//윷이 뜬 수 만큼 이동할 거리를 정해줌
     {
-        int test = yutdisposition.IndexOf(1);
-        Debug.Log(test);
+        if(randomcheck == true)
+        {
+            for(int yutcheck = 0; yutcheck < 4; yutcheck++)
+            {
+                
+            }
+        }
         //리스트에 1이 얼마나 있는지 확인하는 코드
     }
 }
