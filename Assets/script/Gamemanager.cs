@@ -26,19 +26,39 @@ public class Gamemanager : MonoBehaviour
     void Update()
     {
         Onclickplayer();
+
+        testcode();
     }
 
     private void Onclickplayer()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            #region
             //Player player = gameObject.GetComponent<Player>();
 
             GameObject playerfind = GameObject.Find("Player1");
             //Debug.Log(playerfind);
             Player player = playerfind.GetComponent<Player>();
-            player.tests = true;
+            player.playerchoice = true;
             //Debug.Log("작동");
+            #endregion
+
+            //GameObject playerfind = GameObject.FindGameObjectWithTag("player");
+            //Player player = playerfind.GetComponent<Player>();
+            //player.playerchoice = true;
+            //Debug.Log(playerfind);
+        }
+    }
+
+    private void testcode()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            GameObject tags = GameObject.FindGameObjectWithTag("player");
+            Player player = tags.GetComponent<Player>();
+            player.tests = true;
+            Debug.Log("작동");
         }
     }
 }

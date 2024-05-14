@@ -5,7 +5,6 @@ using UnityEngine;
 public class chasemouse : MonoBehaviour
 {
 
-    // Update is called once per frame
     void Update()
     {
         mousecheck();
