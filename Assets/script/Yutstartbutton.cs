@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class Yutstartbutton : MonoBehaviour
 {
+    [Header("윷가락")]
+    [SerializeField] GameObject yut1;
+    [SerializeField] GameObject yut2;
+    [SerializeField] GameObject yut3;
+    [SerializeField] GameObject yut4;
+    float yuttype;
     [Header("윷 던지기 버튼")]
     //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
     [SerializeField] Button startbutton;
@@ -13,6 +19,7 @@ public class Yutstartbutton : MonoBehaviour
     int randomcount;
     int Stickcount;
     public bool waittime;//캐릭터를 움직이기위한 시간에 버튼을 눌러도 작동 안되게 설정
+    public bool yutstarttimer;
 
 
     [SerializeField]List<int> yutdisposition = new List<int>();
@@ -39,8 +46,20 @@ public class Yutstartbutton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        yutplaytimer();
         startyutnbutton();
         //moveyut();
+    }
+
+    private void yutplaytimer()
+    {
+        if(yutstarttimer == true)
+        {
+            yutdisposition.Clear();
+            Stickcount = 0;
+            yutstart = true;
+            yutstarttimer = false;
+        }
     }
 
 
@@ -90,6 +109,7 @@ public class Yutstartbutton : MonoBehaviour
             playtimer.checktime = true;
         }
     }
+
 
     #region
     //private void moveyut()//윷이 뜬 수 만큼 이동할 거리를 정해줌
@@ -141,5 +161,10 @@ public class Yutstartbutton : MonoBehaviour
                 Debug.Log("윷");
                 break;
         }
+    }
+
+    private void yutrotation()
+    {
+        
     }
 }

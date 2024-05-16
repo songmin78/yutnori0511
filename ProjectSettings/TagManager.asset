@@ -6,6 +6,7 @@ TagManager:
   tags:
   - mouse
   - player
+  - player2
   layers:
   - Default
   - TransparentFX
