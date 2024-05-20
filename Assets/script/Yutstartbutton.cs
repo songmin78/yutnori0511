@@ -13,9 +13,11 @@ public class Yutstartbutton : MonoBehaviour
     [Header("윷으로 갈수있는 숫자 최대 3번까지 저장 가능")]
     float yutnumber = 0;
     bool yutreturncheck;
-    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] float oneyut = 0;
-    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] float twoyut = 0;
-    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] float threeyut = 0;
+    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float oneyut = 0;
+    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float twoyut = 0;
+    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float threeyut = 0;
+    public bool zerocheck;
+
     float yuttype;
     [Header("윷 던지기 버튼")]
     //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
@@ -27,7 +29,7 @@ public class Yutstartbutton : MonoBehaviour
     public bool waittime;//캐릭터를 움직이기위한 시간에 버튼을 눌러도 작동 안되게 설정
     public bool yutstarttimer;
     [Header("기 타")]
-    [SerializeField] Image timegage;
+    //[SerializeField] Image timegage;
 
 
     [SerializeField]List<int> yutdisposition = new List<int>();
@@ -51,6 +53,9 @@ public class Yutstartbutton : MonoBehaviour
         yutplaytimer();
         startyutnbutton();
         returnyut();
+
+        numberzero();
+
         //moveyut();
     }
 
@@ -112,6 +117,10 @@ public class Yutstartbutton : MonoBehaviour
             GameObject findtimer = GameObject.Find("Playtimemanager");
             Playtimer playtimer = findtimer.GetComponent<Playtimer>();
             playtimer.checktime = true;
+            if(yutnumber == 4 || yutnumber == 5)
+            {
+                playtimer.returnYut = true;
+            }
         }
     }
 
@@ -199,17 +208,32 @@ public class Yutstartbutton : MonoBehaviour
         {
             threeyut = yutnumber;
         }
+        else
+        {
+
+        }
     }
 
     private void returnyut()//모 또는 윷이 나왔을 경우 한번더 던질수 있는 코드
     {
         if (yutreturncheck == true)
         {
-            yutstart = true;
-            yutreturncheck = false;
-            waittime = false;
+            //yutstart = true;
+            //yutreturncheck = false;
+            //waittime = false;
         }
 
+    }
+
+    private void numberzero()//이동 거리 초기화
+    {
+        if(zerocheck == true)
+        {
+            oneyut = 0;
+            twoyut = 0;
+            threeyut = 0;
+            zerocheck = false;
+        }
     }
 
 }

@@ -18,6 +18,11 @@ public class Player : MonoBehaviour
     [SerializeField]public bool tests;
     public bool playertype1;//플레이어타입1
     public bool playertype2;//플레이어타입2
+    [Header("테스트 부분")]
+    [SerializeField] float a;
+    [SerializeField] float b;
+    [SerializeField] float c;
+    [SerializeField] float d;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,7 +57,7 @@ public class Player : MonoBehaviour
         checkplayermouse();
         typeplayer();
 
-        testcode();
+        //testcode();
     }
 
 
@@ -60,6 +65,7 @@ public class Player : MonoBehaviour
     {
         if(playertouch == true && playerchoice == true)
         {
+            testcode();
             playerchoice = false;
             //tests = true;
             Debug.Log("선택됨");
@@ -84,16 +90,19 @@ public class Player : MonoBehaviour
 
     private void testcode()
     {
-        if (tests == true)
-        {
-            //tests = false;
-            //Debug.Log("완료");
-        }
+        //플레이어가 가져와야 할것 윷에서 나온 숫자,발판의 숫자
+        GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
+        Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();   
 
-        if (playerchoice == true)
-        {
-            
-        }
+        a = buttontimer.oneyut;
+        b = buttontimer.twoyut;
+        c = buttontimer.threeyut;
+
+        GameObject obj = GameObject.Find("footholdbox");
+        Numberroom numberroom = obj.GetComponentInChildren<Numberroom>();
+        numberroom.count1 = a;
+        numberroom.count2 = b;
+        numberroom.count3 = c;
     }
 
     private void movetest()

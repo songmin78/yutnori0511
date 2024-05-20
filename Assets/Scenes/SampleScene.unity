@@ -378,6 +378,10 @@ MonoBehaviour:
   yutButton: 4
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1001 &191911550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -625,6 +629,10 @@ MonoBehaviour:
   yutButton: 13
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &201806434
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,10 +685,10 @@ MonoBehaviour:
   oneyut: 0
   twoyut: 0
   threeyut: 0
+  zerocheck: 0
   startbutton: {fileID: 1353190356}
   waittime: 0
   yutstarttimer: 0
-  timegage: {fileID: 0}
   yutdisposition: 
 --- !u!1001 &294445561
 PrefabInstance:
@@ -929,6 +937,10 @@ MonoBehaviour:
   yutButton: 6
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &314172845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
@@ -1164,6 +1176,10 @@ MonoBehaviour:
   yutButton: 12
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &437422473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
@@ -1995,6 +2011,10 @@ MonoBehaviour:
   yutButton: 9
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &602547801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,6 +2161,10 @@ MonoBehaviour:
   yutButton: 14
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &756161739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2520,6 +2544,10 @@ MonoBehaviour:
   yutButton: 8
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &857125619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,6 +2694,10 @@ MonoBehaviour:
   yutButton: 11
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &872811527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2268931508975568644, guid: f9b19f32fce34f74b92d4e73be7838b6, type: 3}
@@ -2960,6 +2992,10 @@ MonoBehaviour:
   yutButton: 7
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &908383396
 GameObject:
   m_ObjectHideFlags: 0
@@ -3503,6 +3539,10 @@ MonoBehaviour:
   yutButton: 1
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1006847593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,6 +3689,10 @@ MonoBehaviour:
   yutButton: 15
   yutshortcut: 1
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1001 &1009832844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3986,6 +4030,10 @@ MonoBehaviour:
   yutButton: 17
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1102873126
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,6 +4180,10 @@ MonoBehaviour:
   yutButton: 10
   yutshortcut: 1
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1103627832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2260689394470506805, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
@@ -4283,6 +4335,10 @@ MonoBehaviour:
   yutButton: 0
   yutshortcut: 1
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1127975345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4429,6 +4485,10 @@ MonoBehaviour:
   yutButton: 18
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1001 &1144199189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4806,6 +4866,10 @@ MonoBehaviour:
   yutButton: 3
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1353190354
 GameObject:
   m_ObjectHideFlags: 0
@@ -5079,6 +5143,10 @@ MonoBehaviour:
   yutButton: 16
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1445713925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,6 +5503,10 @@ MonoBehaviour:
   yutButton: 2
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1001 &1772159366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5828,6 +5900,10 @@ MonoBehaviour:
   yutButton: 5
   yutshortcut: 1
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0
 --- !u!1 &1950449411
 GameObject:
   m_ObjectHideFlags: 0
@@ -6008,7 +6084,8 @@ MonoBehaviour:
   waitmovetime: 10
   Maxwaitmovetime: 0
   checktime: 0
-  timegage: {fileID: 0}
+  timegage: {fileID: 1950449413}
+  returnYut: 0
 --- !u!4 &2031114144
 Transform:
   m_ObjectHideFlags: 0
@@ -6291,3 +6368,7 @@ MonoBehaviour:
   yutButton: 19
   yutshortcut: 0
   shortcutButton: 0
+  MaxyutButton: 0
+  count1: 0
+  count2: 0
+  count3: 0

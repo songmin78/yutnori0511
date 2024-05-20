@@ -18,6 +18,7 @@ public class Playtimer : MonoBehaviour
     [Header("기타")]
     [SerializeField] public bool checktime;//윷을 던졌을때 true로 전환(밖에서 받아옴)
     [SerializeField] Image timegage;//시간초 줄어드는 게이지
+    public bool returnYut;//모나 윷이 뜨면 true로 전환
 
     private void Awake()
     {
@@ -36,6 +37,10 @@ public class Playtimer : MonoBehaviour
         cheangeyuttime();//윷 던지기 버튼을 누를때 작동
         movewaittimer();
         playercheck();
+
+        timecalculate();
+
+        yuttest();
     }
 
     private void startturn()//먼저 시작할 팀 설정
@@ -84,9 +89,9 @@ public class Playtimer : MonoBehaviour
         }
     }
 
-    private void movewaittimer()//움직이는것을 기다리는 코드
+    private void movewaittimer()//말이 움직이는것을 기다리는 코드
     {
-        if(playermovecheck == false)
+        if(playermovecheck == false || returnYut == true)
         {
             return;
         }
@@ -110,6 +115,7 @@ public class Playtimer : MonoBehaviour
             GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
             Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
             buttontimer.waittime = false;
+            buttontimer.zerocheck = true;
 
         }
         else
@@ -156,6 +162,20 @@ public class Playtimer : MonoBehaviour
 
     private void timecalculate()//시간 계산 코드
     {
+        timegage.fillAmount = Maxthrowtime / throwtime;
+    }
 
+    private void yuttest()
+    {
+        if(returnYut == true)
+        {
+            playermovecheck = false;//더이상 작동 안하게 변경
+            throwwaitcheck = false;//윷 던지는 부분을 작동하게 변경
+
+            GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
+            Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
+            buttontimer.waittime = false;
+            returnYut = false;
+        }
     }
 }
