@@ -10,6 +10,12 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField] GameObject yut2;
     [SerializeField] GameObject yut3;
     [SerializeField] GameObject yut4;
+    [Header("윷으로 갈수있는 숫자 최대 3번까지 저장 가능")]
+    float yutnumber = 0;
+    bool yutreturncheck;
+    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] float oneyut = 0;
+    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] float twoyut = 0;
+    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] float threeyut = 0;
     float yuttype;
     [Header("윷 던지기 버튼")]
     //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
@@ -20,6 +26,8 @@ public class Yutstartbutton : MonoBehaviour
     int Stickcount;
     public bool waittime;//캐릭터를 움직이기위한 시간에 버튼을 눌러도 작동 안되게 설정
     public bool yutstarttimer;
+    [Header("기 타")]
+    [SerializeField] Image timegage;
 
 
     [SerializeField]List<int> yutdisposition = new List<int>();
@@ -37,17 +45,12 @@ public class Yutstartbutton : MonoBehaviour
         });
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         yutplaytimer();
         startyutnbutton();
+        returnyut();
         //moveyut();
     }
 
@@ -97,6 +100,8 @@ public class Yutstartbutton : MonoBehaviour
                 if(yutstick == 3 && Stickcount == 0 &&randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우
                 {
                     randomcheck = true;
+                    yutnumber = -1;
+                    yutturnNumber();
                     Debug.Log("빽도");
                 }
                 yutdisposition.Add(randomcount);
@@ -146,18 +151,30 @@ public class Yutstartbutton : MonoBehaviour
         switch (Stickcount)//뒷면이  얼마나 떴는지 swich문으로 체크
         {
             case 0://뒷면이 0개일 경우
+                yutnumber = 5;
+                yutreturncheck = true;
+                yutturnNumber();
                 Debug.Log("모");
                 break;
             case 1:
+                yutnumber = 1;
+                yutturnNumber();
                 Debug.Log("도");
                 break;
             case 2:
+                yutnumber = 2;
+                yutturnNumber();
                 Debug.Log("개");
                 break;
             case 3:
+                yutnumber = 3;
+                yutturnNumber();
                 Debug.Log("걸");
                 break;
             case 4:
+                yutnumber = 4;
+                yutreturncheck = true;
+                yutturnNumber();
                 Debug.Log("윷");
                 break;
         }
@@ -167,4 +184,32 @@ public class Yutstartbutton : MonoBehaviour
     {
         
     }
+
+    private void yutturnNumber()//윷에 걸린 숫자만큼 숫자를 대입
+    {
+        if (oneyut == 0)
+        {
+            oneyut = yutnumber;
+        }
+        else if (oneyut != 0 && twoyut == 0)
+        {
+            twoyut = yutnumber;
+        }
+        else if(oneyut != 0 && twoyut != 0 && threeyut == 0)
+        {
+            threeyut = yutnumber;
+        }
+    }
+
+    private void returnyut()//모 또는 윷이 나왔을 경우 한번더 던질수 있는 코드
+    {
+        if (yutreturncheck == true)
+        {
+            yutstart = true;
+            yutreturncheck = false;
+            waittime = false;
+        }
+
+    }
+
 }

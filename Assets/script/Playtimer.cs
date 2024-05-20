@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Playtimer : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Playtimer : MonoBehaviour
     bool playermovecheck;//윷을 던진후 움직이는것을 기다리는 부분
     [Header("기타")]
     [SerializeField] public bool checktime;//윷을 던졌을때 true로 전환(밖에서 받아옴)
+    [SerializeField] Image timegage;//시간초 줄어드는 게이지
 
     private void Awake()
     {
@@ -149,6 +151,11 @@ public class Playtimer : MonoBehaviour
                 gamemanager.Gameplayertype = 2;
             }
         }
+
+    }
+
+    private void timecalculate()//시간 계산 코드
+    {
 
     }
 }
