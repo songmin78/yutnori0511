@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Gamemanager.Instance.Player = this;
     }
 
     // Update is called once per frame
@@ -97,6 +97,8 @@ public class Player : MonoBehaviour
         a = buttontimer.oneyut;
         b = buttontimer.twoyut;
         c = buttontimer.threeyut;
+
+        Gamemanager.Instance.Numberroom.mynumber += a;
 
         //GameObject obj = GameObject.Find("footholdbox");
         //Numberroom numberroom = obj.GetComponentInChildren<Numberroom>();

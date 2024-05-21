@@ -5,7 +5,8 @@ using UnityEngine;
 public class Numberroom : MonoBehaviour
 {
     [Header("윷 발판의 번호")]
-    [SerializeField,Range(0,19)] float yutButton;
+    [SerializeField,Range(0,19)] float yutButton;//각각의 고유 위치
+    [SerializeField] List<float> Yutnumber = new List<float>();//발판의 위치를 받는 부분
 
     [Header("지름길 번호 및 체크")]
     [SerializeField,Tooltip("지름길에 멈추었을때")] bool yutshortcut;
@@ -21,7 +22,7 @@ public class Numberroom : MonoBehaviour
     public float count3;
     [SerializeField]Vector3 trs;
     Vector3 mytrs;
-    float mynumber;
+    public float mynumber;//윷에 의해 바뀐위치
     bool numbercheck;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,6 +42,10 @@ public class Numberroom : MonoBehaviour
     private void Start()
     {
         myposition();
+
+        Yutnumber.Add(yutButton);
+
+        Gamemanager.Instance.Numberroom = this; 
     }
 
     private void Update()
@@ -62,7 +67,7 @@ public class Numberroom : MonoBehaviour
     private void myposition()//발판이 자기 위치를 알고있는 코드 한번만 받도록 함
     {
         mytrs = transform.position;
-        mynumber = yutButton;
+        mynumber = 0;
     }
 
     private void testcode()
@@ -71,12 +76,20 @@ public class Numberroom : MonoBehaviour
         {
             numbercheck = false;
             trs = mytrs;
+            tests();
             //poscheck.transform.position = trs;
         }
     }
 
     private void tests()
     {
+        if(mynumber != yutButton)
+        {
+            Yutnumber.Exists(numbercount => numbercount == mynumber);
+            {
+
+            }
+        }
     }
 
 }

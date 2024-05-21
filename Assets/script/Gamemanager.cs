@@ -24,6 +24,24 @@ public class Gamemanager : MonoBehaviour
     //    set { player = value; }
     //}
 
+    public Numberroom Numberroom
+    {
+        get { return numberroom; }
+        set { numberroom = value; }
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
 
     void Start()
