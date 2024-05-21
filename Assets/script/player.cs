@@ -19,9 +19,9 @@ public class Player : MonoBehaviour
     public bool playertype1;//플레이어타입1
     public bool playertype2;//플레이어타입2
     [Header("테스트 부분")]
-    [SerializeField] float a;
-    [SerializeField] float b;
-    [SerializeField] float c;
+    [SerializeField] public float a;
+    [SerializeField] public float b;
+    [SerializeField] public float c;
     [SerializeField] float d;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,11 +98,11 @@ public class Player : MonoBehaviour
         b = buttontimer.twoyut;
         c = buttontimer.threeyut;
 
-        GameObject obj = GameObject.Find("footholdbox");
-        Numberroom numberroom = obj.GetComponentInChildren<Numberroom>();
-        numberroom.count1 = a;
-        numberroom.count2 = b;
-        numberroom.count3 = c;
+        //GameObject obj = GameObject.Find("footholdbox");
+        //Numberroom numberroom = obj.GetComponentInChildren<Numberroom>();
+        //numberroom.count1 = a;
+        //numberroom.count2 = b;
+        //numberroom.count3 = c;
     }
 
     private void movetest()

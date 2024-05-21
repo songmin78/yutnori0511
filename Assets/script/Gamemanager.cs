@@ -13,7 +13,10 @@ public class Gamemanager : MonoBehaviour
     public int Gameplayertype = 0;//1은 1번 차례일때 2는 2번 차례일때
 
 
+
     //private Player player;
+    private Numberroom numberroom;
+
 
     //public Player Player
     //{
