@@ -117,6 +117,4 @@ public class Gamemanager : MonoBehaviour
             Debug.Log("¿€µø");
         }
     }
-
-
 }

@@ -24,6 +24,9 @@ public class Numberroom : MonoBehaviour
     Vector3 mytrs;
     public float mynumber;//윷에 의해 바뀐위치
     bool numbercheck;
+    public bool zerocheck;//판 밖에있는 말을 선택 했을경우
+    [SerializeField, Tooltip("현재  있는 위치")] float playerposition;
+    Vector3 vec3;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -50,8 +53,11 @@ public class Numberroom : MonoBehaviour
 
     private void Update()
     {
+        movestart();
         testtouch();
         testcode();
+
+        testclick();
     }
 
     private void testtouch()//플레이어가 몇칸 움직이는지 확인하려고 테스트
@@ -83,13 +89,59 @@ public class Numberroom : MonoBehaviour
 
     private void tests()
     {
-        if(mynumber != yutButton)
-        {
-            Yutnumber.Exists(numbercount => numbercount == mynumber);
-            {
+        //if(mynumber != yutButton)
+        //{
+        //    Yutnumber.Exists(numbercount => numbercount == mynumber);
+        //    {
+        //        Debug.Log(transform.position);
+        //    }
+        //}
+    }
 
-            }
+    private void movestart()//칸에 없는 말을 선택 할때
+    {
+        if(zerocheck == true)
+        {
+            #region
+            //Yutnumber.Exists(numbercount => numbercount == mynumber);
+            //{
+            //    Vector3 moving = new Vector3(transform.position.x, transform.position.y, 0);
+            //    Debug.Log(transform.position);
+            //    Debug.Log(mynumber);
+            //    poscheck.transform.position = moving;
+            //}
+            //zerocheck = false;
+
+
+            //Yutnumber.Contains(yutButton);
+            //Debug.Log(Yutnumber.Contains(yutButton));
+            //if (Yutnumber.Contains(mynumber) == true)
+            //{
+            //    Vector3 moving = new Vector3(transform.position.x, transform.position.y, 0);
+            //    poscheck.transform.position = moving;
+            //}
+            //else
+            //{
+            //    Yutnumber[0] += 1;
+            //    Debug.Log(Yutnumber[0]);
+            //}
+            #endregion
+
+            //if(Yutnumber == mynumber)
+            //{
+            //    vec3 = new Vector3(transform.position.x,transform.position.y,0);
+            //}
+            Debug.Log(Yutnumber[0]);
+            poscheck.transform.position = vec3;
+            zerocheck = false;
         }
     }
 
+    private void testclick()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //Debug.Log(Yutnumber[0]);
+        }
+    }
 }
