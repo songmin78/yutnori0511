@@ -98,8 +98,8 @@ public class Player : MonoBehaviour
         b = buttontimer.twoyut;
         c = buttontimer.threeyut;
 
-        Gamemanager.Instance.Numberroom.mynumber += a;
-        Gamemanager.Instance.Numberroom.zerocheck = true;
+        //Gamemanager.Instance.Numberroom.mynumber += a;
+        //Gamemanager.Instance.Numberroom.zerocheck = true;
 
         //GameObject obj = GameObject.Find("footholdbox");
         //Numberroom numberroom = obj.GetComponentInChildren<Numberroom>();

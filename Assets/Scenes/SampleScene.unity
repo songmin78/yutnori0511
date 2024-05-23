@@ -375,7 +375,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 4
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -384,6 +386,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1001 &191911550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -628,7 +633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 13
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -637,6 +644,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &201806434
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 6
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -947,6 +959,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &314172845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
@@ -1179,7 +1194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 12
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -1188,6 +1205,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &437422473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
@@ -2016,7 +2036,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 9
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -2025,6 +2047,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &602547801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,7 +2193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 14
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -2177,6 +2204,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &756161739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,7 +2583,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 8
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -2562,6 +2594,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &857125619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,7 +2740,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 11
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -2714,6 +2751,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &872811527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2268931508975568644, guid: f9b19f32fce34f74b92d4e73be7838b6, type: 3}
@@ -3005,7 +3045,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 7
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -3014,6 +3056,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &908383396
 GameObject:
   m_ObjectHideFlags: 0
@@ -3554,7 +3599,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 1
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -3563,6 +3610,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1006847593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3706,7 +3756,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 15
+  Yutnumber: []
   yutshortcut: 1
   shortcutButton: 0
   MaxyutButton: 0
@@ -3715,6 +3767,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1001 &1009832844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4049,7 +4104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 17
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -4058,6 +4115,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1102873126
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,7 +4261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 10
+  Yutnumber: []
   yutshortcut: 1
   shortcutButton: 0
   MaxyutButton: 0
@@ -4210,6 +4272,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1103627832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2260689394470506805, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
@@ -4358,7 +4423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 0
+  Yutnumber: []
   yutshortcut: 1
   shortcutButton: 0
   MaxyutButton: 0
@@ -4367,6 +4434,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1127975345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4510,7 +4580,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 18
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -4519,6 +4591,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1001 &1144199189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4893,7 +4968,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 3
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -4902,6 +4979,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1353190354
 GameObject:
   m_ObjectHideFlags: 0
@@ -5172,7 +5252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 16
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -5181,6 +5263,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1445713925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5534,7 +5619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 2
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -5543,6 +5630,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1001 &1772159366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5933,7 +6023,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 5
+  Yutnumber: []
   yutshortcut: 1
   shortcutButton: 0
   MaxyutButton: 0
@@ -5942,6 +6034,9 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
 --- !u!1 &1950449411
 GameObject:
   m_ObjectHideFlags: 0
@@ -6209,6 +6304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2064921655}
+  - component: {fileID: 2064921656}
   m_Layer: 0
   m_Name: footholdbox
   m_TagString: Untagged
@@ -6260,6 +6356,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2064921656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064921654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0878374287984e744ab642217bdb0192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Yutfoothold: []
+  yutnumber: {x: 0, y: 0, z: 0}
+  poscheck: {fileID: 0}
 --- !u!1 &2121410288
 GameObject:
   m_ObjectHideFlags: 0
@@ -6403,7 +6514,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f855c948414e2a844b85906166dbc2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentobj: {fileID: 2064921654}
   yutButton: 19
+  Yutnumber: []
   yutshortcut: 0
   shortcutButton: 0
   MaxyutButton: 0
@@ -6412,3 +6525,6 @@ MonoBehaviour:
   count2: 0
   count3: 0
   trs: {x: 0, y: 0, z: 0}
+  mynumber: 0
+  zerocheck: 0
+  playerposition: 0
