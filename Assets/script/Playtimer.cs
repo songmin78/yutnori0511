@@ -115,7 +115,7 @@ public class Playtimer : MonoBehaviour
             GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
             Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
             buttontimer.waittime = false;
-            buttontimer.zerocheck = true;
+            buttontimer.zeromovecheck = true;
 
         }
         else

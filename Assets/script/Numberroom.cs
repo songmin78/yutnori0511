@@ -132,7 +132,6 @@ public class Numberroom : MonoBehaviour
             //    Yutnumber[0] += 1;
             //    Debug.Log(Yutnumber[0]);
             //}
-            #endregion
 
             //if(Yutnumber == mynumber)
             //{
@@ -147,6 +146,9 @@ public class Numberroom : MonoBehaviour
             //testpp = footholdbox.Yutfoothold.FindIndex(testd => testd == 15);
             //Debug.Log(testpp);
             //poscheck.transform.position = testpp;
+            #endregion
+
+
 
             zerocheck = false;
         }
@@ -154,10 +156,12 @@ public class Numberroom : MonoBehaviour
 
     private void testclick()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            //Debug.Log(Yutnumber[0]);
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    GameObject findyut = GameObject.Find("footholdbox");//해당 이름의 오브젝트를 찾는다
+        //    Footholdbox footholdbox = findyut.GetComponent<Footholdbox>();
+        //    Debug.Log(footholdbox.Yutfoothold);
+        //}
     }
 
     private void starttest()

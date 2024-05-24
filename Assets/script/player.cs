@@ -18,11 +18,11 @@ public class Player : MonoBehaviour
     [SerializeField]public bool tests;
     public bool playertype1;//플레이어타입1
     public bool playertype2;//플레이어타입2
-    [Header("테스트 부분")]
-    [SerializeField] public float a;
-    [SerializeField] public float b;
-    [SerializeField] public float c;
-    [SerializeField] float d;
+    [Header("윷 이동 부분")]
+    [SerializeField] public float oneYut;
+    [SerializeField] public float twoYut;
+    [SerializeField] public float threeYut;
+    //[SerializeField] float d;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -94,9 +94,13 @@ public class Player : MonoBehaviour
         GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
         Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();   
 
-        a = buttontimer.oneyut;
-        b = buttontimer.twoyut;
-        c = buttontimer.threeyut;
+        oneYut = buttontimer.oneyut;
+        twoYut = buttontimer.twoyut;
+        threeYut = buttontimer.threeyut;
+
+        GameObject objfoot = GameObject.Find("footholdbox");
+        Footholdbox footholdbox = objfoot.GetComponent<Footholdbox>();
+        footholdbox.zerocheck = true;
 
         //Gamemanager.Instance.Numberroom.mynumber += a;
         //Gamemanager.Instance.Numberroom.zerocheck = true;

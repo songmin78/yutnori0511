@@ -16,7 +16,7 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float oneyut = 0;
     [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float twoyut = 0;
     [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float threeyut = 0;
-    public bool zerocheck;
+    public bool zeromovecheck;
 
     float yuttype;
     [Header("윷 던지기 버튼")]
@@ -73,6 +73,18 @@ public class Yutstartbutton : MonoBehaviour
 
     private void startyutnbutton()//윷 던지기 버튼
     {
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            yutnumber = 5;
+            yutlist();
+            GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = findtimer.GetComponent<Playtimer>();
+            playtimer.checktime = true;
+            if (yutnumber == 4 || yutnumber == 5)
+            {
+                playtimer.returnYut = true;
+            }
+        }
         //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
         if(yutstart == true)
         {
@@ -227,12 +239,12 @@ public class Yutstartbutton : MonoBehaviour
 
     private void numberzero()//이동 거리 초기화
     {
-        if(zerocheck == true)
+        if(zeromovecheck == true)
         {
             oneyut = 0;
             twoyut = 0;
             threeyut = 0;
-            zerocheck = false;
+            zeromovecheck = false;
         }
     }
 
