@@ -71,6 +71,7 @@ public class Footholdbox : MonoBehaviour
             }
             else
             {
+                poscheck1.SetActive(true);
                 poscheck1.transform.position = Yutfoothold[(int)oneYut].transform.position;
             }
             if (twoYut == 0)

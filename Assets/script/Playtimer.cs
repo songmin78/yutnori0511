@@ -19,6 +19,7 @@ public class Playtimer : MonoBehaviour
     [SerializeField] public bool checktime;//윷을 던졌을때 true로 전환(밖에서 받아옴)
     [SerializeField] Image timegage;//시간초 줄어드는 게이지
     public bool returnYut;//모나 윷이 뜨면 true로 전환
+    [SerializeField] GameObject poscheck1;//첫번째 윷의 이동 범위
 
     private void Awake()
     {
@@ -112,6 +113,7 @@ public class Playtimer : MonoBehaviour
             }
             Debug.Log("던지기로 변경");
 
+            poscheck1.SetActive(false);
             GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
             Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
             buttontimer.waittime = false;
