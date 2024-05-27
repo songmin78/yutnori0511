@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Playtimer : MonoBehaviour
 {
-    [SerializeField] bool testteam1;
-    [SerializeField] bool testteam2;
+    [SerializeField] public bool changeteam1;
+    [SerializeField] public bool changeteam2;
     [Header("윷을 던지기 까지의 남은 시간 정리")]
     [SerializeField] float throwtime;
     [SerializeField]float Maxthrowtime;//확인 용
@@ -50,9 +50,9 @@ public class Playtimer : MonoBehaviour
         switch(startplayer)
         {
             case 0:
-                testteam1 = true; break;
+                changeteam1 = true; break;
             case 1:
-                testteam2 = true; break;
+                changeteam2 = true; break;
         }
     }
 
@@ -101,15 +101,15 @@ public class Playtimer : MonoBehaviour
             Maxwaitmovetime = waitmovetime;
             playermovecheck = false;//더이상 작동 안하게 변경
             throwwaitcheck = false;//윷 던지는 부분을 작동하게 변경
-            if (testteam1 == true)
+            if (changeteam1 == true)
             {
-                testteam1 = false;
-                testteam2 = true;
+                changeteam1 = false;
+                changeteam2 = true;
             }
-            else if (testteam2 == true)
+            else if (changeteam2 == true)
             {
-                testteam1 = true;
-                testteam2 = false;
+                changeteam1 = true;
+                changeteam2 = false;
             }
             Debug.Log("던지기로 변경");
 
@@ -133,7 +133,7 @@ public class Playtimer : MonoBehaviour
     {
         if(playermovecheck == true)
         {
-            if(testteam1 == true)
+            if(changeteam1 == true)
             {
                 //GameObject playerfind = GameObject.Find("Player1");
                 //Player player = playerfind.GetComponent<Player>();
@@ -147,7 +147,7 @@ public class Playtimer : MonoBehaviour
                 gamemanager.Gameplayertype = 1;
 
             }
-            else if(testteam2 == true)
+            else if(changeteam2 == true)
             {
                 //GameObject playerfind = GameObject.Find("Player2");
                 //Player player = playerfind.GetComponent<Player>();

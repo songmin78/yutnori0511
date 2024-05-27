@@ -95,8 +95,9 @@ public class Footholdbox : MonoBehaviour
                 poscheck3.transform.position = Yutfoothold[(int)threeYut].transform.position;
             }
 
-            zerocheck = false;
+            //zerocheck = false;
         }
+        zerocheck = false;
     }
 
     public void passyut(float _yutButton)

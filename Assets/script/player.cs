@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField]public bool tests;
     public bool playertype1;//플레이어타입1
     public bool playertype2;//플레이어타입2
+    [SerializeField]bool playerchecking1;
+    [SerializeField]bool playerchecking2;
     [Header("윷 이동 부분")]
     [SerializeField] public float oneYut;
     [SerializeField] public float twoYut;
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         checkplayermouse();
-        typeplayer();
+        //typeplayer();
 
         //testcode();
     }
@@ -65,6 +67,16 @@ public class Player : MonoBehaviour
     {
         if(playertouch == true && playerchoice == true)
         {
+            if(playercheck1 == true)
+            {
+                playerchecking1 = true;
+                playerchecking2 = false;
+            }
+            else if(playercheck2 == true)
+            {
+                playerchecking1 = false;
+                playerchecking2 = true;
+            }
             testcode();
             playerchoice = false;
             //tests = true;
@@ -73,7 +85,7 @@ public class Player : MonoBehaviour
         playerchoice = false;
     }
 
-    private void typeplayer()//플레이어  타입에 따라 작동되는 부분 안되는 부분 구분하는거
+    private void typeplayer()//플레이어1 과 플레이어2를 동시에 못 움직이게 설정
     {
         //if(playertype1 == true)
         //{
