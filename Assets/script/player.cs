@@ -18,8 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField]public bool tests;
     public bool playertype1;//플레이어타입1
     public bool playertype2;//플레이어타입2
-    [SerializeField]bool playerchecking1;
-    [SerializeField]bool playerchecking2;
+    [SerializeField]public bool playerchecking1;
+    [SerializeField]public bool playerchecking2;
     [Header("윷 이동 부분")]
     [SerializeField] public float oneYut;
     [SerializeField] public float twoYut;
@@ -31,6 +31,16 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == ("mouse"))
         {
             playertouch = true;
+            if(playercheck1 == true)//플레이어 타입이 1번일 경우
+            {
+                playertype1 = true;//플레이어 타입 1번을 확인
+                playertype2 = false;
+            }
+            if(playercheck2 == true)
+            {
+                playertype1 = false;
+                playertype2 = true;
+            }
         }
     }
 
@@ -39,6 +49,16 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == ("mouse"))
         {
             playertouch = false;
+            if (playercheck1 == true)
+            {
+                playertype1 = false;
+                playertype2 = false;
+            }
+            else if (playercheck2 == true)
+            {
+                playertype1 = false;
+                playertype2 = false;
+            }
         }
     }
 
@@ -50,7 +70,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Gamemanager.Instance.Player = this;
+        Gamemanager.Instance.Player = this;
     }
 
     // Update is called once per frame
@@ -97,7 +117,6 @@ public class Player : MonoBehaviour
         //    playertype1 = false;
         //    checkobj.SetActive(true);
         //}
-        
     }
 
     private void testcode()

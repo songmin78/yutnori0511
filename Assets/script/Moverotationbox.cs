@@ -12,6 +12,8 @@ public class Moverotationbox : MonoBehaviour
     [SerializeField]Vector3 vec3;//위치 확인용
     bool team1;
     bool team2;
+    [SerializeField]bool playertype1;//플레이어 1개만 작동하도록 조절
+    [SerializeField]bool playertype2;//플레이어 1개만 작동하도록 조절
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,20 +54,7 @@ public class Moverotationbox : MonoBehaviour
 
     private void playerbox()
     {
-        //if (Gameplayertype == 1)
-        //{
-        //    Player player = objplayer1_1.GetComponent<Player>();
-        //    Player player2 = objplayer1_2.GetComponent<Player>();
-        //    player.playerchoice = true;
-        //    player2.playerchoice = true;
-        //}
-        //else if (Gameplayertype == 2)
-        //{
-        //    Player player = objplayer2_1.GetComponent<Player>();
-        //    Player player2 = objplayer2_2.GetComponent<Player>();
-        //    player.playerchoice = true;
-        //    player2.playerchoice = true;
-        //}
+
     }
 
     private void moveposition()
@@ -74,13 +63,29 @@ public class Moverotationbox : MonoBehaviour
         {
             if (team1 == true)
             {
-                objplayer1_1.transform.position = vec3;
-                objplayer1_2.transform.position = vec3;
+                Player player = objplayer1_1.GetComponent<Player>();
+                Player player2 = objplayer1_2.GetComponent<Player>();
+                if (player.playertype1 == true)
+                {
+                    objplayer1_1.transform.position = vec3;
+                }
+                else if(player2.playertype2 == true)
+                {
+                    objplayer1_2.transform.position = vec3;
+                }
             }
             else if (team2 == true)
             {
-                objplayer2_1.transform.position = vec3;
-                objplayer2_2.transform.position = vec3;
+                Player player = objplayer2_1.GetComponent<Player>();
+                Player player2 = objplayer2_2.GetComponent<Player>();
+                if (player.playertype1 == true)
+                {
+                    objplayer2_1.transform.position = vec3;
+                }
+                else if(player2.playertype2 == true)
+                {
+                    objplayer2_2.transform.position = vec3;
+                }
             }
         }
     }

@@ -14,15 +14,15 @@ public class Gamemanager : MonoBehaviour
 
 
 
-    //private Player player;
+    private Player player;
     private Numberroom numberroom;
 
 
-    //public Player Player
-    //{
-    //    get { return player; }
-    //    set { player = value; }
-    //}
+    public Player Player
+    {
+        get { return player; }
+        set { player = value; }
+    }
 
     public Numberroom Numberroom
     {
