@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gamemanager : MonoBehaviour
 {
+    [SerializeField] List<GameObject> objtype;
     [SerializeField] GameObject objplayer1_1;
     [SerializeField] GameObject objplayer1_2;
     [SerializeField] GameObject objplayer2_1;
@@ -54,6 +55,8 @@ public class Gamemanager : MonoBehaviour
         Onclickplayer();
 
         testcode();
+
+        playertypechoice();
     }
 
     private void Onclickplayer()
@@ -116,5 +119,12 @@ public class Gamemanager : MonoBehaviour
             player.tests = true;
             Debug.Log("¿€µø");
         }
+    }
+
+    private void playertypechoice()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hitInfo);
+
     }
 }

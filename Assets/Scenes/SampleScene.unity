@@ -1801,6 +1801,8 @@ MonoBehaviour:
   objplayer2_2: {fileID: 1103627832}
   movecheck: 0
   vec3: {x: 0, y: 0, z: 0}
+  playertype1: 0
+  playertype2: 0
 --- !u!1 &291982248
 GameObject:
   m_ObjectHideFlags: 0
@@ -3526,6 +3528,8 @@ MonoBehaviour:
   objplayer2_2: {fileID: 1103627832}
   movecheck: 0
   vec3: {x: 0, y: 0, z: 0}
+  playertype1: 0
+  playertype2: 0
 --- !u!1 &537073909
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,6 +3727,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aca4afb03f304429b82bce0f634fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objtype:
+  - {fileID: 314172845}
+  - {fileID: 437422473}
+  - {fileID: 537170614}
+  - {fileID: 1103627832}
   objplayer1_1: {fileID: 314172845}
   objplayer1_2: {fileID: 437422473}
   objplayer2_1: {fileID: 537170614}
@@ -5582,6 +5591,8 @@ MonoBehaviour:
   objplayer2_2: {fileID: 1103627832}
   movecheck: 0
   vec3: {x: 0, y: 0, z: 0}
+  playertype1: 0
+  playertype2: 0
 --- !u!1 &879133491
 GameObject:
   m_ObjectHideFlags: 0

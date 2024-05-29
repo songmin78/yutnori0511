@@ -25,22 +25,26 @@ public class Player : MonoBehaviour
     [SerializeField] public float twoYut;
     [SerializeField] public float threeYut;
     //[SerializeField] float d;
+    [SerializeField]public bool playertypenumber;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == ("mouse"))
         {
             playertouch = true;
-            if(playercheck1 == true)//플레이어 타입이 1번일 경우
-            {
-                playertype1 = true;//플레이어 타입 1번을 확인
-                playertype2 = false;
-            }
-            if(playercheck2 == true)
-            {
-                playertype1 = false;
-                playertype2 = true;
-            }
+            playertypenumber = true;
+            #region
+            //if(playercheck1 == true)//플레이어 타입이 1번일 경우
+            //{
+            //    playertype1 = true;//플레이어 타입 1번을 확인
+            //    playertype2 = false;
+            //}
+            //if(playercheck2 == true)
+            //{
+            //    playertype1 = false;
+            //    playertype2 = true;
+            //}
+            #endregion
         }
     }
 
@@ -49,16 +53,16 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == ("mouse"))
         {
             playertouch = false;
-            if (playercheck1 == true)
-            {
-                playertype1 = false;
-                playertype2 = false;
-            }
-            else if (playercheck2 == true)
-            {
-                playertype1 = false;
-                playertype2 = false;
-            }
+            //if (playercheck1 == true)
+            //{
+            //    playertype1 = false;
+            //    playertype2 = false;
+            //}
+            //else if (playercheck2 == true)
+            //{
+            //    playertype1 = false;
+            //    playertype2 = false;
+            //}
         }
     }
 
@@ -87,16 +91,16 @@ public class Player : MonoBehaviour
     {
         if(playertouch == true && playerchoice == true)
         {
-            if(playercheck1 == true)
-            {
-                playerchecking1 = true;
-                playerchecking2 = false;
-            }
-            else if(playercheck2 == true)
-            {
-                playerchecking1 = false;
-                playerchecking2 = true;
-            }
+            //if(playercheck1 == true)
+            //{
+            //    playerchecking1 = true;
+            //    playerchecking2 = false;
+            //}
+            //else if(playercheck2 == true)
+            //{
+            //    playerchecking1 = false;
+            //    playerchecking2 = true;
+            //}
             testcode();
             playerchoice = false;
             //tests = true;
@@ -143,9 +147,10 @@ public class Player : MonoBehaviour
         //numberroom.count3 = c;
     }
 
-    private void movetest()
-    {
-
-    }
+    //private void playertypechoice()
+    //{
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    Physics.Raycast(ray, );
+    //}
 
 }
