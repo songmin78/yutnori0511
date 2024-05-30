@@ -18,6 +18,15 @@ public class Gamemanager : MonoBehaviour
     private Player player;
     private Numberroom numberroom;
 
+    public enum eRule
+    {
+        ThrowYut,
+        SelectCharacter,
+        MoveCharacter,
+        CheckRule,
+        TurnOver,
+    }
+    private eRule curState = eRule.ThrowYut;
 
     public Player Player
     {
@@ -47,7 +56,7 @@ public class Gamemanager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -55,6 +64,14 @@ public class Gamemanager : MonoBehaviour
         Onclickplayer();
 
         testcode();
+        if (curState == eRule.ThrowYut)
+        {
+            //Playtimer playtime = 
+        }
+        else if (curState == eRule.SelectCharacter)
+        {
+            
+        }
 
         playertypechoice();
     }
@@ -63,7 +80,7 @@ public class Gamemanager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(Gameplayertype == 1)
+            if (Gameplayertype == 1)
             {
                 //GameObject playerfind = GameObject.Find("Player1");
                 //Player player = playerfind.GetComponent<Player>();
@@ -80,7 +97,7 @@ public class Gamemanager : MonoBehaviour
                 //player2.checkobj.SetActive(true);
                 //player2.playertype2 = true;
             }
-            else if(Gameplayertype == 2)
+            else if (Gameplayertype == 2)
             {
                 //GameObject playerfind = GameObject.Find("Player2");
                 //Player player = playerfind.GetComponent<Player>();
@@ -112,7 +129,7 @@ public class Gamemanager : MonoBehaviour
 
     private void testcode()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             GameObject tags = GameObject.FindGameObjectWithTag("player");
             Player player = tags.GetComponent<Player>();
@@ -123,8 +140,25 @@ public class Gamemanager : MonoBehaviour
 
     private void playertypechoice()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hitInfo);
+        if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
+            if (rayHit.transform != null)
+            {
+                Player selPlayer = rayHit.transform.GetComponent<Player>();
+
+            }
+        }
+
 
     }
+
+    private bool isFindData(out int value)
+    {
+        value = 10;
+        return true;
+    }
+
+    
 }
