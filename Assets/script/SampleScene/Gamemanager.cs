@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gamemanager : MonoBehaviour
 {
+    Animation anim;
+    Animator animator;
+    [SerializeField] Image startcheck;
+
     [SerializeField] List<GameObject> objtype;
     [SerializeField] GameObject objplayer1_1;
     [SerializeField] GameObject objplayer1_2;
@@ -12,7 +17,13 @@ public class Gamemanager : MonoBehaviour
     public static Gamemanager Instance;
 
     public int Gameplayertype = 0;//1은 1번 차례일때 2는 2번 차례일때
-
+    //시작할때 누가 먼저 윷을 던지는지 확인하는 부분
+    float changecheck = 0;
+    float changetimer = 0.1f;//교체될때 텀;
+    bool starttype;
+    float startturnyut = 5;
+    float Maxstartturnyut;
+    //끝
 
 
     private Player player;
@@ -20,13 +31,15 @@ public class Gamemanager : MonoBehaviour
 
     public enum eRule
     {
+
+        Preferencetime,//먼저 윷을 던지는 우선권 시간
         ThrowYut,
         SelectCharacter,
         MoveCharacter,
         CheckRule,
         TurnOver,
     }
-    private eRule curState = eRule.ThrowYut;
+    private eRule curState = eRule.Preferencetime;
 
     public Player Player
     {
@@ -50,13 +63,17 @@ public class Gamemanager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Animation anim = GetComponent<Animation>();
+        Animator animator = GetComponent<Animator>();
+        Maxstartturnyut = startturnyut;
     }
 
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
 
     void Start()
     {
-
+        startcheck.gameObject.SetActive(true);
     }
 
     void Update()
@@ -64,7 +81,12 @@ public class Gamemanager : MonoBehaviour
         Onclickplayer();
 
         testcode();
-        if (curState == eRule.ThrowYut)
+        if(curState == eRule.Preferencetime)
+        {
+            //startturn();
+            //startchageturn();
+        }
+        else if (curState == eRule.ThrowYut)
         {
             //Playtimer playtime = 
         }
@@ -160,5 +182,56 @@ public class Gamemanager : MonoBehaviour
         return true;
     }
 
-    
+    private void startturn()//처음에 누가 먼저 시작하는지 알려주는 코드
+    {
+        animator = startcheck.gameObject.GetComponent<Animator>();
+        Maxstartturnyut -= Time.deltaTime;
+        if(Maxstartturnyut < 2)//3초가 지난 경우
+        {
+            if(starttype == false)
+            {
+                changecheck = Random.Range(0, 2);
+                starttype = true;
+            }
+            else
+            {
+                animator.SetFloat("CharacterChange", changecheck);
+            }
+
+            if(Maxstartturnyut < 0)//0보다 작을 경우
+            {
+                Maxstartturnyut = startturnyut;
+                starttype = false;
+                startcheck.gameObject.SetActive(false);
+            }
+
+        }
+        else//3초가 안 지난 경우
+        {
+            if (changecheck  == 0 && changetimer == 0.1f)//3초가 지난 경우
+            {
+                changecheck = 1;
+                animator.SetFloat("CharacterChange", changecheck);
+            }
+            else if(changecheck == 1 && changetimer == 0.1f)
+            {
+                changecheck = 0;
+                animator.SetFloat("CharacterChange", changecheck);
+            }
+        }
+    }
+
+    private void startchageturn()//순서를 정할때 0.1초마다 캐릭 터가 변경되도록 설정
+    {
+        if(Maxstartturnyut < 2)
+        {
+            return;
+        }
+        changetimer -= Time.deltaTime;
+        if(changetimer < 0)
+        {
+            changetimer = 0.1f;
+        }
+    }
+
 }
