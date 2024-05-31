@@ -83,8 +83,8 @@ public class Gamemanager : MonoBehaviour
         testcode();
         if(curState == eRule.Preferencetime)
         {
-            //startturn();
-            //startchageturn();
+            startturn();
+            startchageturn();
         }
         else if (curState == eRule.ThrowYut)
         {
