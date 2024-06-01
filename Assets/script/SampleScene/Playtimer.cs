@@ -20,6 +20,7 @@ public class Playtimer : MonoBehaviour
     [SerializeField] Image timegage;//시간초 줄어드는 게이지
     public bool returnYut;//모나 윷이 뜨면 true로 전환
     [SerializeField] GameObject poscheck1;//첫번째 윷의 이동 범위
+    public bool returnyut;//모나 윷이 뜰때 바로 시간이 돌아가는것을 방지
 
     private void Awake()
     {
@@ -58,7 +59,7 @@ public class Playtimer : MonoBehaviour
 
     private void waityuttime()//윷을 던지기 위해 기다리는 시간 코드
     {
-        if(throwwaitcheck == true || checktime == true)//윷을 던진후에 true로 전환하여 못 돌리게 만드는 코드
+        if(throwwaitcheck == true || checktime == true || returnyut == true)//윷을 던진후에 true로 전환하여 못 돌리게 만드는 코드
         {
             return;
         }
@@ -86,7 +87,7 @@ public class Playtimer : MonoBehaviour
             throwwaitcheck = true;//더이상 작동하지 않게 변경
             playermovecheck = true;//작동하게 변경
             checktime = false;
-            Debug.Log("이동으로 전환");
+            Debug.Log("이동으로 변경");
         }
     }
 

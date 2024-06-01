@@ -24,6 +24,16 @@ public class Gamemanager : MonoBehaviour
     float startturnyut = 5;
     float Maxstartturnyut;
     //끝
+    //윷을 던지는 부분을 관리 ThrowYut부분
+    public bool throwyutbutton = false;//버튼을 나오게 관리하는것 및
+    [SerializeField, Tooltip("윷 타이머 작동 부분")] GameObject Playtimemanager;
+    [SerializeField, Tooltip("윷 타이머가 줄어드는 막대기")] GameObject Yuttimer;
+    [SerializeField] GameObject Yutbox;
+    [SerializeField] Button throwbutton;
+    //끝
+    //캐릭터 선택 및 이동 부분 SelectCharacter부분
+    [SerializeField] GameObject playerbox;//플레이어블 캐릭터들을 보이게 해주는 오브젝트
+    //끝
 
 
     private Player player;
@@ -34,7 +44,7 @@ public class Gamemanager : MonoBehaviour
 
         Preferencetime,//먼저 윷을 던지는 우선권 시간
         ThrowYut,
-        SelectCharacter,
+        SelectCharacter,//캐릭터를 선택
         MoveCharacter,
         CheckRule,
         TurnOver,
@@ -74,13 +84,14 @@ public class Gamemanager : MonoBehaviour
     void Start()
     {
         startcheck.gameObject.SetActive(true);
+        changecheck = 0;
     }
 
     void Update()
     {
         Onclickplayer();
 
-        testcode();
+        //testcode();
         if(curState == eRule.Preferencetime)
         {
             startturn();
@@ -88,14 +99,13 @@ public class Gamemanager : MonoBehaviour
         }
         else if (curState == eRule.ThrowYut)
         {
+            Throwtime();
             //Playtimer playtime = 
         }
         else if (curState == eRule.SelectCharacter)
         {
-            
+            playertypechoice();
         }
-
-        playertypechoice();
     }
 
     private void Onclickplayer()
@@ -149,16 +159,16 @@ public class Gamemanager : MonoBehaviour
     }
 
 
-    private void testcode()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            GameObject tags = GameObject.FindGameObjectWithTag("player");
-            Player player = tags.GetComponent<Player>();
-            player.tests = true;
-            Debug.Log("작동");
-        }
-    }
+    //private void testcode()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        GameObject tags = GameObject.FindGameObjectWithTag("player");
+    //        Player player = tags.GetComponent<Player>();
+    //        player.tests = true;
+    //        Debug.Log("작동");
+    //    }
+    //}
 
     private void playertypechoice()
     {
@@ -169,11 +179,9 @@ public class Gamemanager : MonoBehaviour
             if (rayHit.transform != null)
             {
                 Player selPlayer = rayHit.transform.GetComponent<Player>();
-
+                selPlayer.selectedcheck = true;
             }
         }
-
-
     }
 
     private bool isFindData(out int value)
@@ -184,7 +192,7 @@ public class Gamemanager : MonoBehaviour
 
     private void startturn()//처음에 누가 먼저 시작하는지 알려주는 코드
     {
-        animator = startcheck.gameObject.GetComponent<Animator>();
+        animator = startcheck.gameObject.GetComponentInChildren<Animator>();
         Maxstartturnyut -= Time.deltaTime;
         if(Maxstartturnyut < 2)//3초가 지난 경우
         {
@@ -203,6 +211,8 @@ public class Gamemanager : MonoBehaviour
                 Maxstartturnyut = startturnyut;
                 starttype = false;
                 startcheck.gameObject.SetActive(false);
+                curState = eRule.ThrowYut;
+                throwyutbutton = true;
             }
 
         }
@@ -212,6 +222,7 @@ public class Gamemanager : MonoBehaviour
             {
                 changecheck = 1;
                 animator.SetFloat("CharacterChange", changecheck);
+                
             }
             else if(changecheck == 1 && changetimer == 0.1f)
             {
@@ -234,4 +245,25 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 파랑이 플레이어블 핑크가 자동
+    /// 파랑 == 1 // 핑크 ==0
+    /// </summary>
+    private void Throwtime()//윷을 던지는 부분을 관리하는 코드
+    {
+        if(throwyutbutton == true)
+        {
+            throwbutton.gameObject.SetActive(true);
+            Playtimemanager.SetActive(true);
+            Yuttimer.SetActive(true);
+            Yutbox.SetActive(true);
+            playerbox.SetActive(true);
+        }
+        else if(throwyutbutton == false)
+        {
+            throwbutton.gameObject.SetActive(false);
+            Yuttimer.SetActive(false);
+            curState = eRule.SelectCharacter;
+        }
+    }
 }

@@ -349,13 +349,20 @@ MonoBehaviour:
   playd: {fileID: 0}
   playercheck1: 0
   playercheck2: 0
-  checkobj: {fileID: 211926032102370443}
   checkmask: 0
+  playerselected: {fileID: 6409925813177492721}
+  selectedcheck: 0
   playertouch: 0
   playerchoice: 0
   tests: 0
   playertype1: 0
   playertype2: 0
+  playerchecking1: 0
+  playerchecking2: 0
+  oneYut: 0
+  twoYut: 0
+  threeYut: 0
+  playertypenumber: 0
 --- !u!50 &1843688808078948183
 Rigidbody2D:
   serializedVersion: 4

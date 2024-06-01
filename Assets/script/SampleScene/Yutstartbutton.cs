@@ -13,9 +13,9 @@ public class Yutstartbutton : MonoBehaviour
     [Header("윷으로 갈수있는 숫자 최대 3번까지 저장 가능")]
     float yutnumber = 0;
     bool yutreturncheck;
-    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float oneyut = 0;
-    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float twoyut = 0;
-    [SerializeField,Tooltip("윷던진후에 갈수있는 수를 저장")] public float threeyut = 0;
+    [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float oneyut = 0;
+    [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float twoyut = 0;
+    [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float threeyut = 0;
     public bool zeromovecheck;
 
     float yuttype;
@@ -30,9 +30,13 @@ public class Yutstartbutton : MonoBehaviour
     public bool yutstarttimer;
     [Header("기 타")]
     //[SerializeField] Image timegage;
+    //윷이 앞면인지 뒷면인 확인 해주는 부분
+    int chageyut;
+    [SerializeField]float stayyut = 1;//모 또는 윷에 걸릴때 잠깐 기다리는 시간
+    bool stayyutcheck;//1초 기다리는 시간을 체크
 
 
-    [SerializeField]List<int> yutdisposition = new List<int>();
+    [SerializeField] List<int> yutdisposition = new List<int>();
     private void Awake()
     {
         startbutton.onClick.AddListener(() =>
@@ -50,18 +54,23 @@ public class Yutstartbutton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if(Gamemanager.Instance.throwyutbutton == false)
+        //{
+        //    return;
+        //}
         yutplaytimer();
         startyutnbutton();
-        returnyut();
+        resetyut();
+        //returnyut();
 
         numberzero();
-
         //moveyut();
+
     }
 
     private void yutplaytimer()
     {
-        if(yutstarttimer == true)
+        if (yutstarttimer == true)
         {
             yutdisposition.Clear();
             Stickcount = 0;
@@ -73,20 +82,32 @@ public class Yutstartbutton : MonoBehaviour
 
     private void startyutnbutton()//윷 던지기 버튼
     {
-        if(Input.GetKeyDown(KeyCode.N))
+        if (stayyutcheck == true)
         {
-            yutnumber = 5;
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.N))//확정 윷가 뜨도록 변경
+        {
+            yutnumber = 4;
+            Stickcount = 4;
+            for (int yutstick = 0; yutstick < 4; yutstick++)
+            {
+                randomcount = 1;
+                chageyut += 1;
+                Yutcount();
+            }
             yutlist();
             GameObject findtimer = GameObject.Find("Playtimemanager");
             Playtimer playtimer = findtimer.GetComponent<Playtimer>();
             playtimer.checktime = true;
             if (yutnumber == 4 || yutnumber == 5)
             {
+                stayyutcheck = true;
                 playtimer.returnYut = true;
             }
         }
         //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
-        if(yutstart == true)
+        if (yutstart == true)
         {
             #region
             //for(int yutstick = 0; yutstick < 4; yutstick++)//윷을 빽도를 제외한 3개를 던져 리스트에 나열 하도록 설정
@@ -103,9 +124,9 @@ public class Yutstartbutton : MonoBehaviour
             for (int yutstick = 0; yutstick < 4; yutstick++)//윷을 빽도를 제외한 3개를 던져 리스트에 나열 하도록 설정
             {
                 randomcount = Random.Range(0, 2);//Random.Range는 int일 경우 마지막 숫자 -1를 하여 계산 (0,2)일 경우 0과  1만 작동함
-                if(randomcount == 1)//뒷면에 걸릴 경우
+                if (randomcount == 1)//뒷면에 걸릴 경우
                 {
-                    if(yutstick == 3 && Stickcount == 0)//4번째 윷이면서 이전에 다 앞면이 뜰경우
+                    if (yutstick == 3 && Stickcount == 0)//4번째 윷이면서 이전에 다 앞면이 뜰경우
                     {
                         Stickcount += 0;
                     }
@@ -113,8 +134,15 @@ public class Yutstartbutton : MonoBehaviour
                     {
                         Stickcount += randomcount;
                     }
+                    chageyut += 1;
+                    Yutcount();
                 }
-                if(yutstick == 3 && Stickcount == 0 &&randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우
+                else// 0 즉 앞면에 걸릴 경우
+                {
+                    chageyut += 1;
+                    Yutcount();
+                }
+                if (yutstick == 3 && Stickcount == 0 && randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우
                 {
                     randomcheck = true;
                     yutnumber = -1;
@@ -129,11 +157,21 @@ public class Yutstartbutton : MonoBehaviour
             GameObject findtimer = GameObject.Find("Playtimemanager");
             Playtimer playtimer = findtimer.GetComponent<Playtimer>();
             playtimer.checktime = true;
-            if(yutnumber == 4 || yutnumber == 5)
+            if (yutnumber == 4 || yutnumber == 5)//모 또는 윷이 뜰 경우
             {
+                stayyutcheck = true;
+                if (threeyut != 0)
+                {
+                    return;
+                }
                 playtimer.returnYut = true;
             }
+            else//모 또는 윷이 안뜰 경우
+            {
+                Gamemanager.Instance.throwyutbutton = false;
+            }
         }
+
     }
 
 
@@ -201,10 +239,6 @@ public class Yutstartbutton : MonoBehaviour
         }
     }
 
-    private void yutrotation()
-    {
-        
-    }
 
     private void yutturnNumber()//윷에 걸린 숫자만큼 숫자를 대입
     {
@@ -216,13 +250,9 @@ public class Yutstartbutton : MonoBehaviour
         {
             twoyut = yutnumber;
         }
-        else if(oneyut != 0 && twoyut != 0 && threeyut == 0)
+        else if (oneyut != 0 && twoyut != 0 && threeyut == 0)
         {
             threeyut = yutnumber;
-        }
-        else
-        {
-
         }
     }
 
@@ -239,7 +269,7 @@ public class Yutstartbutton : MonoBehaviour
 
     private void numberzero()//이동 거리 초기화
     {
-        if(zeromovecheck == true)
+        if (zeromovecheck == true)
         {
             oneyut = 0;
             twoyut = 0;
@@ -247,5 +277,81 @@ public class Yutstartbutton : MonoBehaviour
             zeromovecheck = false;
         }
     }
+
+    private void Yutcount()//윷이 앞면에 뜨냐 뒷면에 뜨냐 보여주는 부분
+    {
+        #region
+        //for (int yutnumber = 0; yutnumber < 4; yutnumber++)
+        //{
+        //    if(yutdisposition[testd] == 0)
+        //    {
+        //        Debug.Log(yutdisposition);
+        //    }
+        //    else if(yutdisposition[testd] == 1)
+        //    {
+        //        //Debug.Log(yutdisposition);
+        //    }
+        //    if(yutdisposition.Find())
+        //    {
+
+        //    }
+        //}
+        #endregion
+        //리스트로 만들고 싶은 부분 => 리스트 1번의 값이 0일 경우 윷을 앞면으로 돌리기 1일 경우 윷을 뒷면으로 돌리기
+        switch (chageyut)
+        {
+            case 1:
+                if (randomcount == 1)
+                {
+                    yut1.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+                break;
+            case 2:
+                if (randomcount == 1)
+                {
+                    yut2.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+                break;
+            case 3:
+                if (randomcount == 1)
+                {
+                    yut3.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+                break;
+            case 4:
+                if (randomcount == 1)
+                {
+                    yut4.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+                break;
+        }
+    }
+
+
+    private void resetyut()//윷이 모 또는 윷에 걸릴 경우
+    {
+        if (stayyutcheck == true)
+        {
+            GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = findtimer.GetComponent<Playtimer>();
+            playtimer.returnyut = true;
+            if (stayyut < 0)
+            {
+                yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+                stayyut = 1;
+                stayyutcheck = false;
+                playtimer.returnyut = false;
+                chageyut = 0;
+            }
+            else
+            {
+                stayyut -= Time.deltaTime;
+            }
+        }
+    }
+
 
 }

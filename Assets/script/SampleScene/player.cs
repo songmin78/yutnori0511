@@ -9,8 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField] bool playercheck1;//플레이어1번 부분
     [SerializeField] bool playercheck2;//플레이어 2번 부분
     [Header("플레이어를 선택 했을때")]
-    [SerializeField] public GameObject checkobj;//플레이러를 체크할때 보이는 오브젝트
+    //[SerializeField] public GameObject checkobj;//플레이러를 체크할때 보이는 오브젝트
     [SerializeField] bool checkmask;//플레이어를 체크 할때
+    [SerializeField] Canvas playerselected;//플레이어가 선택될 때 체크되는걸 보여주는 오브젝트
+    public bool selectedcheck;//선택될때 체크
 
     [Header("기타")]
     [SerializeField]bool playertouch = false;
@@ -84,6 +86,8 @@ public class Player : MonoBehaviour
         //typeplayer();
 
         //testcode();
+
+        playselectedcheck();
     }
 
 
@@ -152,5 +156,13 @@ public class Player : MonoBehaviour
     //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     //    Physics.Raycast(ray, );
     //}
+
+    private void playselectedcheck()
+    {
+        if(selectedcheck == true)
+        {
+            playerselected.gameObject.SetActive(true);
+        }
+    }
 
 }
