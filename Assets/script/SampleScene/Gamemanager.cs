@@ -89,10 +89,10 @@ public class Gamemanager : MonoBehaviour
 
     void Update()
     {
-        Onclickplayer();
+        //Onclickplayer();
 
         //testcode();
-        if(curState == eRule.Preferencetime)
+        if (curState == eRule.Preferencetime)
         {
             startturn();
             startchageturn();
@@ -108,55 +108,56 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    private void Onclickplayer()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (Gameplayertype == 1)
-            {
-                //GameObject playerfind = GameObject.Find("Player1");
-                //Player player = playerfind.GetComponent<Player>();
-                //player.playerchoice = true;
-                //Debug.Log(playerfind);
-                //Debug.Log(player);
+    #region
+    //private void Onclickplayer()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        if (Gameplayertype == 1)
+    //        {
+    //            //GameObject playerfind = GameObject.Find("Player1");
+    //            //Player player = playerfind.GetComponent<Player>();
+    //            //player.playerchoice = true;
+    //            //Debug.Log(playerfind);
+    //            //Debug.Log(player);
 
-                Player player = objplayer1_1.GetComponent<Player>();
-                Player player2 = objplayer1_2.GetComponent<Player>();
-                player.playerchoice = true;
-                //player.checkobj.SetActive(true);
-                //player.playertype1 = true;
-                player2.playerchoice = true;
-                //player2.checkobj.SetActive(true);
-                //player2.playertype2 = true;
-            }
-            else if (Gameplayertype == 2)
-            {
-                //GameObject playerfind = GameObject.Find("Player2");
-                //Player player = playerfind.GetComponent<Player>();
-                //player.playerchoice = true;
+    //            Player player = objplayer1_1.GetComponent<Player>();
+    //            Player player2 = objplayer1_2.GetComponent<Player>();
+    //            player.playerchoice = true;
+    //            //player.checkobj.SetActive(true);
+    //            //player.playertype1 = true;
+    //            player2.playerchoice = true;
+    //            //player2.checkobj.SetActive(true);
+    //            //player2.playertype2 = true;
+    //        }
+    //        else if (Gameplayertype == 2)
+    //        {
+    //            //GameObject playerfind = GameObject.Find("Player2");
+    //            //Player player = playerfind.GetComponent<Player>();
+    //            //player.playerchoice = true;
 
-                Player player = objplayer2_1.GetComponent<Player>();
-                Player player2 = objplayer2_2.GetComponent<Player>();
-                player.playerchoice = true;
-                player2.playerchoice = true;
-            }
+    //            Player player = objplayer2_1.GetComponent<Player>();
+    //            Player player2 = objplayer2_2.GetComponent<Player>();
+    //            player.playerchoice = true;
+    //            player2.playerchoice = true;
+    //        }
 
-            #region
-            //Player player = gameObject.GetComponent<Player>();
+    //        #region
+    //        //Player player = gameObject.GetComponent<Player>();
 
-            //GameObject playerfind = GameObject.Find("Player1");
-            //Debug.Log(playerfind);
-            //Player player = playerfind.GetComponent<Player>();
-            //player.playerchoice = true;
-            //Debug.Log("작동");
+    //        //GameObject playerfind = GameObject.Find("Player1");
+    //        //Debug.Log(playerfind);
+    //        //Player player = playerfind.GetComponent<Player>();
+    //        //player.playerchoice = true;
+    //        //Debug.Log("작동");
 
-            //GameObject playerfind = GameObject.FindGameObjectWithTag("player");
-            //Player player = playerfind.GetComponent<Player>();
-            //player.playerchoice = true;
-            //Debug.Log(playerfind);
-            #endregion
-        }
-    }
+    //        //GameObject playerfind = GameObject.FindGameObjectWithTag("player");
+    //        //Player player = playerfind.GetComponent<Player>();
+    //        //player.playerchoice = true;
+    //        //Debug.Log(playerfind);
+    //        #endregion
+    //    }
+    //}
 
 
     //private void testcode()
@@ -170,6 +171,20 @@ public class Gamemanager : MonoBehaviour
     //    }
     //}
 
+    #endregion
+
+    private void selectcharactor(GameObject _value)//다른 오브젝트를 누를때 기존에 오브젝트는 끄는 코드
+    {
+        int count = objtype.Count;
+        for (int iNum = 0; iNum < count; ++iNum)
+        {
+            Player selPlayer = objtype[iNum].GetComponent<Player>();
+            selPlayer.Playselectedcheck(_value == objtype[iNum]);
+        }
+    }
+
+
+
     private void playertypechoice()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) == true)
@@ -178,10 +193,23 @@ public class Gamemanager : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
             if (rayHit.transform != null)
             {
-                Player selPlayer = rayHit.transform.GetComponent<Player>();
-                selPlayer.selectedcheck = true;
+                selectcharactor(rayHit.transform.gameObject);
+                //Player selPlayer = rayHit.transform.GetComponent<Player>();
+                //selPlayer.Playselectedcheck(true);
             }
+            //if(rayHit.transform == objplayer1_1)
+            //{
+            //    Player selPlayer = rayHit.transform.GetComponent<Player>();
+            //    selPlayer.selectedcheck = true;
+            //}
         }
+    }
+
+    private void findplayerteam()//선택한 플레이어캐릭터 확인?
+    {
+        GameObject startteam = GameObject.Find("Playtimemanager");
+        Playtimer startplayer = startteam.GetComponent<Playtimer>();
+        startplayer.changeteam();
     }
 
     private bool isFindData(out int value)
@@ -194,9 +222,9 @@ public class Gamemanager : MonoBehaviour
     {
         animator = startcheck.gameObject.GetComponentInChildren<Animator>();
         Maxstartturnyut -= Time.deltaTime;
-        if(Maxstartturnyut < 2)//3초가 지난 경우
+        if (Maxstartturnyut < 2)//3초가 지난 경우
         {
-            if(starttype == false)
+            if (starttype == false)
             {
                 changecheck = Random.Range(0, 2);
                 starttype = true;
@@ -206,7 +234,7 @@ public class Gamemanager : MonoBehaviour
                 animator.SetFloat("CharacterChange", changecheck);
             }
 
-            if(Maxstartturnyut < 0)//0보다 작을 경우
+            if (Maxstartturnyut < 0)//0보다 작을 경우
             {
                 Maxstartturnyut = startturnyut;
                 starttype = false;
@@ -218,13 +246,13 @@ public class Gamemanager : MonoBehaviour
         }
         else//3초가 안 지난 경우
         {
-            if (changecheck  == 0 && changetimer == 0.1f)//3초가 지난 경우
+            if (changecheck == 0 && changetimer == 0.1f)//3초가 지난 경우
             {
                 changecheck = 1;
                 animator.SetFloat("CharacterChange", changecheck);
-                
+
             }
-            else if(changecheck == 1 && changetimer == 0.1f)
+            else if (changecheck == 1 && changetimer == 0.1f)
             {
                 changecheck = 0;
                 animator.SetFloat("CharacterChange", changecheck);
@@ -234,12 +262,12 @@ public class Gamemanager : MonoBehaviour
 
     private void startchageturn()//순서를 정할때 0.1초마다 캐릭 터가 변경되도록 설정
     {
-        if(Maxstartturnyut < 2)
+        if (Maxstartturnyut < 2)
         {
             return;
         }
         changetimer -= Time.deltaTime;
-        if(changetimer < 0)
+        if (changetimer < 0)
         {
             changetimer = 0.1f;
         }
@@ -251,15 +279,19 @@ public class Gamemanager : MonoBehaviour
     /// </summary>
     private void Throwtime()//윷을 던지는 부분을 관리하는 코드
     {
-        if(throwyutbutton == true)
+        if (throwyutbutton == true)
         {
             throwbutton.gameObject.SetActive(true);
             Playtimemanager.SetActive(true);
             Yuttimer.SetActive(true);
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
+
+            GameObject startteam = GameObject.Find("Playtimemanager");
+            Playtimer startplayer = startteam.GetComponent<Playtimer>();
+            startplayer.startturn((int)changecheck);
         }
-        else if(throwyutbutton == false)
+        else if (throwyutbutton == false)
         {
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);

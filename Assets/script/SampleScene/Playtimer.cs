@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Playtimer : MonoBehaviour
 {
-    [SerializeField] public bool changeteam1;
-    [SerializeField] public bool changeteam2;
+    [SerializeField] public bool teamred;
+    [SerializeField] public bool teamblue;
     [Header("윷을 던지기 까지의 남은 시간 정리")]
     [SerializeField] float throwtime;
     [SerializeField]float Maxthrowtime;//확인 용
@@ -30,7 +30,7 @@ public class Playtimer : MonoBehaviour
 
     void Start()
     {
-        startturn();
+        
     }
 
     void Update()
@@ -38,22 +38,21 @@ public class Playtimer : MonoBehaviour
         waityuttime();//윷 던지기 버튼을 안 누를때 작동
         cheangeyuttime();//윷 던지기 버튼을 누를때 작동
         movewaittimer();
-        playercheck();
+        //playercheck();
 
         timecalculate();
 
         yuttest();
     }
 
-    private void startturn()//먼저 시작할 팀 설정
+    public void startturn(int _startteam)//먼저 시작할 팀 설정
     {
-        int startplayer =  Random.Range(0, 2);
-        switch(startplayer)
+        switch(_startteam)
         {
             case 0:
-                changeteam1 = true; break;
+                teamred = true; break;
             case 1:
-                changeteam2 = true; break;
+                teamblue = true; break;
         }
     }
 
@@ -102,15 +101,15 @@ public class Playtimer : MonoBehaviour
             Maxwaitmovetime = waitmovetime;
             playermovecheck = false;//더이상 작동 안하게 변경
             throwwaitcheck = false;//윷 던지는 부분을 작동하게 변경
-            if (changeteam1 == true)
+            if (teamred == true)
             {
-                changeteam1 = false;
-                changeteam2 = true;
+                teamred = false;
+                teamblue = true;
             }
-            else if (changeteam2 == true)
+            else if (teamblue == true)
             {
-                changeteam1 = true;
-                changeteam2 = false;
+                teamred = true;
+                teamblue = false;
             }
             Debug.Log("던지기로 변경");
 
@@ -130,38 +129,38 @@ public class Playtimer : MonoBehaviour
         }
     }
 
-    private void playercheck()
-    {
-        if(playermovecheck == true)
-        {
-            if(changeteam1 == true)
-            {
-                //GameObject playerfind = GameObject.Find("Player1");
-                //Player player = playerfind.GetComponent<Player>();
-                //GameObject playerfind2 = GameObject.Find("Player2");
-                //Player player2 = playerfind2.GetComponent<Player>();
-                //player.playertype1 = true;
-                //player.playertype2 = false;
+    //private void playercheck()
+    //{
+    //    if(playermovecheck == true)
+    //    {
+    //        if(teamblue == true)
+    //        {
+    //            //GameObject playerfind = GameObject.Find("Player1");
+    //            //Player player = playerfind.GetComponent<Player>();
+    //            //GameObject playerfind2 = GameObject.Find("Player2");
+    //            //Player player2 = playerfind2.GetComponent<Player>();
+    //            //player.playertype1 = true;
+    //            //player.playertype2 = false;
 
-                GameObject obj = GameObject.Find("Gamemanager");
-                Gamemanager gamemanager = obj.GetComponent<Gamemanager>();
-                gamemanager.Gameplayertype = 1;
+    //            GameObject obj = GameObject.Find("Gamemanager");
+    //            Gamemanager gamemanager = obj.GetComponent<Gamemanager>();
+    //            gamemanager.Gameplayertype = 1;
 
-            }
-            else if(changeteam2 == true)
-            {
-                //GameObject playerfind = GameObject.Find("Player2");
-                //Player player = playerfind.GetComponent<Player>();
-                //player.playertype1 = false;
-                //player.playertype2 = true;
+    //        }
+    //        else if(teamred == true)
+    //        {
+    //            //GameObject playerfind = GameObject.Find("Player2");
+    //            //Player player = playerfind.GetComponent<Player>();
+    //            //player.playertype1 = false;
+    //            //player.playertype2 = true;
 
-                GameObject obj = GameObject.Find("Gamemanager");
-                Gamemanager gamemanager = obj.GetComponent<Gamemanager>();
-                gamemanager.Gameplayertype = 2;
-            }
-        }
+    //            GameObject obj = GameObject.Find("Gamemanager");
+    //            Gamemanager gamemanager = obj.GetComponent<Gamemanager>();
+    //            gamemanager.Gameplayertype = 2;
+    //        }
+    //    }
 
-    }
+    //}
 
     private void timecalculate()//시간 계산 코드
     {
@@ -180,5 +179,10 @@ public class Playtimer : MonoBehaviour
             buttontimer.waittime = false;
             returnYut = false;
         }
+    }
+
+    public void  changeteam()
+    {
+
     }
 }

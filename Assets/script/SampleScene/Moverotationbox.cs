@@ -129,7 +129,7 @@ public class Moverotationbox : MonoBehaviour
     {
         GameObject obj = GameObject.Find("Playtimemanager");
         Playtimer playtimer = obj.GetComponent<Playtimer>();
-        team1 = playtimer.changeteam1;
-        team2 = playtimer.changeteam2;
+        team1 = playtimer.teamred;
+        team2 = playtimer.teamblue;
     }
 }
