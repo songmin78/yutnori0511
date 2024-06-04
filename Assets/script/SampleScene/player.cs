@@ -84,34 +84,36 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkplayermouse();
+        //checkplayermouse();
         //typeplayer();
 
         //testcode();
     }
 
 
-    private void checkplayermouse()//마우스로 플레이어를 선택 할때 작동
-    {
-        if(playertouch == true && playerchoice == true)
-        {
-            //if(playercheck1 == true)
-            //{
-            //    playerchecking1 = true;
-            //    playerchecking2 = false;
-            //}
-            //else if(playercheck2 == true)
-            //{
-            //    playerchecking1 = false;
-            //    playerchecking2 = true;
-            //}
-            testcode();
-            playerchoice = false;
-            //tests = true;
-            Debug.Log("선택됨");
-        }
-        playerchoice = false;
-    }
+    #region
+    //private void checkplayermouse()//마우스로 플레이어를 선택 할때 작동
+    //{
+    //    if(playertouch == true && playerchoice == true)
+    //    {
+    //        //if(playercheck1 == true)
+    //        //{
+    //        //    playerchecking1 = true;
+    //        //    playerchecking2 = false;
+    //        //}
+    //        //else if(playercheck2 == true)
+    //        //{
+    //        //    playerchecking1 = false;
+    //        //    playerchecking2 = true;
+    //        //}
+    //        Testcode();
+    //        playerchoice = false;
+    //        //tests = true;
+    //        Debug.Log("선택됨");
+    //    }
+    //    playerchoice = false;
+    //}
+    #endregion
 
     private void typeplayer()//플레이어1 과 플레이어2를 동시에 못 움직이게 설정
     {
@@ -127,7 +129,7 @@ public class Player : MonoBehaviour
         //}
     }
 
-    private void testcode()
+    public void testcode()//위치선택하는 부분
     {
         //플레이어가 가져와야 할것 윷에서 나온 숫자,발판의 숫자
         GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
@@ -160,5 +162,11 @@ public class Player : MonoBehaviour
     public void Playselectedcheck(bool _value)
     {
             findplayd.SetActive(_value);
+    }
+
+    public void Selectlocation()//플레이어가 선택될때 움직일수 있는 칸을 보여주는 부분
+    {
+        GameObject obj = GameObject.Find("footholdbox");
+        Footholdbox footholdbox = obj.GetComponent<Footholdbox>();
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Footholdbox : MonoBehaviour
 {
     [SerializeField] List<Transform> Yutfoothold;//발판의 위치를 받는 부분
+    [SerializeField] bool testcheck;
     float yutButton;
     public Vector3 yutnumber;
     float myposition;//자신이 있는 위치를 체크
@@ -19,6 +20,7 @@ public class Footholdbox : MonoBehaviour
     [SerializeField] float threeYut;
 
     //int testd;//윷이 나온수 만큼 이동 할수있는 부분을 생성
+
 
     // Start is called before the first frame update
     void Start()

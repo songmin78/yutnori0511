@@ -9,7 +9,8 @@ public class Gamemanager : MonoBehaviour
     Animator animator;
     [SerializeField] Image startcheck;
 
-    [SerializeField] List<GameObject> objtype;
+    [SerializeField] List<GameObject> objblue;
+    [SerializeField] List<GameObject> objred;
     [SerializeField] GameObject objplayer1_1;
     [SerializeField] GameObject objplayer1_2;
     [SerializeField] GameObject objplayer2_1;
@@ -33,6 +34,7 @@ public class Gamemanager : MonoBehaviour
     //끝
     //캐릭터 선택 및 이동 부분 SelectCharacter부분
     [SerializeField] GameObject playerbox;//플레이어블 캐릭터들을 보이게 해주는 오브젝트
+    int teamtype = 0;//1은 블루팀 2는 레드팀
     //끝
 
 
@@ -100,7 +102,6 @@ public class Gamemanager : MonoBehaviour
         else if (curState == eRule.ThrowYut)
         {
             Throwtime();
-            //Playtimer playtime = 
         }
         else if (curState == eRule.SelectCharacter)
         {
@@ -175,14 +176,47 @@ public class Gamemanager : MonoBehaviour
 
     private void selectcharactor(GameObject _value)//다른 오브젝트를 누를때 기존에 오브젝트는 끄는 코드
     {
-        int count = objtype.Count;
-        for (int iNum = 0; iNum < count; ++iNum)
+        if(teamtype == 1)//블루팀일 경우
         {
-            Player selPlayer = objtype[iNum].GetComponent<Player>();
-            selPlayer.Playselectedcheck(_value == objtype[iNum]);
+            int count = objblue.Count;
+            for (int iNum = 0; iNum < count; ++iNum)
+            {
+                Player selPlayer = objblue[iNum].GetComponent<Player>();
+                selPlayer.Playselectedcheck(_value == objblue[iNum]);
+            }
+        }
+        else if(teamtype == 2)
+        {
+            int count = objred.Count;
+            for (int iNum = 0; iNum < count; ++iNum)
+            {
+                Player selPlayer = objred[iNum].GetComponent<Player>();
+                selPlayer.Playselectedcheck(_value == objred[iNum]);
+            }
         }
     }
 
+    public void teamfalsecheck()//선택 마크를 사라지게 만드는 코드 부분
+    {
+        if (teamtype == 1)//블루팀일 경우
+        {
+            int count = objred.Count;
+            for (int iNum = 0; iNum < count; ++iNum)
+            {
+                Player selPlayer = objred[iNum].GetComponent<Player>();
+                selPlayer.Playselectedcheck(false);
+            }
+        }
+        else if (teamtype == 2)
+        {
+            int count = objblue.Count;
+            for (int iNum = 0; iNum < count; ++iNum)
+            {
+                Player selPlayer = objblue[iNum].GetComponent<Player>();
+                selPlayer.Playselectedcheck(false);
+            }
+        }
+    }
 
 
     private void playertypechoice()
@@ -210,6 +244,24 @@ public class Gamemanager : MonoBehaviour
         GameObject startteam = GameObject.Find("Playtimemanager");
         Playtimer startplayer = startteam.GetComponent<Playtimer>();
         startplayer.changeteam();
+    }
+
+    /// <summary>
+    /// team = 1 <= 블루팀, team = 2 <= 레드팀
+    /// </summary>
+    /// <param name="team"></param>
+    public void Chageplayteam(int team)
+    {
+        switch (team)
+        {
+            case 1:
+                teamtype = team;
+                break;
+            case 2:
+                teamtype = team;
+                break;
+        }
+
     }
 
     private bool isFindData(out int value)

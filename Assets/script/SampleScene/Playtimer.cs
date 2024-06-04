@@ -22,6 +22,14 @@ public class Playtimer : MonoBehaviour
     [SerializeField] GameObject poscheck1;//첫번째 윷의 이동 범위
     public bool returnyut;//모나 윷이 뜰때 바로 시간이 돌아가는것을 방지
 
+    public enum eRule
+    {
+        Throwtime,//던지는 시간을 다루는 부분
+        Movetime,//움직이는 시간을 다루는 부분
+        Returnthrowtime,//말을 잡았을때 다시 던질 수 있는 부분
+    }
+    private eRule curState = eRule.Throwtime;
+
     private void Awake()
     {
         Maxthrowtime = throwtime;
@@ -43,6 +51,20 @@ public class Playtimer : MonoBehaviour
         timecalculate();
 
         yuttest();
+        changeteam();
+
+        if(curState == eRule.Throwtime)
+        {
+
+        }
+        else if(curState == eRule.Movetime)
+        {
+
+        }
+        else if(curState == eRule.Returnthrowtime)
+        {
+
+        }
     }
 
     public void startturn(int _startteam)//먼저 시작할 팀 설정
@@ -74,7 +96,7 @@ public class Playtimer : MonoBehaviour
         }
         else
         {
-            Maxthrowtime -= Time.deltaTime;//윷을 던지기를 기다릴는 코드
+            //Maxthrowtime -= Time.deltaTime;//윷을 던지기를 기다릴는 코드
         }
     }
 
@@ -122,13 +144,14 @@ public class Playtimer : MonoBehaviour
         }
         else
         {
-            Maxwaitmovetime -= Time.deltaTime;
+            //Maxwaitmovetime -= Time.deltaTime;
             GameObject findyut = GameObject.Find("Yutstartbutton");
             Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
             buttontimer.waittime = true;
         }
     }
 
+    #region
     //private void playercheck()
     //{
     //    if(playermovecheck == true)
@@ -161,6 +184,7 @@ public class Playtimer : MonoBehaviour
     //    }
 
     //}
+    #endregion
 
     private void timecalculate()//시간 계산 코드
     {
@@ -183,6 +207,15 @@ public class Playtimer : MonoBehaviour
 
     public void  changeteam()
     {
-
+        if(teamblue == true)
+        {
+            Gamemanager.Instance.Chageplayteam(1);
+            Gamemanager.Instance.teamfalsecheck();
+        }
+        else if(teamred == true)
+        {
+            Gamemanager.Instance.Chageplayteam(2);
+            Gamemanager.Instance.teamfalsecheck();
+        }
     }
 }
