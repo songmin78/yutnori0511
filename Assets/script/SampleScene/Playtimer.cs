@@ -210,12 +210,12 @@ public class Playtimer : MonoBehaviour
         if(teamblue == true)
         {
             Gamemanager.Instance.Chageplayteam(1);
-            Gamemanager.Instance.teamfalsecheck();
+            //Gamemanager.Instance.teamfalsecheck();
         }
         else if(teamred == true)
         {
             Gamemanager.Instance.Chageplayteam(2);
-            Gamemanager.Instance.teamfalsecheck();
+            //Gamemanager.Instance.teamfalsecheck();
         }
     }
 }

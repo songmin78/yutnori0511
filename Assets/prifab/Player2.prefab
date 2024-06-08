@@ -126,7 +126,6 @@ MonoBehaviour:
   playercheck1: 0
   playercheck2: 0
   checkmask: 0
-  selectedcheck: 0
   playertouch: 0
   playerchoice: 0
   tests: 0
@@ -138,6 +137,10 @@ MonoBehaviour:
   twoYut: 0
   threeYut: 0
   playertypenumber: 0
+  moveYutcount1: 0
+  moveYutcount2: 0
+  moveYutcount3: 0
+  MaxmoveYutcount: 0
 --- !u!61 &1540951831091203381
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -16,7 +16,11 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] GameObject objplayer2_1;
     [SerializeField] GameObject objplayer2_2;
     public static Gamemanager Instance;
-
+    [Header("말을 이동 할 위치를 보여주는 오브젝트 관리")]
+    [SerializeField] public GameObject movelocation1;
+    [SerializeField] public GameObject movelocation2;
+    [SerializeField] public GameObject movelocation3;
+    [Header("기타")]
     public int Gameplayertype = 0;//1은 1번 차례일때 2는 2번 차례일때
     //시작할때 누가 먼저 윷을 던지는지 확인하는 부분
     float changecheck = 0;
@@ -27,6 +31,7 @@ public class Gamemanager : MonoBehaviour
     //끝
     //윷을 던지는 부분을 관리 ThrowYut부분
     public bool throwyutbutton = false;//버튼을 나오게 관리하는것 및
+    [Header("윷 타이머 부분")]
     [SerializeField, Tooltip("윷 타이머 작동 부분")] GameObject Playtimemanager;
     [SerializeField, Tooltip("윷 타이머가 줄어드는 막대기")] GameObject Yuttimer;
     [SerializeField] GameObject Yutbox;
@@ -106,6 +111,7 @@ public class Gamemanager : MonoBehaviour
         else if (curState == eRule.SelectCharacter)
         {
             playertypechoice();
+            //positionobjcheck();
         }
     }
 
@@ -183,6 +189,10 @@ public class Gamemanager : MonoBehaviour
             {
                 Player selPlayer = objblue[iNum].GetComponent<Player>();
                 selPlayer.Playselectedcheck(_value == objblue[iNum]);
+                //if (objred[iNum] == true)
+                //{
+                //    selPlayer.lookobj();
+                //}
             }
         }
         else if(teamtype == 2)
@@ -192,31 +202,35 @@ public class Gamemanager : MonoBehaviour
             {
                 Player selPlayer = objred[iNum].GetComponent<Player>();
                 selPlayer.Playselectedcheck(_value == objred[iNum]);
+                //if (objred[iNum] == true)
+                //{
+                //    selPlayer.lookobj();
+                //}
             }
         }
     }
 
-    public void teamfalsecheck()//선택 마크를 사라지게 만드는 코드 부분
-    {
-        if (teamtype == 1)//블루팀일 경우
-        {
-            int count = objred.Count;
-            for (int iNum = 0; iNum < count; ++iNum)
-            {
-                Player selPlayer = objred[iNum].GetComponent<Player>();
-                selPlayer.Playselectedcheck(false);
-            }
-        }
-        else if (teamtype == 2)
-        {
-            int count = objblue.Count;
-            for (int iNum = 0; iNum < count; ++iNum)
-            {
-                Player selPlayer = objblue[iNum].GetComponent<Player>();
-                selPlayer.Playselectedcheck(false);
-            }
-        }
-    }
+    //public void teamfalsecheck()//선택 마크를 사라지게 만드는 코드 부분
+    //{
+    //    if (teamtype == 1)//블루팀일 경우
+    //    {
+    //        int count = objred.Count;
+    //        for (int iNum = 0; iNum < count; ++iNum)
+    //        {
+    //            Player selPlayer = objred[iNum].GetComponent<Player>();
+    //            selPlayer.Playselectedcheck(false);
+    //        }
+    //    }
+    //    else if (teamtype == 2)
+    //    {
+    //        int count = objblue.Count;
+    //        for (int iNum = 0; iNum < count; ++iNum)
+    //        {
+    //            Player selPlayer = objblue[iNum].GetComponent<Player>();
+    //            selPlayer.Playselectedcheck(false);
+    //        }
+    //    }
+    //}
 
 
     private void playertypechoice()
@@ -231,11 +245,6 @@ public class Gamemanager : MonoBehaviour
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
             }
-            //if(rayHit.transform == objplayer1_1)
-            //{
-            //    Player selPlayer = rayHit.transform.GetComponent<Player>();
-            //    selPlayer.selectedcheck = true;
-            //}
         }
     }
 
@@ -349,5 +358,31 @@ public class Gamemanager : MonoBehaviour
             Yuttimer.SetActive(false);
             curState = eRule.SelectCharacter;
         }
+    }
+
+    //private void positionobjcheck()//이동될 오브젝트 위치 체크
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+    //    {
+    //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //        RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
+    //        if (rayHit.transform != null && rayHit.transform.gameObject == movelocation1)
+    //        {
+    //            //movepositioncheck();
+    //        }
+    //    }
+    //}
+
+    //private void movepositioncheck()//캐릭터가 이동할 코드
+    //{
+    //    if(movelocation1)
+    //    {
+    //        transform.position = movelocation1.transform.position;
+    //    }
+    //}
+
+    public void testcheck()
+    {
+
     }
 }

@@ -16,21 +16,21 @@ public class Moverotationbox : MonoBehaviour
     [SerializeField]bool playertype2;//플레이어 1개만 작동하도록 조절
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == ("mouse"))
-        {
-            movecheck = true;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == ("mouse"))
+    //    {
+    //        movecheck = true;
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == ("mouse"))
-        {
-            movecheck = false;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == ("mouse"))
+    //    {
+    //        movecheck = false;
+    //    }
+    //}
 
     private void Awake()
     {
@@ -46,10 +46,10 @@ public class Moverotationbox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        positioncheck();
-        //playerbox();
-        moveposition();
-        changeteamplayer();
+        //positioncheck();
+        ////playerbox();
+        //moveposition();
+        //changeteamplayer();
     }
 
     private void playerbox()

@@ -269,7 +269,6 @@ MonoBehaviour:
   playercheck1: 0
   playercheck2: 0
   checkmask: 0
-  selectedcheck: 0
   playertouch: 0
   playerchoice: 0
   tests: 0
@@ -281,6 +280,10 @@ MonoBehaviour:
   twoYut: 0
   threeYut: 0
   playertypenumber: 0
+  moveYutcount1: 0
+  moveYutcount2: 0
+  moveYutcount3: 0
+  MaxmoveYutcount: 0
 --- !u!50 &1843688808078948183
 Rigidbody2D:
   serializedVersion: 4

@@ -32,8 +32,8 @@ public class Footholdbox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movefoothold();
-        findfoothold();
+        //movefoothold();
+        //findfoothold();
     }
 
     private void movefoothold()//이동하는 부분의 위치를 확인
@@ -126,5 +126,24 @@ public class Footholdbox : MonoBehaviour
         //        testd += 1;
         //        //yutnumber = new Vector3(Yutfoothold[testd]);
         //    }
+    }
+
+    public void findposition(float _position1, float _position2, float _position3, float _maxposition)
+    {
+        poscheck1.SetActive(true);
+        poscheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
+        poscheck2.SetActive(true);
+        poscheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
+        poscheck3.SetActive(true);
+        poscheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
+        if (_position2 == _maxposition)
+        {
+            poscheck2.SetActive(false);
+            poscheck3.SetActive(false);
+        }
+        else if(_position3 == _maxposition)
+        {
+            poscheck3.SetActive(false);
+        }
     }
 }
