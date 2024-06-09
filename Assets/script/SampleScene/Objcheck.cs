@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Objcheck : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] GameObject objplayer;
     void Start()
     {
 
@@ -14,5 +14,10 @@ public class Objcheck : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void objcheck()
+    {
+
     }
 }

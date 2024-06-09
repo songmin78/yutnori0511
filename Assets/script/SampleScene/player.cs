@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] float moveYutcount2;//두번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount3;//세번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float MaxmoveYutcount;//이동후 자신의 위치를 저장
+    [SerializeField] bool movecheck;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == ("mouse"))
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour
         if(yutcontrol == eRule.startcheck)
         {
             positionselect();
-            objcheck();
+            //objcheck();
             //moveyutcount();
         }
         else if(yutcontrol == eRule.turncheck)
@@ -191,8 +192,14 @@ public class Player : MonoBehaviour
         findplayd.SetActive(_value);
         if(_value == true)
         {
+            movecheck = true;
             moveyutcount();
         }
+        else if(_value == false)
+        {
+            movecheck = false;
+        }
+
     }
 
     //public void Selectlocation()//플레이어가 선택될때 움직일수 있는 칸을 보여주는 부분
@@ -257,15 +264,15 @@ public class Player : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
             if (rayHit.transform != null)
             {
-                if(rayHit.transform.gameObject == obj1)
+                if(rayHit.transform.gameObject == obj1 && movecheck == true)
                 {
                     transform.position = rayHit.transform.position;
                 }
-                else if(rayHit.transform.gameObject == obj2)
+                else if(rayHit.transform.gameObject == obj2 && movecheck == true)
                 {
                     transform.position = rayHit.transform.position;
                 }
-                else if (rayHit.transform.gameObject == obj3)
+                else if (rayHit.transform.gameObject == obj3 && movecheck == true)
                 {
                     transform.position = rayHit.transform.position;
                 }
@@ -285,6 +292,15 @@ public class Player : MonoBehaviour
 
     private void objcheck()
     {
-
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
+        //if(rayHit.transform.tag == "player" && movecheck == false)
+        //{
+        //    movecheck = true;
+        //}
+        //else if(movecheck == true)
+        //{
+        //    movecheck = false;
+        //}
     }
 }

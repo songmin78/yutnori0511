@@ -239,7 +239,7 @@ public class Gamemanager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
-            if (rayHit.transform != null)
+            if (rayHit.transform != null && rayHit.transform.tag == "player")
             {
                 selectcharactor(rayHit.transform.gameObject);
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
