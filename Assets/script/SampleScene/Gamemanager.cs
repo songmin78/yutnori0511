@@ -40,7 +40,13 @@ public class Gamemanager : MonoBehaviour
     //캐릭터 선택 및 이동 부분 SelectCharacter부분
     [SerializeField] GameObject playerbox;//플레이어블 캐릭터들을 보이게 해주는 오브젝트
     int teamtype = 0;//1은 블루팀 2는 레드팀
+    float oneYut = 0;
+    float twoYut = 0;
+    float threeYut = 0;
+    //bool returncheck;//다시 되돌릴때 쓰이는 코드
     //끝
+    //턴을 넘길때 쓰이는 부분
+    [SerializeField] GameObject Yutstartbutton;
 
 
     private Player player;
@@ -52,9 +58,7 @@ public class Gamemanager : MonoBehaviour
         Preferencetime,//먼저 윷을 던지는 우선권 시간
         ThrowYut,
         SelectCharacter,//캐릭터를 선택
-        MoveCharacter,
-        CheckRule,
-        TurnOver,
+        ReturnthrowYut,//다시 윷을 던지는 부분
     }
     private eRule curState = eRule.Preferencetime;
 
@@ -112,6 +116,10 @@ public class Gamemanager : MonoBehaviour
         {
             playertypechoice();
             //positionobjcheck();
+        }
+        else if(curState == eRule.ReturnthrowYut)
+        {
+            changeturn();
         }
     }
 
@@ -248,12 +256,12 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    private void findplayerteam()//선택한 플레이어캐릭터 확인?
-    {
-        GameObject startteam = GameObject.Find("Playtimemanager");
-        Playtimer startplayer = startteam.GetComponent<Playtimer>();
-        startplayer.changeteam();
-    }
+    //private void findplayerteam()//선택한 플레이어캐릭터 확인?
+    //{
+    //    GameObject startteam = GameObject.Find("Playtimemanager");
+    //    Playtimer startplayer = startteam.GetComponent<Playtimer>();
+    //    startplayer.changeteam();
+    //}
 
     /// <summary>
     /// team = 1 <= 블루팀, team = 2 <= 레드팀
@@ -273,11 +281,11 @@ public class Gamemanager : MonoBehaviour
 
     }
 
-    private bool isFindData(out int value)
-    {
-        value = 10;
-        return true;
-    }
+    //private bool isFindData(out int value)
+    //{
+    //    value = 10;
+    //    return true;
+    //}
 
     private void startturn()//처음에 누가 먼저 시작하는지 알려주는 코드
     {
@@ -348,8 +356,7 @@ public class Gamemanager : MonoBehaviour
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
 
-            GameObject startteam = GameObject.Find("Playtimemanager");
-            Playtimer startplayer = startteam.GetComponent<Playtimer>();
+            Playtimer startplayer = Playtimemanager.GetComponent<Playtimer>();
             startplayer.startturn((int)changecheck);
         }
         else if (throwyutbutton == false)
@@ -375,14 +382,49 @@ public class Gamemanager : MonoBehaviour
 
     //private void movepositioncheck()//캐릭터가 이동할 코드
     //{
-    //    if(movelocation1)
+    //    if (movelocation1)
     //    {
     //        transform.position = movelocation1.transform.position;
     //    }
     //}
 
-    public void testcheck()
+    public void turnendcheck(float _oneYut, float _twoYut, float _thrYut)
     {
+        if(_oneYut + _twoYut + _thrYut == 0)
+        {
+            curState = eRule.ReturnthrowYut;
+            throwyutbutton = true;
+            if (changecheck == 0)
+            {
+                changecheck = 1;
+            }
+            else
+            {
+                changecheck = 0;
+            }
+            Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
+            yutstartbutton.getbackYut();
+        }
+    }
 
+    private void changeturn()//플레이어 턴을 변경하는 코드
+    {
+        if (throwyutbutton == true)
+        {
+            throwbutton.gameObject.SetActive(true);
+            Playtimemanager.SetActive(true);
+            Yuttimer.SetActive(true);
+            Yutbox.SetActive(true);
+            playerbox.SetActive(true);
+
+            Playtimer startplayer = Playtimemanager.GetComponent<Playtimer>();
+            startplayer.startturn((int)changecheck);
+        }
+        else if (throwyutbutton == false)
+        {
+            throwbutton.gameObject.SetActive(false);
+            Yuttimer.SetActive(false);
+            curState = eRule.SelectCharacter;
+        }
     }
 }

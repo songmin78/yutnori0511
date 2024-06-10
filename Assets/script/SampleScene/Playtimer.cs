@@ -36,11 +36,6 @@ public class Playtimer : MonoBehaviour
         Maxwaitmovetime = waitmovetime;
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         waityuttime();//윷 던지기 버튼을 안 누를때 작동
@@ -53,18 +48,18 @@ public class Playtimer : MonoBehaviour
         yuttest();
         changeteam();
 
-        if(curState == eRule.Throwtime)
-        {
+        //if(curState == eRule.Throwtime)
+        //{
 
-        }
-        else if(curState == eRule.Movetime)
-        {
+        //}
+        //else if(curState == eRule.Movetime)
+        //{
 
-        }
-        else if(curState == eRule.Returnthrowtime)
-        {
+        //}
+        //else if(curState == eRule.Returnthrowtime)
+        //{
 
-        }
+        //}
     }
 
     public void startturn(int _startteam)//먼저 시작할 팀 설정
@@ -135,7 +130,7 @@ public class Playtimer : MonoBehaviour
             }
             Debug.Log("던지기로 변경");
 
-            poscheck1.SetActive(false);
+            //poscheck1.SetActive(false);
             GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
             Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
             buttontimer.waittime = false;

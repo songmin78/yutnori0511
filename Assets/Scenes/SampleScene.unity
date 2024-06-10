@@ -1346,6 +1346,7 @@ MonoBehaviour:
   waittime: 0
   yutstarttimer: 0
   stayyut: 1
+  Playtimemanager: {fileID: 2031114142}
   yutdisposition: 
 --- !u!1 &283703307
 GameObject:
@@ -2990,6 +2991,7 @@ MonoBehaviour:
   Yutbox: {fileID: 1986329406}
   throwbutton: {fileID: 1353190356}
   playerbox: {fileID: 370690107}
+  Yutstartbutton: {fileID: 201806434}
 --- !u!4 &586645290
 Transform:
   m_ObjectHideFlags: 0

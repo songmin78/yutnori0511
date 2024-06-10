@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Numberroom : MonoBehaviour
 {
+    //현재 안쓰는 스크립트
     [SerializeField] GameObject parentobj;
     [Header("윷 발판의 번호")]
     [SerializeField,Range(0,19)] float yutButton;//각각의 고유 위치

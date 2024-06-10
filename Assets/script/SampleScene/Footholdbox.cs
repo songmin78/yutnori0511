@@ -36,97 +36,101 @@ public class Footholdbox : MonoBehaviour
         //findfoothold();
     }
 
-    private void movefoothold()//이동하는 부분의 위치를 확인
-    {
-        #region
-        //for (int foothold = 0; foothold < 19; foothold++)
-        //{
-        //    yutButton += 1;
-        //    Yutfoothold.Add(yutButton);
-        //}
+    #region
+    //private void movefoothold()//이동하는 부분의 위치를 확인
+    //{
+    //    #region
+    //    //for (int foothold = 0; foothold < 19; foothold++)
+    //    //{
+    //    //    yutButton += 1;
+    //    //    Yutfoothold.Add(yutButton);
+    //    //}
 
-        //Yutfoothold.Add()
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    //float item = Gamemanager.Instance.Numberroom.MaxyutButton;
-        //    //int yy = Yutfoothold.FindIndex(a => a == item);
+    //    //Yutfoothold.Add()
+    //    //if (Input.GetKeyDown(KeyCode.P))
+    //    //{
+    //    //    //float item = Gamemanager.Instance.Numberroom.MaxyutButton;
+    //    //    //int yy = Yutfoothold.FindIndex(a => a == item);
 
 
-        //    //Vector3 pp = 
-        //    //poscheck.transform.position = transform.position;
+    //    //    //Vector3 pp = 
+    //    //    //poscheck.transform.position = transform.position;
 
-        //    //Yutfoothold.
-        //}
-        #endregion
-        if(zerocheck == true)
-        {
-            GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
-            Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
+    //    //    //Yutfoothold.
+    //    //}
+    //    #endregion
+    //    if(zerocheck == true)
+    //    {
+    //        GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
+    //        Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
 
             
-            oneYut = buttontimer.oneyut;
-            twoYut = buttontimer.twoyut;
-            threeYut = buttontimer.threeyut;
-            if(oneYut == -1)
-            {
-                return;
-            }
-            else
-            {
-                poscheck1.SetActive(true);
-                poscheck1.transform.position = Yutfoothold[(int)oneYut].transform.position;
-            }
-            if (twoYut == 0)
-            {
-                poscheck2.SetActive(false);
-                return;
-            }
-            else
-            {
-                poscheck2.SetActive(true);
-                poscheck2.transform.position = Yutfoothold[(int)twoYut].transform.position;
-            }
-            if(threeYut == 0)
-            {
-                poscheck3.SetActive(false);
-                return;
-            }
-            else
-            {
-                poscheck3.SetActive(true);
-                poscheck3.transform.position = Yutfoothold[(int)threeYut].transform.position;
-            }
+    //        oneYut = buttontimer.oneyut;
+    //        twoYut = buttontimer.twoyut;
+    //        threeYut = buttontimer.threeyut;
+    //        if(oneYut == -1)
+    //        {
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            poscheck1.SetActive(true);
+    //            poscheck1.transform.position = Yutfoothold[(int)oneYut].transform.position;
+    //        }
+    //        if (twoYut == 0)
+    //        {
+    //            poscheck2.SetActive(false);
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            poscheck2.SetActive(true);
+    //            poscheck2.transform.position = Yutfoothold[(int)twoYut].transform.position;
+    //        }
+    //        if(threeYut == 0)
+    //        {
+    //            poscheck3.SetActive(false);
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            poscheck3.SetActive(true);
+    //            poscheck3.transform.position = Yutfoothold[(int)threeYut].transform.position;
+    //        }
 
-            //zerocheck = false;
-        }
-        zerocheck = false;
-    }
+    //        //zerocheck = false;
+    //    }
+    //    zerocheck = false;
+    //}
+    #endregion
 
     public void passyut(float _yutButton)
     {
         //Yutfoothold.Add(_yutButton);
         //Yutfoothold.Sort();
     }
+    #region
 
     //public float GetAt(int index)
     //{
     //    return Yutfoothold[index];
     //}
 
-    private void findfoothold()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            //Debug.Log(Yutfoothold[testd]);
-            //poscheck1.transform.position = Yutfoothold[testd].transform.position;
-        }
+    //private void findfoothold()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        //Debug.Log(Yutfoothold[testd]);
+    //        //poscheck1.transform.position = Yutfoothold[testd].transform.position;
+    //    }
 
-        //    if (Input.GetKeyDown(KeyCode.M))
-        //    {
-        //        testd += 1;
-        //        //yutnumber = new Vector3(Yutfoothold[testd]);
-        //    }
-    }
+    //    //    if (Input.GetKeyDown(KeyCode.M))
+    //    //    {
+    //    //        testd += 1;
+    //    //        //yutnumber = new Vector3(Yutfoothold[testd]);
+    //    //    }
+    //}
+    #endregion
 
     public void findposition(float _position1, float _position2, float _position3, float _maxposition)
     {
@@ -144,6 +148,19 @@ public class Footholdbox : MonoBehaviour
         else if(_position3 == _maxposition)
         {
             poscheck3.SetActive(false);
+        }
+
+        if(oneYut == 0 && twoYut + threeYut > 0)
+        {
+            poscheck1.SetActive(false);
+        }
+    }
+
+    private void turnendcheck()//움직일수 있는 순서를 다 쓸 경우
+    {
+        if(oneYut + twoYut + threeYut == 0)
+        {
+            Debug.Log("출력");
         }
     }
 }

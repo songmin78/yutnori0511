@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float oneYut;
     [SerializeField] public float twoYut;
     [SerializeField] public float threeYut;
+    float Yutorder;//말을 움직일 수있는 수 부분
     //[SerializeField] float d;
     [SerializeField]public bool playertypenumber;
     [Header("윷을 움직이기위한 거리 부분")]
@@ -63,16 +64,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == ("mouse"))
         {
             playertouch = false;
-            //if (playercheck1 == true)
-            //{
-            //    playertype1 = false;
-            //    playertype2 = false;
-            //}
-            //else if (playercheck2 == true)
-            //{
-            //    playertype1 = false;
-            //    playertype2 = false;
-            //}
         }
     }
 
@@ -90,7 +81,6 @@ public class Player : MonoBehaviour
         
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Gamemanager.Instance.Player = this;
@@ -141,7 +131,6 @@ public class Player : MonoBehaviour
     //    }
     //    playerchoice = false;
     //}
-    #endregion
 
     //private void typeplayer()//플레이어1 과 플레이어2를 동시에 못 움직이게 설정
     //{
@@ -186,7 +175,7 @@ public class Player : MonoBehaviour
     //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     //    Physics.Raycast(ray, );
     //}
-
+    #endregion
     public void Playselectedcheck(bool _value)
     {
         findplayd.SetActive(_value);
@@ -267,40 +256,72 @@ public class Player : MonoBehaviour
                 if(rayHit.transform.gameObject == obj1 && movecheck == true)
                 {
                     transform.position = rayHit.transform.position;
+                    MaxmoveYutcount = moveYutcount1;
+                    Yutorder = 1;
+                    changeYutzero();
+                    obj1.SetActive(false);
+                    obj2.SetActive(false);
+                    obj3.SetActive(false);
                 }
                 else if(rayHit.transform.gameObject == obj2 && movecheck == true)
                 {
                     transform.position = rayHit.transform.position;
+                    MaxmoveYutcount = moveYutcount2;
+                    Yutorder = 2;
+                    changeYutzero();
+                    obj1.SetActive(false);
+                    obj2.SetActive(false);
+                    obj3.SetActive(false);
                 }
                 else if (rayHit.transform.gameObject == obj3 && movecheck == true)
                 {
                     transform.position = rayHit.transform.position;
+                    MaxmoveYutcount = moveYutcount3;
+                    Yutorder = 3;
+                    changeYutzero();
+                    obj1.SetActive(false);
+                    obj2.SetActive(false);
+                    obj3.SetActive(false);
                 }
                 //movepositioncheck();
             }
         }
     }
 
-    private void movepositioncheck()
+    private void changeYutzero()//말을 움직인 후에 이동한 숫자를 0으로 만드는 코드
     {
-        GameObject obj = GameObject.Find("Gamemanager");
-        Gamemanager gamemanager = obj.GetComponent<Gamemanager>();
-        gamemanager.testcheck();
+        GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
+        Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
 
-        Gamemanager.Instance.testcheck();
+        switch(Yutorder)
+        {
+            case 1:
+                buttontimer.oneyut = 0;
+                oneYut = buttontimer.oneyut;
+                break;
+            case 2:
+                buttontimer.twoyut = 0;
+                twoYut = buttontimer.twoyut;
+                break;
+            case 3:
+                buttontimer.threeyut = 0;
+                threeYut = buttontimer.threeyut;
+                break;
+        }
+        Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
     }
 
-    private void objcheck()
-    {
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
-        //if(rayHit.transform.tag == "player" && movecheck == false)
-        //{
-        //    movecheck = true;
-        //}
-        //else if(movecheck == true)
-        //{
-        //    movecheck = false;
-        //}
-    }
+    //private void objcheck()
+    //{
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
+    //    if (rayHit.transform.tag == "player" && movecheck == false)
+    //    {
+    //        movecheck = true;
+    //    }
+    //    else if (movecheck == true)
+    //    {
+    //        movecheck = false;
+    //    }
+    //}
 }

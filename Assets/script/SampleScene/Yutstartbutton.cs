@@ -34,6 +34,8 @@ public class Yutstartbutton : MonoBehaviour
     int chageyut;
     [SerializeField]float stayyut = 1;//모 또는 윷에 걸릴때 잠깐 기다리는 시간
     bool stayyutcheck;//1초 기다리는 시간을 체크
+    [Header("스크립트오브젝트를 관리")]
+    [SerializeField] GameObject Playtimemanager;
 
 
     [SerializeField] List<int> yutdisposition = new List<int>();
@@ -41,13 +43,14 @@ public class Yutstartbutton : MonoBehaviour
     {
         startbutton.onClick.AddListener(() =>
         {
-            if (waittime == true)
-            {
-                return;
-            }
+            //if (waittime == true)
+            //{
+            //    return;
+            //}
             yutdisposition.Clear();
             Stickcount = 0;
             yutstart = true;
+
         });
     }
 
@@ -97,8 +100,9 @@ public class Yutstartbutton : MonoBehaviour
                 Yutcount();
             }
             yutlist();
-            GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = findtimer.GetComponent<Playtimer>();
+            
+            //GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
             playtimer.checktime = true;
             if (yutnumber == 4 || yutnumber == 5)
             {
@@ -154,8 +158,8 @@ public class Yutstartbutton : MonoBehaviour
             //Debug.Log(Stickcount);
             yutlist();
             yutstart = false;
-            GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = findtimer.GetComponent<Playtimer>();
+            //GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
             playtimer.checktime = true;
             if (yutnumber == 4 || yutnumber == 5)//모 또는 윷이 뜰 경우
             {
@@ -256,16 +260,6 @@ public class Yutstartbutton : MonoBehaviour
         }
     }
 
-    private void returnyut()//모 또는 윷이 나왔을 경우 한번더 던질수 있는 코드
-    {
-        if (yutreturncheck == true)
-        {
-            //yutstart = true;
-            //yutreturncheck = false;
-            //waittime = false;
-        }
-
-    }
 
     private void numberzero()//이동 거리 초기화
     {
@@ -332,8 +326,8 @@ public class Yutstartbutton : MonoBehaviour
     {
         if (stayyutcheck == true)
         {
-            GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = findtimer.GetComponent<Playtimer>();
+            //GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
             playtimer.returnyut = true;
             if (stayyut < 0)
             {
@@ -353,5 +347,12 @@ public class Yutstartbutton : MonoBehaviour
         }
     }
 
-
+    public void getbackYut()
+    {
+        yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
+        yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
+        yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
+        yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        chageyut = 0;
+    }
 }
