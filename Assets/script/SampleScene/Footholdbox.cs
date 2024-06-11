@@ -21,21 +21,6 @@ public class Footholdbox : MonoBehaviour
 
     //int testd;//윷이 나온수 만큼 이동 할수있는 부분을 생성
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Maxyutfoot();
-        //Debug.Log(yutnumber);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //movefoothold();
-        //findfoothold();
-    }
-
     #region
     //private void movefoothold()//이동하는 부분의 위치를 확인
     //{
@@ -140,27 +125,19 @@ public class Footholdbox : MonoBehaviour
         poscheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
         poscheck3.SetActive(true);
         poscheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
-        if (_position2 == _maxposition)
+
+        if(_position1 == _maxposition)
+        {
+            poscheck1.SetActive(false);
+        }
+        else if(_position2 == _maxposition)
         {
             poscheck2.SetActive(false);
-            poscheck3.SetActive(false);
         }
         else if(_position3 == _maxposition)
         {
             poscheck3.SetActive(false);
         }
-
-        if(oneYut == 0 && twoYut + threeYut > 0)
-        {
-            poscheck1.SetActive(false);
-        }
     }
 
-    private void turnendcheck()//움직일수 있는 순서를 다 쓸 경우
-    {
-        if(oneYut + twoYut + threeYut == 0)
-        {
-            Debug.Log("출력");
-        }
-    }
 }

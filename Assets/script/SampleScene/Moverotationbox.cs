@@ -57,68 +57,68 @@ public class Moverotationbox : MonoBehaviour
 
     }
 
-    private void moveposition()
-    {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && movecheck == true)
-        {
-            #region
-            //if (team1 == true)
-            //{
-            //    Player player = objplayer1_1.GetComponent<Player>();
-            //    Player player2 = objplayer1_2.GetComponent<Player>();
-            //    if (player.playertype1 == true)
-            //    {
-            //        objplayer1_1.transform.position = vec3;
-            //    }
-            //    else if(player2.playertype2 == true)
-            //    {
-            //        objplayer1_2.transform.position = vec3;
-            //    }
-            //}
-            //else if (team2 == true)
-            //{
-            //    Player player = objplayer2_1.GetComponent<Player>();
-            //    Player player2 = objplayer2_2.GetComponent<Player>();
-            //    if (player.playertype1 == true)
-            //    {
-            //        objplayer2_1.transform.position = vec3;
-            //    }
-            //    else if(player2.playertype2 == true)
-            //    {
-            //        objplayer2_2.transform.position = vec3;
-            //    }
-            //}
-            #endregion
-            if(team1 == true)
-            {
-                Player player = objplayer1_1.GetComponent<Player>();
-                Player player2 = objplayer1_2.GetComponent<Player>();
-                if (objplayer1_1 == true && player.playertypenumber == true)
-                {
-                    objplayer1_1.transform.position = vec3;
-                }
-                else if (objplayer1_2 == true && player2.playertypenumber == true)
-                {
-                    objplayer1_2.transform.position = vec3;
-                }
-            }
-            else if(team2 == true)
-            {
-                Player player = objplayer2_1.GetComponent<Player>();
-                Player player2 = objplayer2_2.GetComponent<Player>();
-                if (objplayer2_1 == true && player.playertypenumber == true)
-                {
-                    objplayer2_1.transform.position = vec3;
-                }
-                else if (objplayer2_2 == true && player2.playertypenumber == true)
-                {
-                    objplayer2_2.transform.position = vec3;
-                }
-            }
-        }
-
-
-    }
+    #region
+    //private void moveposition()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Mouse0) && movecheck == true)
+    //    {
+    //        #region
+    //        //if (team1 == true)
+    //        //{
+    //        //    Player player = objplayer1_1.GetComponent<Player>();
+    //        //    Player player2 = objplayer1_2.GetComponent<Player>();
+    //        //    if (player.playertype1 == true)
+    //        //    {
+    //        //        objplayer1_1.transform.position = vec3;
+    //        //    }
+    //        //    else if(player2.playertype2 == true)
+    //        //    {
+    //        //        objplayer1_2.transform.position = vec3;
+    //        //    }
+    //        //}
+    //        //else if (team2 == true)
+    //        //{
+    //        //    Player player = objplayer2_1.GetComponent<Player>();
+    //        //    Player player2 = objplayer2_2.GetComponent<Player>();
+    //        //    if (player.playertype1 == true)
+    //        //    {
+    //        //        objplayer2_1.transform.position = vec3;
+    //        //    }
+    //        //    else if(player2.playertype2 == true)
+    //        //    {
+    //        //        objplayer2_2.transform.position = vec3;
+    //        //    }
+    //        //}
+    //        #endregion
+    //        if(team1 == true)
+    //        {
+    //            Player player = objplayer1_1.GetComponent<Player>();
+    //            Player player2 = objplayer1_2.GetComponent<Player>();
+    //            if (objplayer1_1 == true && player.playertypenumber == true)
+    //            {
+    //                objplayer1_1.transform.position = vec3;
+    //            }
+    //            else if (objplayer1_2 == true && player2.playertypenumber == true)
+    //            {
+    //                objplayer1_2.transform.position = vec3;
+    //            }
+    //        }
+    //        else if(team2 == true)
+    //        {
+    //            Player player = objplayer2_1.GetComponent<Player>();
+    //            Player player2 = objplayer2_2.GetComponent<Player>();
+    //            if (objplayer2_1 == true && player.playertypenumber == true)
+    //            {
+    //                objplayer2_1.transform.position = vec3;
+    //            }
+    //            else if (objplayer2_2 == true && player2.playertypenumber == true)
+    //            {
+    //                objplayer2_2.transform.position = vec3;
+    //            }
+    //        }
+    //    }
+    //}
+    #endregion
 
     private void positioncheck()
     {

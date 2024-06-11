@@ -190,7 +190,7 @@ public class Gamemanager : MonoBehaviour
 
     private void selectcharactor(GameObject _value)//다른 오브젝트를 누를때 기존에 오브젝트는 끄는 코드
     {
-        if(teamtype == 1)//블루팀일 경우
+        if (teamtype == 1)//블루팀일 경우
         {
             int count = objblue.Count;
             for (int iNum = 0; iNum < count; ++iNum)
@@ -367,6 +367,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
+    #region
     //private void positionobjcheck()//이동될 오브젝트 위치 체크
     //{
     //    if (Input.GetKeyDown(KeyCode.Mouse0) == true)
@@ -387,6 +388,7 @@ public class Gamemanager : MonoBehaviour
     //        transform.position = movelocation1.transform.position;
     //    }
     //}
+    #endregion
 
     public void turnendcheck(float _oneYut, float _twoYut, float _thrYut)
     {
@@ -428,7 +430,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    private void destorycheck()//선택 부분을 삭데하는 코드
+    private void destorycheck()//선택 부분을 삭제하는 코드
     {
 
     }

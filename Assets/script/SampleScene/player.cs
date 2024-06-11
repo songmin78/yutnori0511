@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] GameObject findplayd;
-    [Header("플레이어")]
-    [SerializeField] bool playercheck1;//플레이어1번 부분
-    [SerializeField] bool playercheck2;//플레이어 2번 부분
-    [Header("플레이어를 선택 했을때")]
+    //[Header("플레이어")]
+    //[SerializeField] bool playercheck1;//플레이어1번 부분
+    //[SerializeField] bool playercheck2;//플레이어 2번 부분
+    //[Header("플레이어를 선택 했을때")]
     //[SerializeField] public GameObject checkobj;//플레이러를 체크할때 보이는 오브젝트
-    [SerializeField] bool checkmask;//플레이어를 체크 할때
+    //[SerializeField] bool checkmask;//플레이어를 체크 할때
     //[SerializeField] Canvas playerselected;//플레이어가 선택될 때 체크되는걸 보여주는 오브젝트
     bool selectedcheck;//선택될때 체크
 
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField]bool teamred;
     [SerializeField]bool teamblue;
     [Header("기타")]
-    [SerializeField]bool playertouch = false;
+    //[SerializeField]bool playertouch = false;
     [SerializeField]public bool playerchoice;
     [SerializeField]public bool tests;
     public bool playertype1;//플레이어타입1
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float threeYut;
     float Yutorder;//말을 움직일 수있는 수 부분
     //[SerializeField] float d;
-    [SerializeField]public bool playertypenumber;
+    //[SerializeField]public bool playertypenumber;
     [Header("윷을 움직이기위한 거리 부분")]
     private bool myyutturn;//자기 차례일때만 true로 변경
     [SerializeField] float moveYutcount1;//첫번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
@@ -41,40 +41,21 @@ public class Player : MonoBehaviour
     [SerializeField] bool movecheck;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == ("mouse"))
-        {
-            playertouch = true;
-            playertypenumber = true;
-            #region
-            //if(playercheck1 == true)//플레이어 타입이 1번일 경우
-            //{
-            //    playertype1 = true;//플레이어 타입 1번을 확인
-            //    playertype2 = false;
-            //}
-            //if(playercheck2 == true)
-            //{
-            //    playertype1 = false;
-            //    playertype2 = true;
-            //}
-            #endregion
-        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == ("mouse"))
-        {
-            playertouch = false;
-        }
+
     }
 
     public enum eRule
     {
-        startcheck,//시작할때 자기 위치만 저장할려고 설정
-        turncheck,//윷 이동 거리를 더해서 관리 하는곳
+        notrecall,//자기 차례가 아닐때 작동되는 부분
+        playermovecheck,//원하는 위치로 이동 되는 부분
         endcheck,//자기 차례가 끝나면 대기 하는곳
     }
-    private eRule yutcontrol = eRule.startcheck;
+    private eRule yutcontrol = eRule.notrecall;
 
     private void Awake()
     {
@@ -95,16 +76,13 @@ public class Player : MonoBehaviour
         //typeplayer();
 
         //testcode();
-        if(yutcontrol == eRule.startcheck)
+        if(yutcontrol == eRule.notrecall)
+        {
+            return;
+        }
+        else if(yutcontrol == eRule.playermovecheck)
         {
             positionselect();
-            //objcheck();
-            //moveyutcount();
-        }
-        else if(yutcontrol == eRule.turncheck)
-        {
-            //countyutcheck();
-            //yutmoving();
         }
 
     }
@@ -219,7 +197,8 @@ public class Player : MonoBehaviour
         //yutcontrol = eRule.turncheck;
         countyutcheck();
         yutmoving();
-        Debug.Log(MaxmoveYutcount);
+        //Debug.Log(MaxmoveYutcount);
+        yutcontrol = eRule.playermovecheck;
     }
 
     private void yutmoving()//윷이 움직일 위치
@@ -244,17 +223,17 @@ public class Player : MonoBehaviour
 
     private void positionselect()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+        if (Input.GetKeyDown(KeyCode.Mouse0) == true && movecheck == true)
         {
-            GameObject obj1 = Gamemanager.Instance.movelocation1;
-            GameObject obj2 = Gamemanager.Instance.movelocation2;
-            GameObject obj3 = Gamemanager.Instance.movelocation3;
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
             if (rayHit.transform != null)
             {
-                if(rayHit.transform.gameObject == obj1 && movecheck == true)
+                GameObject obj1 = Gamemanager.Instance.movelocation1;
+                GameObject obj2 = Gamemanager.Instance.movelocation2;
+                GameObject obj3 = Gamemanager.Instance.movelocation3;
+
+                if (rayHit.transform.gameObject == obj1 && obj1.gameObject == true)
                 {
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount1;
@@ -264,7 +243,7 @@ public class Player : MonoBehaviour
                     obj2.SetActive(false);
                     obj3.SetActive(false);
                 }
-                else if(rayHit.transform.gameObject == obj2 && movecheck == true)
+                else if(rayHit.transform.gameObject == obj2 && obj2.gameObject ==true)
                 {
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount2;
@@ -274,7 +253,7 @@ public class Player : MonoBehaviour
                     obj2.SetActive(false);
                     obj3.SetActive(false);
                 }
-                else if (rayHit.transform.gameObject == obj3 && movecheck == true)
+                else if (rayHit.transform.gameObject == obj3 && obj3.gameObject == true)
                 {
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount3;
@@ -311,8 +290,10 @@ public class Player : MonoBehaviour
         }
         findplayd.SetActive(false);
         movecheck = false;
+        yutcontrol = eRule.notrecall;
         Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
     }
+
 
     //private void objcheck()
     //{
