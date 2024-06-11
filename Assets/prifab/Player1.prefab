@@ -269,13 +269,13 @@ MonoBehaviour:
   playercheck1: 0
   playercheck2: 0
   checkmask: 0
+  teamred: 0
+  teamblue: 1
   playertouch: 0
   playerchoice: 0
   tests: 0
   playertype1: 0
   playertype2: 0
-  playerchecking1: 0
-  playerchecking2: 0
   oneYut: 0
   twoYut: 0
   threeYut: 0

@@ -16,14 +16,15 @@ public class Player : MonoBehaviour
 
     bool buleTeam;
 
+    [Header("팀 구분")]
+    [SerializeField]bool teamred;
+    [SerializeField]bool teamblue;
     [Header("기타")]
     [SerializeField]bool playertouch = false;
     [SerializeField]public bool playerchoice;
     [SerializeField]public bool tests;
     public bool playertype1;//플레이어타입1
     public bool playertype2;//플레이어타입2
-    [SerializeField]public bool playerchecking1;
-    [SerializeField]public bool playerchecking2;
     [Header("윷 이동 부분")]
     [SerializeField] public float oneYut;
     [SerializeField] public float twoYut;
@@ -308,6 +309,8 @@ public class Player : MonoBehaviour
                 threeYut = buttontimer.threeyut;
                 break;
         }
+        findplayd.SetActive(false);
+        movecheck = false;
         Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
     }
 
@@ -324,4 +327,9 @@ public class Player : MonoBehaviour
     //        movecheck = false;
     //    }
     //}
+
+    private void outcheckplayer()//플레이어가 다른 플레이어 말을 잡았을 경우
+    {
+
+    }
 }

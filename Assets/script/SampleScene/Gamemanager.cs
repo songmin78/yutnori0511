@@ -39,7 +39,7 @@ public class Gamemanager : MonoBehaviour
     //끝
     //캐릭터 선택 및 이동 부분 SelectCharacter부분
     [SerializeField] GameObject playerbox;//플레이어블 캐릭터들을 보이게 해주는 오브젝트
-    int teamtype = 0;//1은 블루팀 2는 레드팀
+    [SerializeField]int teamtype = 0;//1은 블루팀 2는 레드팀
     float oneYut = 0;
     float twoYut = 0;
     float threeYut = 0;
@@ -426,5 +426,10 @@ public class Gamemanager : MonoBehaviour
             Yuttimer.SetActive(false);
             curState = eRule.SelectCharacter;
         }
+    }
+
+    private void destorycheck()//선택 부분을 삭데하는 코드
+    {
+
     }
 }

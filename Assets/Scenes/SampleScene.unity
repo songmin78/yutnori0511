@@ -2991,6 +2991,7 @@ MonoBehaviour:
   Yutbox: {fileID: 1986329406}
   throwbutton: {fileID: 1353190356}
   playerbox: {fileID: 370690107}
+  teamtype: 0
   Yutstartbutton: {fileID: 201806434}
 --- !u!4 &586645290
 Transform:
