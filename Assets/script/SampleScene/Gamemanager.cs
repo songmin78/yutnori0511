@@ -418,7 +418,7 @@ public class Gamemanager : MonoBehaviour
             playerbox.SetActive(true);
 
             Playtimer startplayer = Playtimemanager.GetComponent<Playtimer>();
-            startplayer.startturn((int)changecheck);
+            startplayer.turnendchange((int)changecheck);
         }
         else if (throwyutbutton == false)
         {

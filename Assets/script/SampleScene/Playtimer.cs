@@ -213,4 +213,17 @@ public class Playtimer : MonoBehaviour
             //Gamemanager.Instance.teamfalsecheck();
         }
     }
+
+    public void turnendchange(int _startteam)//턴이 종료 될때 블루팀 레드팀을 변경하는 코드부분
+    {
+        switch (_startteam)
+        {
+            case 0:
+                teamblue = false;
+                teamred = true; break;
+            case 1:
+                teamred = false;
+                teamblue = true; break;
+        }
+    }
 }
