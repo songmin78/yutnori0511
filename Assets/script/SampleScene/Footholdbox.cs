@@ -126,15 +126,33 @@ public class Footholdbox : MonoBehaviour
         poscheck3.SetActive(true);
         poscheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
 
-        if(_position1 == _maxposition)
-        {
-            poscheck1.SetActive(false);
-        }
-        else if(_position2 == _maxposition)
+        //samenumber();
+
+        //if (_position1 == _maxposition)
+        //{
+        //    poscheck1.SetActive(false);
+        //}
+        //else if(_position2 == _maxposition)
+        //{
+        //    poscheck2.SetActive(false);
+        //}
+        //else if(_position3 == _maxposition)
+        //{
+        //    poscheck3.SetActive(false);
+        //}
+    }
+
+    private void samenumber()//같은 숫자가 걸릴 경우
+    {
+        if (oneYut == twoYut)
         {
             poscheck2.SetActive(false);
         }
-        else if(_position3 == _maxposition)
+        else if (oneYut == threeYut)
+        {
+            poscheck3.SetActive(false);
+        }
+        if (twoYut == threeYut)
         {
             poscheck3.SetActive(false);
         }

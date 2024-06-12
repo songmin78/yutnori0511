@@ -292,6 +292,10 @@ public class Player : MonoBehaviour
         movecheck = false;
         yutcontrol = eRule.notrecall;
         Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+        //Debug.Log(moveYutcount1);
+        //Debug.Log(moveYutcount2);
+        //Debug.Log(moveYutcount3);
+        //Debug.Log(MaxmoveYutcount);
     }
 
 
@@ -313,4 +317,5 @@ public class Player : MonoBehaviour
     {
 
     }
+
 }

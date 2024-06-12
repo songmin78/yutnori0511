@@ -47,6 +47,9 @@ public class Gamemanager : MonoBehaviour
     //끝
     //턴을 넘길때 쓰이는 부분
     [SerializeField] GameObject Yutstartbutton;
+    //waittime 부분 잠깐 기다리는 코드 부분
+    float timewait = 1;
+    float Maxtimewait;
 
 
     private Player player;
@@ -59,6 +62,7 @@ public class Gamemanager : MonoBehaviour
         ThrowYut,
         SelectCharacter,//캐릭터를 선택
         ReturnthrowYut,//다시 윷을 던지는 부분
+        waittime,//잠깜 기다리는 부분
     }
     private eRule curState = eRule.Preferencetime;
 
@@ -88,6 +92,7 @@ public class Gamemanager : MonoBehaviour
         Animation anim = GetComponent<Animation>();
         Animator animator = GetComponent<Animator>();
         Maxstartturnyut = startturnyut;
+        Maxtimewait = timewait;
     }
 
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
@@ -120,6 +125,10 @@ public class Gamemanager : MonoBehaviour
         else if(curState == eRule.ReturnthrowYut)
         {
             changeturn();
+        }
+        else if(curState == eRule.waittime)
+        {
+            waitingtimer();
         }
     }
 
@@ -407,6 +416,10 @@ public class Gamemanager : MonoBehaviour
             Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
             yutstartbutton.getbackYut();
         }
+        else//더한 값이 0이 아닐 경우
+        {
+            curState = eRule.waittime;
+        }
     }
 
     private void changeturn()//플레이어 턴을 변경하는 코드
@@ -433,5 +446,15 @@ public class Gamemanager : MonoBehaviour
     private void destorycheck()//선택 부분을 삭제하는 코드
     {
 
+    }
+
+    private void waitingtimer()
+    {
+        Maxtimewait -= Time.deltaTime;
+        if(Maxtimewait < 0)
+        {
+            Maxtimewait = timewait;
+            curState = eRule.SelectCharacter;
+        }
     }
 }
