@@ -100,7 +100,11 @@ public class Yutstartbutton : MonoBehaviour
                 Yutcount();
             }
             yutlist();
-            
+            if (oneyut != 0 && twoyut != 0 && threeyut != 0)
+            {
+                Gamemanager.Instance.nextturn();
+                return;
+            }
             //GameObject findtimer = GameObject.Find("Playtimemanager");
             Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
             playtimer.checktime = true;
@@ -157,6 +161,11 @@ public class Yutstartbutton : MonoBehaviour
             }
             //Debug.Log(Stickcount);
             yutlist();
+            if (oneyut != 0 && twoyut != 0 && threeyut != 0)
+            {
+                Gamemanager.Instance.nextturn();
+                return;
+            }
             yutstart = false;
             //GameObject findtimer = GameObject.Find("Playtimemanager");
             Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();

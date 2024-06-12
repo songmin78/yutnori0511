@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 283703309}
   m_Layer: 0
   m_Name: Movelocation2
-  m_TagString: mouse
+  m_TagString: poscheck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1424,7 +1424,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
 --- !u!212 &283703310
 SpriteRenderer:
@@ -1466,7 +1466,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2646,7 +2646,7 @@ GameObject:
   - component: {fileID: 529997213}
   m_Layer: 0
   m_Name: Movelocation
-  m_TagString: mouse
+  m_TagString: poscheck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2694,7 +2694,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
 --- !u!212 &529997214
 SpriteRenderer:
@@ -2736,7 +2736,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2981,9 +2981,6 @@ MonoBehaviour:
   objplayer1_2: {fileID: 437422473}
   objplayer2_1: {fileID: 537170614}
   objplayer2_2: {fileID: 1103627832}
-  movelocation1: {fileID: 529997212}
-  movelocation2: {fileID: 874281947}
-  movelocation3: {fileID: 283703307}
   Gameplayertype: 0
   throwyutbutton: 0
   Playtimemanager: {fileID: 2031114142}
@@ -3958,7 +3955,7 @@ GameObject:
   - component: {fileID: 874281949}
   m_Layer: 0
   m_Name: Movelocation1
-  m_TagString: mouse
+  m_TagString: poscheck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4021,7 +4018,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
 --- !u!212 &874281950
 SpriteRenderer:
@@ -4063,7 +4060,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7265,7 +7262,6 @@ MonoBehaviour:
   checktime: 0
   timegage: {fileID: 1950449413}
   returnYut: 0
-  poscheck1: {fileID: 529997212}
   returnyut: 0
 --- !u!4 &2031114144
 Transform:

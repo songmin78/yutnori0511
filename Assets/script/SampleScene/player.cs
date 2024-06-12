@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     bool selectedcheck;//선택될때 체크
 
     bool buleTeam;
+    Vector3 startmypos;//죽을때 다시 시작위치로 돌아가기 위한 위치 확인용
 
     [Header("팀 구분")]
     [SerializeField]bool teamred;
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
     [SerializeField] float moveYutcount2;//두번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount3;//세번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float MaxmoveYutcount;//이동후 자신의 위치를 저장
-    [SerializeField] bool movecheck;
+    [SerializeField] bool movecheck;//자기 차례를 확인하기 위한 체크
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -60,11 +61,11 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         //Gamemanager.Instance.Player = this;
-        
     }
 
     void Start()
     {
+        startmypos = transform.position;
         Gamemanager.Instance.Player = this;
         MaxmoveYutcount = 0;
     }
@@ -78,7 +79,11 @@ public class Player : MonoBehaviour
         //testcode();
         if(yutcontrol == eRule.notrecall)
         {
-            return;
+            //testcode();
+            if(movecheck == true)
+            {
+                yutcontrol = eRule.playermovecheck;
+            }
         }
         else if(yutcontrol == eRule.playermovecheck)
         {
@@ -198,7 +203,7 @@ public class Player : MonoBehaviour
         countyutcheck();
         yutmoving();
         //Debug.Log(MaxmoveYutcount);
-        yutcontrol = eRule.playermovecheck;
+        //yutcontrol = eRule.playermovecheck;
     }
 
     private void yutmoving()//윷이 움직일 위치
@@ -206,9 +211,11 @@ public class Player : MonoBehaviour
         moveYutcount1 += oneYut;
         moveYutcount2 += twoYut;
         moveYutcount3 += threeYut;
-        GameObject obj = GameObject.Find("footholdbox");
-        Footholdbox footholdbox = obj.GetComponent<Footholdbox>();
-        footholdbox.findposition(moveYutcount1,moveYutcount2,moveYutcount3,MaxmoveYutcount);
+        Gamemanager.Instance.Footholdbox.findposition(moveYutcount1, moveYutcount2, moveYutcount3, MaxmoveYutcount);
+        //GameObject obj = GameObject.Find("footholdbox");
+        //Footholdbox footholdbox = obj.GetComponent<Footholdbox>();
+        //footholdbox.findposition(moveYutcount1,moveYutcount2,moveYutcount3,MaxmoveYutcount);
+        //footholdbox.movecheckchange(oneYut, twoYut, threeYut);
     }
 
     public void countyutcheck()//윷의 숫자를 대입하는 코드부분
@@ -219,6 +226,12 @@ public class Player : MonoBehaviour
         oneYut = buttontimer.oneyut;
         twoYut = buttontimer.twoyut;
         threeYut = buttontimer.threeyut;
+        if(oneYut == -1 && MaxmoveYutcount == 0)
+        {
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            changeYutzero();
+        }
     }
 
     private void positionselect()
@@ -227,44 +240,44 @@ public class Player : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
+
+            //Debug.Log(rayHit.point);
+
             if (rayHit.transform != null)
             {
-                GameObject obj1 = Gamemanager.Instance.movelocation1;
-                GameObject obj2 = Gamemanager.Instance.movelocation2;
-                GameObject obj3 = Gamemanager.Instance.movelocation3;
+                GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
+                GameObject obj2 = Gamemanager.Instance.Footholdbox.poscheck2;
+                GameObject obj3 = Gamemanager.Instance.Footholdbox.poscheck3;
 
-                if (rayHit.transform.gameObject == obj1 && obj1.gameObject == true)
+                //Debug.Log(rayHit.transform.gameObject.name);
+
+                if (rayHit.transform.gameObject == obj1)
                 {
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount1;
                     Yutorder = 1;
+                    Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
-                    obj1.SetActive(false);
-                    obj2.SetActive(false);
-                    obj3.SetActive(false);
                 }
-                else if(rayHit.transform.gameObject == obj2 && obj2.gameObject ==true)
+                else if(rayHit.transform.gameObject == obj2)
                 {
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount2;
                     Yutorder = 2;
+                    Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
-                    obj1.SetActive(false);
-                    obj2.SetActive(false);
-                    obj3.SetActive(false);
                 }
-                else if (rayHit.transform.gameObject == obj3 && obj3.gameObject == true)
+                else if (rayHit.transform.gameObject == obj3)
                 {
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount3;
                     Yutorder = 3;
+                    Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
-                    obj1.SetActive(false);
-                    obj2.SetActive(false);
-                    obj3.SetActive(false);
                 }
                 //movepositioncheck();
             }
+            //Debug.Log(rayHit.transform.gameObject.name);
         }
     }
 
@@ -272,7 +285,6 @@ public class Player : MonoBehaviour
     {
         GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
         Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
-
         switch(Yutorder)
         {
             case 1:
@@ -288,34 +300,33 @@ public class Player : MonoBehaviour
                 threeYut = buttontimer.threeyut;
                 break;
         }
-        findplayd.SetActive(false);
         movecheck = false;
         yutcontrol = eRule.notrecall;
+        //Gamemanager.Instance.Footholdbox.movecheckchange(oneYut, twoYut, threeYut);
+        Gamemanager.Instance.Footholdbox.movedestory();
         Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+        findplayd.SetActive(false);
         //Debug.Log(moveYutcount1);
         //Debug.Log(moveYutcount2);
         //Debug.Log(moveYutcount3);
         //Debug.Log(MaxmoveYutcount);
     }
 
+    private void touchplayer()//플레이어끼리 닿았는지 확인하는 코드
+    {
 
-    //private void objcheck()
-    //{
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
-    //    if (rayHit.transform.tag == "player" && movecheck == false)
-    //    {
-    //        movecheck = true;
-    //    }
-    //    else if (movecheck == true)
-    //    {
-    //        movecheck = false;
-    //    }
-    //}
+    }
 
     private void outcheckplayer()//플레이어가 다른 플레이어 말을 잡았을 경우
     {
 
     }
 
+    private void testcode()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            yutcontrol = eRule.playermovecheck;
+        }
+    }
 }

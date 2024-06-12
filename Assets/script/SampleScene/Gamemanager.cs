@@ -16,10 +16,10 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] GameObject objplayer2_1;
     [SerializeField] GameObject objplayer2_2;
     public static Gamemanager Instance;
-    [Header("말을 이동 할 위치를 보여주는 오브젝트 관리")]
-    [SerializeField] public GameObject movelocation1;
-    [SerializeField] public GameObject movelocation2;
-    [SerializeField] public GameObject movelocation3;
+    //[Header("말을 이동 할 위치를 보여주는 오브젝트 관리")]
+    //[SerializeField] public GameObject movelocation1;
+    //[SerializeField] public GameObject movelocation2;
+    //[SerializeField] public GameObject movelocation3;
     [Header("기타")]
     public int Gameplayertype = 0;//1은 1번 차례일때 2는 2번 차례일때
     //시작할때 누가 먼저 윷을 던지는지 확인하는 부분
@@ -48,12 +48,13 @@ public class Gamemanager : MonoBehaviour
     //턴을 넘길때 쓰이는 부분
     [SerializeField] GameObject Yutstartbutton;
     //waittime 부분 잠깐 기다리는 코드 부분
-    float timewait = 1;
+    float timewait = 0.5f;
     float Maxtimewait;
 
 
     private Player player;
     private Numberroom numberroom;
+    private Footholdbox footholdbox;
 
     public enum eRule
     {
@@ -76,6 +77,12 @@ public class Gamemanager : MonoBehaviour
     {
         get { return numberroom; }
         set { numberroom = value; }
+    }
+
+    public Footholdbox Footholdbox
+    {
+        get { return footholdbox; }
+        set { footholdbox = value; }
     }
 
     private void Awake()
@@ -261,6 +268,10 @@ public class Gamemanager : MonoBehaviour
                 selectcharactor(rayHit.transform.gameObject);
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
+            }
+            else if(rayHit.transform != null  && rayHit.transform.tag == "poscheck")
+            {
+                return;
             }
         }
     }
@@ -456,5 +467,11 @@ public class Gamemanager : MonoBehaviour
             Maxtimewait = timewait;
             curState = eRule.SelectCharacter;
         }
+    }
+
+    public void nextturn()
+    {
+        throwyutbutton = false;
+        changeturn();
     }
 }
