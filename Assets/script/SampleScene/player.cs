@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -18,8 +19,8 @@ public class Player : MonoBehaviour
     Vector3 startmypos;//죽을때 다시 시작위치로 돌아가기 위한 위치 확인용
 
     [Header("팀 구분")]
-    [SerializeField]bool teamred;
-    [SerializeField]bool teamblue;
+    [SerializeField]public bool teamred;
+    [SerializeField]public bool teamblue;
     [Header("기타")]
     //[SerializeField]bool playertouch = false;
     [SerializeField]public bool playerchoice;
@@ -38,16 +39,17 @@ public class Player : MonoBehaviour
     [SerializeField] float moveYutcount1;//첫번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount2;//두번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount3;//세번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
-    [SerializeField] float MaxmoveYutcount;//이동후 자신의 위치를 저장
+    float MaxmoveYutcount;//이동후 자신의 위치를 저장
     [SerializeField] bool movecheck;//자기 차례를 확인하기 위한 체크
+    bool touchcheck;//플레이어접촉에 관한 부분
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-
     }
 
     public enum eRule
@@ -77,7 +79,8 @@ public class Player : MonoBehaviour
         //typeplayer();
 
         //testcode();
-        if(yutcontrol == eRule.notrecall)
+        postest();
+        if (yutcontrol == eRule.notrecall)
         {
             //testcode();
             if(movecheck == true)
@@ -202,6 +205,7 @@ public class Player : MonoBehaviour
         //yutcontrol = eRule.turncheck;
         countyutcheck();
         yutmoving();
+
         //Debug.Log(MaxmoveYutcount);
         //yutcontrol = eRule.playermovecheck;
     }
@@ -217,6 +221,7 @@ public class Player : MonoBehaviour
         //footholdbox.findposition(moveYutcount1,moveYutcount2,moveYutcount3,MaxmoveYutcount);
         //footholdbox.movecheckchange(oneYut, twoYut, threeYut);
     }
+
 
     public void countyutcheck()//윷의 숫자를 대입하는 코드부분
     {
@@ -275,6 +280,11 @@ public class Player : MonoBehaviour
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
                 }
+                else if(rayHit.transform.gameObject.tag == "player")
+                {
+                    Debug.Log("접촉 부분");
+                }
+                //Gamemanager.Instance.Footholdbox.posplayercheck(MaxmoveYutcount);
                 //movepositioncheck();
             }
             //Debug.Log(rayHit.transform.gameObject.name);
@@ -300,6 +310,7 @@ public class Player : MonoBehaviour
                 threeYut = buttontimer.threeyut;
                 break;
         }
+        //posmovecheck();
         movecheck = false;
         yutcontrol = eRule.notrecall;
         //Gamemanager.Instance.Footholdbox.movecheckchange(oneYut, twoYut, threeYut);
@@ -312,21 +323,22 @@ public class Player : MonoBehaviour
         //Debug.Log(MaxmoveYutcount);
     }
 
-    private void touchplayer()//플레이어끼리 닿았는지 확인하는 코드
-    {
-
-    }
-
-    private void outcheckplayer()//플레이어가 다른 플레이어 말을 잡았을 경우
-    {
-
-    }
-
-    private void testcode()
+    private void postest()
     {
         if(Input.GetKeyDown(KeyCode.X))
         {
-            yutcontrol = eRule.playermovecheck;
+            Player player = GetComponent<Player>();
+            Debug.Log(player.gameObject);
+            Debug.Log(player.MaxmoveYutcount);
         }
     }
+
+    //private void posmovecheck()//이동후에 플레이어들 위치 확인 해주는 부분
+    //{
+    //    int count = Gamemanager.Instance.objblue.Count;
+    //    for(int iNum = 0; iNum < count; iNum++)
+    //    {
+            
+    //    }
+    //}
 }

@@ -52,7 +52,6 @@ public class Numberroom : MonoBehaviour
         //Yutnumber.Add(yutButton);
         Footholdbox footholdbox = parentobj.GetComponent<Footholdbox>();
         footholdbox.yutnumber = transform.position;
-        footholdbox.passyut(MaxyutButton);
         starttest();
 
         Gamemanager.Instance.Numberroom = this; 

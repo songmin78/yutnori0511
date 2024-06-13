@@ -11,10 +11,16 @@ public class Gamemanager : MonoBehaviour
 
     [SerializeField] List<GameObject> objblue;
     [SerializeField] List<GameObject> objred;
-    [SerializeField] GameObject objplayer1_1;
-    [SerializeField] GameObject objplayer1_2;
-    [SerializeField] GameObject objplayer2_1;
-    [SerializeField] GameObject objplayer2_2;
+
+    public class cObjectWhereFootHold
+    {
+        public GameObject objPlayer;
+        public Transform trsFootHold;
+    }
+
+    //플레이하는 말이 발판위에 있다면 리스트에 등록하여 어디있는지 출력하는 용도로 활용
+    List<cObjectWhereFootHold> listObjectWhereFootHold = new List<cObjectWhereFootHold>();
+
     public static Gamemanager Instance;
     //[Header("말을 이동 할 위치를 보여주는 오브젝트 관리")]
     //[SerializeField] public GameObject movelocation1;
@@ -39,7 +45,7 @@ public class Gamemanager : MonoBehaviour
     //끝
     //캐릭터 선택 및 이동 부분 SelectCharacter부분
     [SerializeField] GameObject playerbox;//플레이어블 캐릭터들을 보이게 해주는 오브젝트
-    [SerializeField]int teamtype = 0;//1은 블루팀 2는 레드팀
+    [SerializeField] int teamtype = 0;//1은 블루팀 2는 레드팀
     float oneYut = 0;
     float twoYut = 0;
     float threeYut = 0;
@@ -129,11 +135,11 @@ public class Gamemanager : MonoBehaviour
             playertypechoice();
             //positionobjcheck();
         }
-        else if(curState == eRule.ReturnthrowYut)
+        else if (curState == eRule.ReturnthrowYut)
         {
             changeturn();
         }
-        else if(curState == eRule.waittime)
+        else if (curState == eRule.waittime)
         {
             waitingtimer();
         }
@@ -219,7 +225,7 @@ public class Gamemanager : MonoBehaviour
                 //}
             }
         }
-        else if(teamtype == 2)
+        else if (teamtype == 2)
         {
             int count = objred.Count;
             for (int iNum = 0; iNum < count; ++iNum)
@@ -265,13 +271,10 @@ public class Gamemanager : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
             if (rayHit.transform != null && rayHit.transform.tag == "player")
             {
+                //Debug.Log(rayHit.transform.name);
                 selectcharactor(rayHit.transform.gameObject);
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
-            }
-            else if(rayHit.transform != null  && rayHit.transform.tag == "poscheck")
-            {
-                return;
             }
         }
     }
@@ -412,7 +415,7 @@ public class Gamemanager : MonoBehaviour
 
     public void turnendcheck(float _oneYut, float _twoYut, float _thrYut)
     {
-        if(_oneYut + _twoYut + _thrYut == 0)
+        if (_oneYut + _twoYut + _thrYut == 0)
         {
             curState = eRule.ReturnthrowYut;
             throwyutbutton = true;
@@ -462,7 +465,7 @@ public class Gamemanager : MonoBehaviour
     private void waitingtimer()
     {
         Maxtimewait -= Time.deltaTime;
-        if(Maxtimewait < 0)
+        if (Maxtimewait < 0)
         {
             Maxtimewait = timewait;
             curState = eRule.SelectCharacter;
@@ -473,5 +476,68 @@ public class Gamemanager : MonoBehaviour
     {
         throwyutbutton = false;
         changeturn();
+    }
+
+    //말을 움직일때 같은팀  말을 잡을 상호작용
+    //Footholdbox에서 list에있는 위치에 어떤 오브젝트가 있는지 확인이 필요
+    public void holdboxPosCheck(float _MaxmoveYutcount)
+    {
+        //현재 말이 이동할 위치에 같은팀 말이 존재하는지
+        //Footholdbox.Yutfoothold[(int)_MaxmoveYutcount];
+        if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject player) == true)//현재 말이 이동할 위치에 같은팀 말이 존재하는지 true면 있는것
+        {
+            //player 아군인지 적군인지 판단 
+            //if(player == )
+        }
+    }
+
+    //말을 움직일때 다른팀 말을 잡을 상호작용
+    //지름길에 들어올 때 지름길로 갈 수 있는 상호작용
+    //골인점에 도달했을때 나갈수 있는 상호작용
+
+    /// <summary>
+    /// 플레이어를 발판으로 이동시킵니다.
+    /// </summary>
+    /// <param name="_player">이동할 플레이어</param>
+    /// <param name="_movePos">이동할 위치</param>
+    public void MovePlayerFootHold(GameObject _player, int _movePos)
+    {
+        bool isExsitPlayer = listObjectWhereFootHold.Exists(x => x.objPlayer == _player);//리스트에 해당 플레이어가 존재하는지 
+
+        if (isExsitPlayer == false)//플레이어는 발판에 없었고 생성되어야 함
+        {
+            cObjectWhereFootHold data = new cObjectWhereFootHold()
+            {
+                objPlayer = _player,
+                trsFootHold = footholdbox.Yutfoothold[_movePos]
+            };
+
+            listObjectWhereFootHold.Add(data);
+        }
+        else//플레이어가 발판에 존재함
+        {
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == _player);
+            data.trsFootHold = footholdbox.Yutfoothold[_movePos];
+        }
+    }
+
+    /// <summary>
+    /// 해당 위치에 플레이어가 존재하는지 확인합니다.
+    /// </summary>
+    /// <param name="_pos"></param>
+    public bool IsPositionExistPlayer(int _pos, out GameObject _player)
+    {
+        _player = default;//null로 초기화
+        Transform trsYutfoolhold = footholdbox.Yutfoothold[_pos];//체크할 위치
+
+        bool isExist = listObjectWhereFootHold.Exists(x => x.trsFootHold == trsYutfoolhold);
+        //isExist true라면 있는것
+        if (isExist == true)
+        { 
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == trsYutfoolhold);
+            _player = data.objPlayer;
+        }
+
+        return isExist;
     }
 }

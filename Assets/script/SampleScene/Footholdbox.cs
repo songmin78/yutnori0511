@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Footholdbox : MonoBehaviour
 {
-    [SerializeField] List<Transform> Yutfoothold;//발판의 위치를 받는 부분
+    [SerializeField] public List<Transform> Yutfoothold;//발판의 위치를 받는 부분
     [SerializeField] bool testcheck;
     float yutButton;
     public Vector3 yutnumber;
@@ -18,6 +19,10 @@ public class Footholdbox : MonoBehaviour
     [SerializeField] float oneYut;
     [SerializeField] float twoYut;
     [SerializeField] float threeYut;
+
+    [Header("들어와있는 블록 체크")]
+    [SerializeField]bool redcheck;
+    [SerializeField] bool bluecheck;
 
     //int testd;//윷이 나온수 만큼 이동 할수있는 부분을 생성
 
@@ -94,11 +99,7 @@ public class Footholdbox : MonoBehaviour
     //}
     #endregion
 
-    public void passyut(float _yutButton)
-    {
-        //Yutfoothold.Add(_yutButton);
-        //Yutfoothold.Sort();
-    }
+   
     #region
 
     //public float GetAt(int index)
@@ -191,4 +192,17 @@ public class Footholdbox : MonoBehaviour
         poscheck3.transform.position = new Vector3(0, -10, 0);
     }
 
+    //public void posplayercheck(float _MaxmoveYutcount)//위치 리스트에 위치 값을 넣는다
+    //{
+    //    Player player = GetComponent<Player>();
+    //    //player.transform.position = Yutfoothold[(int)_MaxmoveYutcount].transform.position;
+    //    if (Yutfoothold[(int)_MaxmoveYutcount] && Gamemanager.Instance.Player.teamblue == true)
+    //    {
+    //        bluecheck = true;
+    //    }
+    //    else if (Yutfoothold[(int)_MaxmoveYutcount] && Gamemanager.Instance.Player.teamred == true)
+    //    {
+    //        redcheck = true;
+    //    }
+    //}
 }
