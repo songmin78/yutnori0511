@@ -280,12 +280,13 @@ public class Player : MonoBehaviour
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
                 }
-                else if(rayHit.transform.gameObject.tag == "player")
-                {
-                    Debug.Log("立盟 何盒");
-                }
+                //else if(rayHit.transform.gameObject.tag == "player")
+                //{
+                //    Debug.Log("立盟 何盒");
+                //}
                 //Gamemanager.Instance.Footholdbox.posplayercheck(MaxmoveYutcount);
                 //movepositioncheck();
+                Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
         }

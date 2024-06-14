@@ -487,7 +487,7 @@ public class Gamemanager : MonoBehaviour
         if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject player) == true)//현재 말이 이동할 위치에 같은팀 말이 존재하는지 true면 있는것
         {
             //player 아군인지 적군인지 판단 
-            //if(player == )
+            Debug.Log("테스트");
         }
     }
 
