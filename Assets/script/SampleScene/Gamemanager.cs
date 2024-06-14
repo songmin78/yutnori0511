@@ -46,9 +46,7 @@ public class Gamemanager : MonoBehaviour
     //캐릭터 선택 및 이동 부분 SelectCharacter부분
     [SerializeField] GameObject playerbox;//플레이어블 캐릭터들을 보이게 해주는 오브젝트
     [SerializeField] int teamtype = 0;//1은 블루팀 2는 레드팀
-    float oneYut = 0;
-    float twoYut = 0;
-    float threeYut = 0;
+
     //bool returncheck;//다시 되돌릴때 쓰이는 코드
     //끝
     //턴을 넘길때 쓰이는 부분
@@ -263,7 +261,7 @@ public class Gamemanager : MonoBehaviour
     //}
 
 
-    private void playertypechoice()
+    private void playertypechoice()//플레이어를 선택했을 경우
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) == true)
         {
@@ -457,10 +455,6 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    private void destorycheck()//선택 부분을 삭제하는 코드
-    {
-
-    }
 
     private void waitingtimer()
     {
@@ -486,8 +480,11 @@ public class Gamemanager : MonoBehaviour
         //Footholdbox.Yutfoothold[(int)_MaxmoveYutcount];
         if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject player) == true)//현재 말이 이동할 위치에 같은팀 말이 존재하는지 true면 있는것
         {
+            //_MaxmoveYutcount는 현재 있는 위치, 즉 이동할 위치에 있는 리스트를 가져올려면 moveYutcount 부분이 필요
             //player 아군인지 적군인지 판단 
-            Debug.Log("테스트");
+
+            //지금은 이동만 하면 입력이 되는 문제가 발생함
+            Debug.Log(player);
         }
     }
 
@@ -503,8 +500,11 @@ public class Gamemanager : MonoBehaviour
     public void MovePlayerFootHold(GameObject _player, int _movePos)
     {
         bool isExsitPlayer = listObjectWhereFootHold.Exists(x => x.objPlayer == _player);//리스트에 해당 플레이어가 존재하는지 
+        Debug.Log(_player);//<= 지금 움직이는 플레이어가 들어 가는 현상이 아닌 해당 발판에 있는 오브젝트를 가져와야 함( player에서 작동해야되나?)
+        //새롭게 이동할때 플레이어가 존재한다고 뜸 -> 이동후에 이 발판에 플레이어가 있는 지를 확인으로 바꿔야됨
+        //플레이어가 이동후에 위치를 저장하고 새로운 플레이어가 오면 그 발판에 있는지 확인 해주는 부분이 필요함
 
-        if (isExsitPlayer == false)//플레이어는 발판에 없었고 생성되어야 함
+        if (isExsitPlayer == false)//플레이어는 발판에 없었고 생성되어야 함(해당 발판에 플레이어가 없다면)
         {
             cObjectWhereFootHold data = new cObjectWhereFootHold()
             {
@@ -513,22 +513,25 @@ public class Gamemanager : MonoBehaviour
             };
 
             listObjectWhereFootHold.Add(data);
+            Debug.Log(_player);
         }
         else//플레이어가 발판에 존재함
         {
+            //지금 플레이어가 이동만 하면 이쪽이 작동 됨 => 즉 자기 위치발판에서 이동하면 작동되는 부분
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == _player);
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
+            Debug.Log(data.trsFootHold);
         }
     }
 
     /// <summary>
     /// 해당 위치에 플레이어가 존재하는지 확인합니다.
     /// </summary>
-    /// <param name="_pos"></param>
+    /// <param name="_pos">해당위치를 확인합니다</param>
     public bool IsPositionExistPlayer(int _pos, out GameObject _player)
     {
         _player = default;//null로 초기화
-        Transform trsYutfoolhold = footholdbox.Yutfoothold[_pos];//체크할 위치
+        Transform trsYutfoolhold = footholdbox.Yutfoothold[_pos];//체크할 위치 <= 이동 후 위치 확인
 
         bool isExist = listObjectWhereFootHold.Exists(x => x.trsFootHold == trsYutfoolhold);
         //isExist true라면 있는것
@@ -538,6 +541,7 @@ public class Gamemanager : MonoBehaviour
             _player = data.objPlayer;
         }
 
+        Debug.Log(_player);
         return isExist;
     }
 }

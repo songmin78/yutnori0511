@@ -246,8 +246,6 @@ public class Player : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
 
-            //Debug.Log(rayHit.point);
-
             if (rayHit.transform != null)
             {
                 GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
@@ -261,6 +259,8 @@ public class Player : MonoBehaviour
                     transform.position = rayHit.transform.position;
                     MaxmoveYutcount = moveYutcount1;
                     Yutorder = 1;
+                    //Gamemanager.Instance.MovePlayerFootHold(gameObject,(int)MaxmoveYutcount);
+                    //Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
                 }
@@ -280,15 +280,15 @@ public class Player : MonoBehaviour
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
                 }
-                //else if(rayHit.transform.gameObject.tag == "player")
-                //{
-                //    Debug.Log("¡¢√À ∫Œ∫–");
-                //}
-                //Gamemanager.Instance.Footholdbox.posplayercheck(MaxmoveYutcount);
-                //movepositioncheck();
-                Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
+                else
+                {
+                    return;
+                }
+                //Debug.Log(rayHit.transform.gameObject);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
+            Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
+            Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
         }
     }
 
