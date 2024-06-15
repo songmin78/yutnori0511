@@ -112,9 +112,9 @@ GameObject:
   - component: {fileID: 2530023753817273805}
   - component: {fileID: -7537689792935685321}
   - component: {fileID: 1843688808078948183}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player1
-  m_TagString: player
+  m_TagString: BlueTeam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,12 +266,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   findplayd: {fileID: 5618425993327456954}
-  playercheck1: 0
-  playercheck2: 0
-  checkmask: 0
   teamred: 0
   teamblue: 1
-  playertouch: 0
   playerchoice: 0
   tests: 0
   playertype1: 0
@@ -279,11 +275,9 @@ MonoBehaviour:
   oneYut: 0
   twoYut: 0
   threeYut: 0
-  playertypenumber: 0
   moveYutcount1: 0
   moveYutcount2: 0
   moveYutcount3: 0
-  MaxmoveYutcount: 0
   movecheck: 0
 --- !u!50 &1843688808078948183
 Rigidbody2D:

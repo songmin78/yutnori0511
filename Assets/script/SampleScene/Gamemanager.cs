@@ -57,7 +57,6 @@ public class Gamemanager : MonoBehaviour
 
 
     private Player player;
-    private Numberroom numberroom;
     private Footholdbox footholdbox;
 
     public enum eRule
@@ -77,11 +76,6 @@ public class Gamemanager : MonoBehaviour
         set { player = value; }
     }
 
-    public Numberroom Numberroom
-    {
-        get { return numberroom; }
-        set { numberroom = value; }
-    }
 
     public Footholdbox Footholdbox
     {
@@ -267,13 +261,13 @@ public class Gamemanager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
-            if (rayHit.transform != null && rayHit.transform.tag == "player")
-            {
-                //Debug.Log(rayHit.transform.name);
-                selectcharactor(rayHit.transform.gameObject);
-                //Player selPlayer = rayHit.transform.GetComponent<Player>();
-                //selPlayer.Playselectedcheck(true);
-            }
+            //if (rayHit.transform != null && rayHit.transform.gameObject.layer == "Player")
+            //{
+            //    //Debug.Log(rayHit.transform.name);
+            //    selectcharactor(rayHit.transform.gameObject);
+            //    //Player selPlayer = rayHit.transform.GetComponent<Player>();
+            //    //selPlayer.Playselectedcheck(true);
+            //}
         }
     }
 
@@ -484,7 +478,14 @@ public class Gamemanager : MonoBehaviour
             //player 아군인지 적군인지 판단 
 
             //지금은 이동만 하면 입력이 되는 문제가 발생함
-            Debug.Log(player);
+            //if(player.gameObject.layer == )
+            //{
+            //    Debug.Log("레드팀이 있음");
+            //}
+            //else if(player.transform.tag == "blueplayer")
+            //{
+            //    Debug.Log("블루팀이 있음");
+            //}
         }
     }
 

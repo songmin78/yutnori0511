@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2065766760384500157}
   - component: {fileID: 1540951831091203381}
   - component: {fileID: -4892317882918202123}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player2
-  m_TagString: player
+  m_TagString: RedTeam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,12 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   findplayd: {fileID: 5592112411180116089}
-  playercheck1: 0
-  playercheck2: 0
-  checkmask: 0
   teamred: 1
   teamblue: 0
-  playertouch: 0
   playerchoice: 0
   tests: 0
   playertype1: 0
@@ -136,11 +132,9 @@ MonoBehaviour:
   oneYut: 0
   twoYut: 0
   threeYut: 0
-  playertypenumber: 0
   moveYutcount1: 0
   moveYutcount2: 0
   moveYutcount3: 0
-  MaxmoveYutcount: 0
   movecheck: 0
 --- !u!61 &1540951831091203381
 BoxCollider2D:
