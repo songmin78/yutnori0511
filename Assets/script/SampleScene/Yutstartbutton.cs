@@ -356,7 +356,7 @@ public class Yutstartbutton : MonoBehaviour
         }
     }
 
-    public void getbackYut()
+    public void getbackYut()//윷 모양을 다시 되 돌린다
     {
         yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut2.transform.rotation = Quaternion.Euler(0, 0, 0);

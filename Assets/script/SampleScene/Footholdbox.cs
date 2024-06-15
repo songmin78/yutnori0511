@@ -127,8 +127,16 @@ public class Footholdbox : MonoBehaviour
     {
         poscheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
         poscheck1.SetActive(true);
+        if(_maxposition == 0 && _position2 == -1)
+        {
+            return;
+        }
         poscheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
         poscheck2.SetActive(true);
+        if(_maxposition == 0 && _position3 == -1)
+        {
+            return;
+        }
         poscheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
         poscheck3.SetActive(true);
 

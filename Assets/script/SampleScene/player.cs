@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     bool selectedcheck;//선택될때 체크
 
     bool buleTeam;
-    Vector3 startmypos;//죽을때 다시 시작위치로 돌아가기 위한 위치 확인용
+    public Vector3 startmypos;//죽을때 다시 시작위치로 돌아가기 위한 위치 확인용
 
     [Header("팀 구분")]
     [SerializeField]public bool teamred;
@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     float MaxmoveYutcount;//이동후 자신의 위치를 저장
     [SerializeField] bool movecheck;//자기 차례를 확인하기 위한 체크
     bool touchcheck;//플레이어접촉에 관한 부분
+    float turntimes = 0.1f;//0.1초간의 시간을 줘서 바로 이동하지 않도록 조절함
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
         notrecall,//자기 차례가 아닐때 작동되는 부분
         playermovecheck,//원하는 위치로 이동 되는 부분
         endcheck,//자기 차례가 끝나면 대기 하는곳
+        turntime,//턴을 급하게 넘기지 않도록 조절하는곳
     }
     private eRule yutcontrol = eRule.notrecall;
 
@@ -85,6 +87,15 @@ public class Player : MonoBehaviour
             //testcode();
             if(movecheck == true)
             {
+                yutcontrol = eRule.turntime;
+            }
+        }
+        else if(yutcontrol == eRule.turntime)
+        {
+            turntimes -= Time.deltaTime;
+            if(turntimes < 0)
+            {
+                turntimes = 0.1f;
                 yutcontrol = eRule.playermovecheck;
             }
         }
@@ -170,6 +181,7 @@ public class Player : MonoBehaviour
         {
             movecheck = true;
             moveyutcount();
+            //Gamemanager.Instance.AgainStartPos(startmypos);
         }
         else if(_value == false)
         {
@@ -252,6 +264,11 @@ public class Player : MonoBehaviour
                 GameObject obj2 = Gamemanager.Instance.Footholdbox.poscheck2;
                 GameObject obj3 = Gamemanager.Instance.Footholdbox.poscheck3;
 
+                //if(obj1.transform.position == new Vector3(0,-10,0))
+                //{
+                //    return;
+                //}
+
                 //Debug.Log(rayHit.transform.gameObject.name);
 
                 if (rayHit.transform.gameObject == obj1)
@@ -285,10 +302,10 @@ public class Player : MonoBehaviour
                     return;
                 }
                 //Debug.Log(rayHit.transform.gameObject);
+                Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
+                Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
-            Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
-            Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
         }
     }
 
@@ -332,6 +349,12 @@ public class Player : MonoBehaviour
             Debug.Log(player.gameObject);
             Debug.Log(player.MaxmoveYutcount);
         }
+    }
+
+    public void AgainStartPos()//말이 잡히고 다시 처음으로 돌아가는 코드
+    {
+        transform.position = startmypos;
+        MaxmoveYutcount = 0;
     }
 
     //private void posmovecheck()//이동후에 플레이어들 위치 확인 해주는 부분

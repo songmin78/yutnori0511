@@ -54,6 +54,7 @@ public class Gamemanager : MonoBehaviour
     //waittime 부분 잠깐 기다리는 코드 부분
     float timewait = 0.5f;
     float Maxtimewait;
+    Vector3 StartPos;
 
 
     private Player player;
@@ -261,13 +262,13 @@ public class Gamemanager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
-            //if (rayHit.transform != null && rayHit.transform.gameObject.layer == "Player")
-            //{
-            //    //Debug.Log(rayHit.transform.name);
-            //    selectcharactor(rayHit.transform.gameObject);
-            //    //Player selPlayer = rayHit.transform.GetComponent<Player>();
-            //    //selPlayer.Playselectedcheck(true);
-            //}
+            if (rayHit.transform != null && rayHit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                //Debug.Log(rayHit.transform.name);
+                selectcharactor(rayHit.transform.gameObject);
+                //Player selPlayer = rayHit.transform.GetComponent<Player>();
+                //selPlayer.Playselectedcheck(true);
+            }
         }
     }
 
@@ -468,26 +469,69 @@ public class Gamemanager : MonoBehaviour
 
     //말을 움직일때 같은팀  말을 잡을 상호작용
     //Footholdbox에서 list에있는 위치에 어떤 오브젝트가 있는지 확인이 필요
+    //현재 상호작용은 작동이 됨 그러나 list에서 오브젝트를 넣는 부분에서 문제가 생김
     public void holdboxPosCheck(float _MaxmoveYutcount)
     {
         //현재 말이 이동할 위치에 같은팀 말이 존재하는지
         //Footholdbox.Yutfoothold[(int)_MaxmoveYutcount];
-        if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject player) == true)//현재 말이 이동할 위치에 같은팀 말이 존재하는지 true면 있는것
+        if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject outplayer) == true)//현재 말이 이동할 위치에 같은팀 말이 존재하는지 true면 있는것
         {
             //_MaxmoveYutcount는 현재 있는 위치, 즉 이동할 위치에 있는 리스트를 가져올려면 moveYutcount 부분이 필요
-            //player 아군인지 적군인지 판단 
+            //player가 아군인지 적군인지 판단 
+            #region if문을 활용하여 레드팀 블루팀을 확인 해주는 코드
+            //if (outplayer.gameObject.tag == "RedTeam" && teamtype == 1)//블루팀 시간일때(teamtype == 1) 레드팀을 잡을 경우
+            //{
+            //    //outplayer에 맞는 시작 위치로 되 돌려야하는 부분
+            //    Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+            //    players.AgainStartPos();
+            //}
+            //else if(outplayer.gameObject.tag == "BlueTeam" && teamtype == 1)//블루팀 시간일때(teamtype == 1)일때 블루팀을 잡을 경우 업는다
+            //{
+            //    Player players = outplayer.GetComponent<Player>();
+            //    //아직 업는 기능은 구현 안됨
+            //}
+            #endregion
 
-            //지금은 이동만 하면 입력이 되는 문제가 발생함
-            //if(player.gameObject.layer == )
-            //{
-            //    Debug.Log("레드팀이 있음");
-            //}
-            //else if(player.transform.tag == "blueplayer")
-            //{
-            //    Debug.Log("블루팀이 있음");
-            //}
+            Debug.Log(outplayer); 
+            //teamtype == 1이면 블루팀 차례,teamtype == 2이면 레드팀 차례
+            switch (teamtype)
+            {
+                //처음으로 잡는 경우에는 잘 잡힘 그러나 잡은후 상대 말이 잡을려고 시도를 하면 안잡힘
+                case 1: // 블루팀 턴일때 
+                    if(outplayer.gameObject.tag == "RedTeam")//레드팀을 잡을 경우
+                    {
+                        Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+                        players.AgainStartPos();
+                        //Debug.Log("빨강말을 잡다");
+                    }
+                    else if(outplayer.gameObject.tag == "BlueTeam")//블루팀을 업는 경우
+                    {
+                        //Debug.Log("블루팀말을 업다");
+                        //아직 업는 기능은 구현 안됨
+                        Player players = outplayer.GetComponent<Player>();
+                    }
+                    break;
+                case 2://레드팀 차례일때
+                    if (outplayer.gameObject.tag == "RedTeam")//레드팀을 업는 경우
+                    {
+                        //Debug.Log("레드팀말을 업다");
+                        Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+                    }
+                    else if (outplayer.gameObject.tag == "BlueTeam")//블루팀을 잡는 경우
+                    {
+                        //Debug.Log("블루팀말을 잡다");
+                        //아직 업는 기능은 구현 안됨
+                        Player players = outplayer.GetComponent<Player>();
+                        players.AgainStartPos();
+                        
+                    }
+                    break;
+            }
+            //Debug.Log(outplayer);
+
         }
     }
+
 
     //말을 움직일때 다른팀 말을 잡을 상호작용
     //지름길에 들어올 때 지름길로 갈 수 있는 상호작용
@@ -501,9 +545,11 @@ public class Gamemanager : MonoBehaviour
     public void MovePlayerFootHold(GameObject _player, int _movePos)
     {
         bool isExsitPlayer = listObjectWhereFootHold.Exists(x => x.objPlayer == _player);//리스트에 해당 플레이어가 존재하는지 
-        Debug.Log(_player);//<= 지금 움직이는 플레이어가 들어 가는 현상이 아닌 해당 발판에 있는 오브젝트를 가져와야 함( player에서 작동해야되나?)
+        //Debug.Log(_player);
+        //<= 지금 움직이는 플레이어가 들어 가는 현상이 아닌 해당 발판에 있는 오브젝트를 가져와야 함( player에서 작동해야되나?)
         //새롭게 이동할때 플레이어가 존재한다고 뜸 -> 이동후에 이 발판에 플레이어가 있는 지를 확인으로 바꿔야됨
         //플레이어가 이동후에 위치를 저장하고 새로운 플레이어가 오면 그 발판에 있는지 확인 해주는 부분이 필요함
+        
 
         if (isExsitPlayer == false)//플레이어는 발판에 없었고 생성되어야 함(해당 발판에 플레이어가 없다면)
         {
@@ -514,14 +560,14 @@ public class Gamemanager : MonoBehaviour
             };
 
             listObjectWhereFootHold.Add(data);
-            Debug.Log(_player);
+            //Debug.Log(_player);
         }
         else//플레이어가 발판에 존재함
         {
             //지금 플레이어가 이동만 하면 이쪽이 작동 됨 => 즉 자기 위치발판에서 이동하면 작동되는 부분
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == _player);
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
-            Debug.Log(data.trsFootHold);
+            //Debug.Log(_player,data.trsFootHold);
         }
     }
 
@@ -531,18 +577,21 @@ public class Gamemanager : MonoBehaviour
     /// <param name="_pos">해당위치를 확인합니다</param>
     public bool IsPositionExistPlayer(int _pos, out GameObject _player)
     {
+        //말을 잡아버리는 순간 다른 말이랑 연동이 안됨
+
         _player = default;//null로 초기화
         Transform trsYutfoolhold = footholdbox.Yutfoothold[_pos];//체크할 위치 <= 이동 후 위치 확인
 
         bool isExist = listObjectWhereFootHold.Exists(x => x.trsFootHold == trsYutfoolhold);
         //isExist true라면 있는것
         if (isExist == true)
-        { 
-            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == trsYutfoolhold);
-            _player = data.objPlayer;
+        {
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == trsYutfoolhold);//위치는 잘 받음
+            _player = data.objPlayer;//여기에서 오브잭트가 변환이 안됨
         }
 
-        Debug.Log(_player);
+        //Debug.Log(_player);
         return isExist;
     }
+
 }
