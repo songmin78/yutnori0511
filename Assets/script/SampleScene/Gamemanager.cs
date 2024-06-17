@@ -492,38 +492,48 @@ public class Gamemanager : MonoBehaviour
             //}
             #endregion
 
-            Debug.Log(outplayer); 
+            //Debug.Log(outplayer);
+            Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
             //teamtype == 1이면 블루팀 차례,teamtype == 2이면 레드팀 차례
             switch (teamtype)
             {
-                //처음으로 잡는 경우에는 잘 잡힘 그러나 잡은후 상대 말이 잡을려고 시도를 하면 안잡힘
+                //처음으로 잡는 경우에는 잘 잡힘 그러나 잡은후 상대 말이 잡을려고 시도를 하면 안잡힘 <- 해결
+                //현재 어떤 경우의 수로 잡을 경우 말이 안 잡히는 경우가 존재 => RemoveAt(0)에 없는 리스트가 삭제 될시 다음 말을 잡았을때 문제가 생김
                 case 1: // 블루팀 턴일때 
                     if(outplayer.gameObject.tag == "RedTeam")//레드팀을 잡을 경우
                     {
-                        Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+                        //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
                         players.AgainStartPos();
+                        listObjectWhereFootHold.RemoveAt(0);
+                        //if(cObjectWhereFootHold.Equals(_MaxmoveYutcount, outplayer) == true)
+                        //{
+
+                        //}
+
+                        //listObjectWhereFootHold.Remove()
                         //Debug.Log("빨강말을 잡다");
                     }
                     else if(outplayer.gameObject.tag == "BlueTeam")//블루팀을 업는 경우
                     {
                         //Debug.Log("블루팀말을 업다");
                         //아직 업는 기능은 구현 안됨
-                        Player players = outplayer.GetComponent<Player>();
+                        //Player players = outplayer.GetComponent<Player>();
                     }
                     break;
                 case 2://레드팀 차례일때
                     if (outplayer.gameObject.tag == "RedTeam")//레드팀을 업는 경우
                     {
                         //Debug.Log("레드팀말을 업다");
-                        Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+                        //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
                     }
                     else if (outplayer.gameObject.tag == "BlueTeam")//블루팀을 잡는 경우
                     {
                         //Debug.Log("블루팀말을 잡다");
                         //아직 업는 기능은 구현 안됨
-                        Player players = outplayer.GetComponent<Player>();
+                        //Player players = outplayer.GetComponent<Player>();
                         players.AgainStartPos();
-                        
+                        listObjectWhereFootHold.RemoveAt(0);
+
                     }
                     break;
             }
@@ -560,15 +570,19 @@ public class Gamemanager : MonoBehaviour
             };
 
             listObjectWhereFootHold.Add(data);
+            Debug.Log(data.objPlayer);
             //Debug.Log(_player);
         }
         else//플레이어가 발판에 존재함
         {
             //지금 플레이어가 이동만 하면 이쪽이 작동 됨 => 즉 자기 위치발판에서 이동하면 작동되는 부분
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == _player);
+            data.objPlayer = _player;
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
             //Debug.Log(_player,data.trsFootHold);
+            Debug.Log(data.objPlayer);
         }
+        Debug.Log(_player);
     }
 
     /// <summary>
@@ -578,7 +592,6 @@ public class Gamemanager : MonoBehaviour
     public bool IsPositionExistPlayer(int _pos, out GameObject _player)
     {
         //말을 잡아버리는 순간 다른 말이랑 연동이 안됨
-
         _player = default;//null로 초기화
         Transform trsYutfoolhold = footholdbox.Yutfoothold[_pos];//체크할 위치 <= 이동 후 위치 확인
 
@@ -593,5 +606,6 @@ public class Gamemanager : MonoBehaviour
         //Debug.Log(_player);
         return isExist;
     }
+
 
 }

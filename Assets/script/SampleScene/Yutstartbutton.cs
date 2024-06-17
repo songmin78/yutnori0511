@@ -114,6 +114,29 @@ public class Yutstartbutton : MonoBehaviour
                 playtimer.returnYut = true;
             }
         }
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            yutnumber = 2;
+            Stickcount = 2;
+            for (int yutstick = 0; yutstick < 2; yutstick++)
+            {
+                randomcount = 1;
+                chageyut += 1;
+                Yutcount();
+            }
+            yutlist();
+            yutstart = false;
+            if (oneyut != 0 && twoyut != 0 && threeyut != 0)
+            {
+                Gamemanager.Instance.nextturn();
+                return;
+            }
+
+            //GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
+            playtimer.checktime = true;
+            Gamemanager.Instance.throwyutbutton = false;
+        }
         //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
         if (yutstart == true)
         {

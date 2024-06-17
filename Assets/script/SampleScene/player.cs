@@ -87,16 +87,11 @@ public class Player : MonoBehaviour
             //testcode();
             if(movecheck == true)
             {
-                yutcontrol = eRule.turntime;
-            }
-        }
-        else if(yutcontrol == eRule.turntime)
-        {
-            turntimes -= Time.deltaTime;
-            if(turntimes < 0)
-            {
-                turntimes = 0.1f;
                 yutcontrol = eRule.playermovecheck;
+            }
+            else
+            {
+                return;
             }
         }
         else if(yutcontrol == eRule.playermovecheck)
