@@ -494,6 +494,7 @@ public class Gamemanager : MonoBehaviour
 
             //Debug.Log(outplayer);
             Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+            //Debug.Log(cObjectWhereFootHold.Equals(outplayer, _MaxmoveYutcount));
             //teamtype == 1이면 블루팀 차례,teamtype == 2이면 레드팀 차례
             switch (teamtype)
             {
