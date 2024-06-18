@@ -492,57 +492,139 @@ public class Gamemanager : MonoBehaviour
             //}
             #endregion
 
+            #region switch 문으로 만들어진 코드 현재 가장 가까운 코드 부분
+            ////Debug.Log(outplayer);
+            //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+            ////Debug.Log(cObjectWhereFootHold.Equals(outplayer, _MaxmoveYutcount));
+            ////teamtype == 1이면 블루팀 차례,teamtype == 2이면 레드팀 차례
+            //switch (teamtype)
+            //{
+            //    //처음으로 잡는 경우에는 잘 잡힘 그러나 잡은후 상대 말이 잡을려고 시도를 하면 안잡힘 <- 해결
+            //    //현재 어떤 경우의 수로 잡을 경우 말이 안 잡히는 경우가 존재 => RemoveAt(0)에 없는 리스트가 삭제 될시 다음 말을 잡았을때 문제가 생김
+            //    case 1: // 블루팀 턴일때 
+            //        if(outplayer.gameObject.tag == "RedTeam")//레드팀을 잡을 경우
+            //        {
+            //            //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+            //            players.AgainStartPos();
+            //            listObjectWhereFootHold.RemoveAt(0);
+            //            //if(cObjectWhereFootHold.Equals(_MaxmoveYutcount, outplayer) == true)
+            //            //{
+
+            //            //}
+
+            //            //listObjectWhereFootHold.Remove()
+            //            //Debug.Log("빨강말을 잡다");
+            //        }
+            //        else if(outplayer.gameObject.tag == "BlueTeam")//블루팀을 업는 경우
+            //        {
+            //            //Debug.Log("블루팀말을 업다");
+            //            //아직 업는 기능은 구현 안됨
+            //            //Player players = outplayer.GetComponent<Player>();
+            //        }
+            //        break;
+            //    case 2://레드팀 차례일때
+            //        if (outplayer.gameObject.tag == "RedTeam")//레드팀을 업는 경우
+            //        {
+            //            //Debug.Log("레드팀말을 업다");
+            //            //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+            //        }
+            //        else if (outplayer.gameObject.tag == "BlueTeam")//블루팀을 잡는 경우
+            //        {
+            //            //Debug.Log("블루팀말을 잡다");
+            //            //아직 업는 기능은 구현 안됨
+            //            //Player players = outplayer.GetComponent<Player>();
+            //            players.AgainStartPos();
+            //            listObjectWhereFootHold.RemoveAt(0);
+
+            //        }
+            //        break;
+            //}
             //Debug.Log(outplayer);
-            Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
-            //Debug.Log(cObjectWhereFootHold.Equals(outplayer, _MaxmoveYutcount));
-            //teamtype == 1이면 블루팀 차례,teamtype == 2이면 레드팀 차례
-            switch (teamtype)
+            #endregion
+
+            #region 테스트 코드를 만드는 부분
+            //잡는 순서 => 1.이동한 말의 위치를 가져온다 2.가져온 위치랑 현재 저장되어있는 위치랑 비교를하여 같은 위치를 가진 리스트를 알아온다
+            //3.리스트를 알아내면 그 리스트를 삭제 시킨다
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == footholdbox.Yutfoothold[(int)_MaxmoveYutcount]);
+            int MaxCount = listObjectWhereFootHold.Count;
+            //Debug.Log(listObjectWhereFootHold[1].trsFootHold);
+            for (int iNum = 0; iNum < MaxCount; iNum++)
+            //data <= 말을 움직이는 데이터
+            //listObjectWhereFootHold <= 그 공간에 있는 말
             {
-                //처음으로 잡는 경우에는 잘 잡힘 그러나 잡은후 상대 말이 잡을려고 시도를 하면 안잡힘 <- 해결
-                //현재 어떤 경우의 수로 잡을 경우 말이 안 잡히는 경우가 존재 => RemoveAt(0)에 없는 리스트가 삭제 될시 다음 말을 잡았을때 문제가 생김
-                case 1: // 블루팀 턴일때 
-                    if(outplayer.gameObject.tag == "RedTeam")//레드팀을 잡을 경우
-                    {
-                        //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
-                        players.AgainStartPos();
-                        listObjectWhereFootHold.RemoveAt(0);
-                        //if(cObjectWhereFootHold.Equals(_MaxmoveYutcount, outplayer) == true)
-                        //{
-
-                        //}
-
-                        //listObjectWhereFootHold.Remove()
-                        //Debug.Log("빨강말을 잡다");
-                    }
-                    else if(outplayer.gameObject.tag == "BlueTeam")//블루팀을 업는 경우
-                    {
-                        //Debug.Log("블루팀말을 업다");
-                        //아직 업는 기능은 구현 안됨
-                        //Player players = outplayer.GetComponent<Player>();
-                    }
+                if (data.trsFootHold == listObjectWhereFootHold[iNum].trsFootHold && data.objPlayer != listObjectWhereFootHold[iNum].objPlayer)
+                {
+                    checkCount(data, outplayer, iNum);
                     break;
-                case 2://레드팀 차례일때
-                    if (outplayer.gameObject.tag == "RedTeam")//레드팀을 업는 경우
-                    {
-                        //Debug.Log("레드팀말을 업다");
-                        //Player players = outplayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
-                    }
-                    else if (outplayer.gameObject.tag == "BlueTeam")//블루팀을 잡는 경우
-                    {
-                        //Debug.Log("블루팀말을 잡다");
-                        //아직 업는 기능은 구현 안됨
-                        //Player players = outplayer.GetComponent<Player>();
-                        players.AgainStartPos();
-                        listObjectWhereFootHold.RemoveAt(0);
-
-                    }
-                    break;
+                }
+                else
+                {
+                    continue;
+                }
             }
-            //Debug.Log(outplayer);
-
+            //Debug.Log(data.trsFootHold);
+            #endregion
         }
     }
 
+    private void checkCount(cObjectWhereFootHold data, GameObject outplayer, int iNum)//말이 말을 잡을 경우에 실행되는 코드
+    {
+        //data <= 말을 움직이는 데이터
+        //listObjectWhereFootHold <= 그 공간에 있는 말
+
+        Player players = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+        //Player players = data.objPlayer.GetComponent<Player>();
+        #region
+        //switch (teamtype)
+        //{
+        //    case 1: // 블루팀 턴일때 
+        //        if (outplayer.gameObject.tag == "RedTeam")//레드팀을 잡을 경우
+        //        {
+        //            players.AgainStartPos();
+        //            listObjectWhereFootHold.RemoveAt(iNum);
+        //        }
+        //        else if (outplayer.gameObject.tag == "BlueTeam")//블루팀을 업는 경우
+        //        {
+        //        }
+        //        break;
+        //    case 2://레드팀 차례일때
+        //        if (outplayer.gameObject.tag == "RedTeam")//레드팀을 업는 경우
+        //        {
+        //        }
+        //        else if (outplayer.gameObject.tag == "BlueTeam")//블루팀을 잡는 경우
+        //        {
+        //            players.AgainStartPos();
+        //            listObjectWhereFootHold.RemoveAt(iNum);
+        //        }
+        //        break;
+        //}
+        #endregion
+        switch (teamtype)//현재 움직일수있는 팀 턴
+        {
+            case 1:// 블루팀 턴일때
+                if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀의 태그를 달고 있을때
+                {
+                    data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
+                    players.AgainStartPos();
+                    listObjectWhereFootHold.Remove(data);
+                }
+                else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 업는다
+                {
+                }
+                break;
+            case 2://레드팀 턴일때
+                if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀 태그를 달고있 을때 업는다
+                {
+                }
+                else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 잡는다
+                {
+                    data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
+                    players.AgainStartPos();
+                    listObjectWhereFootHold.Remove(data);
+                }
+                break;
+        }
+    }
 
     //말을 움직일때 다른팀 말을 잡을 상호작용
     //지름길에 들어올 때 지름길로 갈 수 있는 상호작용
@@ -571,7 +653,7 @@ public class Gamemanager : MonoBehaviour
             };
 
             listObjectWhereFootHold.Add(data);
-            Debug.Log(data.objPlayer);
+            //Debug.Log(data.objPlayer);
             //Debug.Log(_player);
         }
         else//플레이어가 발판에 존재함
@@ -581,9 +663,9 @@ public class Gamemanager : MonoBehaviour
             data.objPlayer = _player;
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
             //Debug.Log(_player,data.trsFootHold);
-            Debug.Log(data.objPlayer);
+            //Debug.Log(data.objPlayer);
         }
-        Debug.Log(_player);
+        //Debug.Log(_player);
     }
 
     /// <summary>
