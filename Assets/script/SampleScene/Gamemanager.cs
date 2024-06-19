@@ -470,7 +470,7 @@ public class Gamemanager : MonoBehaviour
     //말을 움직일때 같은팀  말을 잡을 상호작용
     //Footholdbox에서 list에있는 위치에 어떤 오브젝트가 있는지 확인이 필요
     //현재 상호작용은 작동이 됨 그러나 list에서 오브젝트를 넣는 부분에서 문제가 생김
-    public void holdboxPosCheck(float _MaxmoveYutcount)
+    public void holdboxPosCheck(float _MaxmoveYutcount,GameObject dplayer)
     {
         //현재 말이 이동할 위치에 같은팀 말이 존재하는지
         //Footholdbox.Yutfoothold[(int)_MaxmoveYutcount];
@@ -546,13 +546,15 @@ public class Gamemanager : MonoBehaviour
             //잡는 순서 => 1.이동한 말의 위치를 가져온다 2.가져온 위치랑 현재 저장되어있는 위치랑 비교를하여 같은 위치를 가진 리스트를 알아온다
             //3.리스트를 알아내면 그 리스트를 삭제 시킨다
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == footholdbox.Yutfoothold[(int)_MaxmoveYutcount]);
+            //문제 = > data에 위치해 있는 리스트속에있는 오브젝트가 이동시키는 말이 아닌 잡히는 말로 되어있음 
             int MaxCount = listObjectWhereFootHold.Count;
             //Debug.Log(listObjectWhereFootHold[1].trsFootHold);
+            Debug.Log(data.objPlayer);
             for (int iNum = 0; iNum < MaxCount; iNum++)
             //data <= 말을 움직이는 데이터
             //listObjectWhereFootHold <= 그 공간에 있는 말
             {
-                if (data.trsFootHold == listObjectWhereFootHold[iNum].trsFootHold && data.objPlayer != listObjectWhereFootHold[iNum].objPlayer)
+                if (data.trsFootHold == listObjectWhereFootHold[iNum].trsFootHold && dplayer != listObjectWhereFootHold[iNum].objPlayer)
                 {
                     checkCount(data, outplayer, iNum);
                     break;

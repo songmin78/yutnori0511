@@ -251,8 +251,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) == true && movecheck == true)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
+            RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray, LayerMask.GetMask("Ground"));
 
+
+            #region
             if (rayHit.transform != null)
             {
                 GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
@@ -298,9 +300,10 @@ public class Player : MonoBehaviour
                 }
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
-                Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount);
+                Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount,gameObject);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
+            #endregion
         }
     }
 

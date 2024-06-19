@@ -915,7 +915,7 @@ GameObject:
   - component: {fileID: 283703308}
   - component: {fileID: 283703310}
   - component: {fileID: 283703309}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Movelocation2
   m_TagString: poscheck
   m_Icon: {fileID: 0}
@@ -1980,7 +1980,7 @@ GameObject:
   - component: {fileID: 529997215}
   - component: {fileID: 529997214}
   - component: {fileID: 529997213}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Movelocation
   m_TagString: poscheck
   m_Icon: {fileID: 0}
@@ -2524,7 +2524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 804299572}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Movelocationbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2841,7 +2841,7 @@ GameObject:
   - component: {fileID: 874281948}
   - component: {fileID: 874281950}
   - component: {fileID: 874281949}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Movelocation1
   m_TagString: poscheck
   m_Icon: {fileID: 0}
