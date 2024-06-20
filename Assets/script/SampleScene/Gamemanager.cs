@@ -55,7 +55,9 @@ public class Gamemanager : MonoBehaviour
     float timewait = 0.5f;
     float Maxtimewait;
     Vector3 StartPos;
-
+    //[Header("현재 업고있는 팀체크")]
+    //[SerializeField] bool CurryBlue;
+    //[SerializeField] bool CurryRed;
 
     private Player player;
     private Footholdbox footholdbox;
@@ -542,21 +544,19 @@ public class Gamemanager : MonoBehaviour
             //Debug.Log(outplayer);
             #endregion
 
-            #region 테스트 코드를 만드는 부분
             //잡는 순서 => 1.이동한 말의 위치를 가져온다 2.가져온 위치랑 현재 저장되어있는 위치랑 비교를하여 같은 위치를 가진 리스트를 알아온다
             //3.리스트를 알아내면 그 리스트를 삭제 시킨다
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == footholdbox.Yutfoothold[(int)_MaxmoveYutcount]);
             //문제 = > data에 위치해 있는 리스트속에있는 오브젝트가 이동시키는 말이 아닌 잡히는 말로 되어있음 
             int MaxCount = listObjectWhereFootHold.Count;
             //Debug.Log(listObjectWhereFootHold[1].trsFootHold);
-            Debug.Log(data.objPlayer);
             for (int iNum = 0; iNum < MaxCount; iNum++)
             //data <= 말을 움직이는 데이터
             //listObjectWhereFootHold <= 그 공간에 있는 말
             {
                 if (data.trsFootHold == listObjectWhereFootHold[iNum].trsFootHold && dplayer != listObjectWhereFootHold[iNum].objPlayer)
                 {
-                    checkCount(data, outplayer, iNum);
+                    checkCount(data, dplayer, iNum);
                     break;
                 }
                 else
@@ -565,16 +565,16 @@ public class Gamemanager : MonoBehaviour
                 }
             }
             //Debug.Log(data.trsFootHold);
-            #endregion
         }
     }
 
-    private void checkCount(cObjectWhereFootHold data, GameObject outplayer, int iNum)//말이 말을 잡을 경우에 실행되는 코드
+    private void checkCount(cObjectWhereFootHold data, GameObject _dplayer, int iNum)//말이 말을 잡을 경우에 실행되는 코드
     {
         //data <= 말을 움직이는 데이터
         //listObjectWhereFootHold <= 그 공간에 있는 말
 
-        Player players = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+        //Player players = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
+        player = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();
         //Player players = data.objPlayer.GetComponent<Player>();
         #region
         //switch (teamtype)
@@ -604,25 +604,37 @@ public class Gamemanager : MonoBehaviour
         switch (teamtype)//현재 움직일수있는 팀 턴
         {
             case 1:// 블루팀 턴일때
-                if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀의 태그를 달고 있을때
+                if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀의 태그를 달고 있을때 잡는다
                 {
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
-                    players.AgainStartPos();
+                    player.AgainStartPos();
                     listObjectWhereFootHold.Remove(data);
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 업는다
                 {
+                    data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
+                    player.AgainStartPos();
+                    player.DesTeam();
+                    listObjectWhereFootHold.Remove(data);
 
+                    player = _dplayer.GetComponent<Player>();
+                    player.CurryTeam();
                 }
                 break;
             case 2://레드팀 턴일때
                 if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀 태그를 달고있 을때 업는다
                 {
+                    data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
+                    player.AgainStartPos();
+                    listObjectWhereFootHold.Remove(data);
+
+                    player = _dplayer.GetComponent<Player>();
+                    player.CurryTeam();
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 잡는다
                 {
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
-                    players.AgainStartPos();
+                    player.AgainStartPos();
                     listObjectWhereFootHold.Remove(data);
                 }
                 break;
@@ -691,6 +703,29 @@ public class Gamemanager : MonoBehaviour
 
         //Debug.Log(_player);
         return isExist;
+    }
+
+    /// <summary>
+    /// 같은팀일  경우 옆에 나란히 두는 형식으로 작동
+    /// </summary>
+    /// <param name="_player1">이동시킨말이 받는 오브젝트</param>
+    /// <param name="_player2">해당 칸에 존대하는 오브젝트</param>
+    private void CarryTeam(GameObject _player1, GameObject _player2)
+    {
+        #region 오브젝트를 각각 움직이는 것을 다룸
+        //_player1.transform.position = new Vector3(_player1.transform.position.x - 0.4f,_player1.transform.position.y,0);
+        //_player2.transform.position = new Vector3(_player2.transform.position.x + 0.4f,_player2.transform.position.y,0);
+        //if(teamtype == 1)//블루팀이 업을 경우
+        //{
+        //    CurryBlue = true;
+        //}
+        //else if (teamtype == 2)//레드팀이 업을 경우
+        //{
+        //    CurryRed = true;
+        //}
+        #endregion
+
+
     }
 
 

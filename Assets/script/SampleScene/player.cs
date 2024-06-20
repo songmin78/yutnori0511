@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("아이들 오브젝트")]
     [SerializeField] GameObject findplayd;
+    [SerializeField] GameObject Curryobj;
     //[Header("플레이어")]
     //[SerializeField] bool playercheck1;//플레이어1번 부분
     //[SerializeField] bool playercheck2;//플레이어 2번 부분
@@ -254,7 +256,6 @@ public class Player : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray, LayerMask.GetMask("Ground"));
 
 
-            #region
             if (rayHit.transform != null)
             {
                 GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
@@ -303,7 +304,6 @@ public class Player : MonoBehaviour
                 Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount,gameObject);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
-            #endregion
         }
     }
 
@@ -363,4 +363,14 @@ public class Player : MonoBehaviour
             
     //    }
     //}
+
+    public void DesTeam()//업는 경우 잠시 사라지게 만드는 코드 부분
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void CurryTeam()
+    {
+        Curryobj.SetActive(true);
+    }
 }
