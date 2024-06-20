@@ -612,6 +612,7 @@ public class Gamemanager : MonoBehaviour
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 업는다
                 {
+
                 }
                 break;
             case 2://레드팀 턴일때
