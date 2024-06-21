@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Gamemanager : MonoBehaviour
 {
@@ -55,9 +56,11 @@ public class Gamemanager : MonoBehaviour
     float timewait = 0.5f;
     float Maxtimewait;
     Vector3 StartPos;
-    //[Header("현재 업고있는 팀체크")]
-    //[SerializeField] bool CurryBlue;
-    //[SerializeField] bool CurryRed;
+    [Header("현재 업고있는 팀체크")]
+    [SerializeField] bool CurryBlue;
+    [SerializeField] bool CurryRed;
+    bool BlueCurryCheck;//블루팀 2마리가 업혀있을때 true
+    bool RedCurryCheck;//레드팀 2마리가 업혀있을때 true
 
     private Player player;
     private Footholdbox footholdbox;
@@ -575,6 +578,7 @@ public class Gamemanager : MonoBehaviour
 
         //Player players = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
         player = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();
+        GameObject ObjBackUp = listObjectWhereFootHold[iNum].objPlayer;//원래 그 자리에있던 말을 백업 해두기위해 만든 코드
         //Player players = data.objPlayer.GetComponent<Player>();
         #region
         //switch (teamtype)
@@ -609,35 +613,80 @@ public class Gamemanager : MonoBehaviour
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
                     player.AgainStartPos();
                     listObjectWhereFootHold.Remove(data);
+                    if(CurryRed == true)
+                    {
+                        //CarryTeam(data.objPlayer);//잡힌말의 타입이 들어감
+                    }
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 업는다
                 {
-                    data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
-                    player.AgainStartPos();
-                    player.DesTeam();
-                    listObjectWhereFootHold.Remove(data);
+                    #region 대비용
+                    //player.DesTeam();//잡은말이  같은 팀이면 안보이게 설정하는 코드
+                    //data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
+                    //listObjectWhereFootHold.Remove(data);
 
-                    player = _dplayer.GetComponent<Player>();
-                    player.CurryTeam();
+                    //player = _dplayer.GetComponent<Player>();
+                    //player.CurryTeam();
+                    //CurryBlue = true;
+                    #endregion
+                    player = _dplayer.GetComponent<Player>();//잡는말을 가져온다
+                    player.DesTeam();//처음으로 보내고 오브젝트를 끈다
+                    data = listObjectWhereFootHold.Find(x => x.objPlayer == _dplayer);
+                    listObjectWhereFootHold.Remove(data);
+                    //원래 자리에있던 오브젝트에 꼬리를 달아야한다
+                    player = ObjBackUp.GetComponent<Player>();
+                    //BlueCurryCheck 2마리가 업혀있을때 1마리쪽으로 업을 경우에 2마리다 업었다는것을 알려주기 위해 만듬
+                    player.CurryTeam(BlueCurryCheck);
+
+                    //1개의 말이 2개의 말한테 업힐때는 문제X 2개의 말이 1개의 말한테 업히면 문제가 생김
                 }
                 break;
             case 2://레드팀 턴일때
                 if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀 태그를 달고있 을때 업는다
                 {
-                    data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
-                    player.AgainStartPos();
+                    player = _dplayer.GetComponent<Player>();//잡는말을 가져온다
+                    player.DesTeam();//처음으로 보내고 오브젝트를 끈다
+                    data = listObjectWhereFootHold.Find(x => x.objPlayer == _dplayer);
                     listObjectWhereFootHold.Remove(data);
-
-                    player = _dplayer.GetComponent<Player>();
-                    player.CurryTeam();
+                    //원래 자리에있던 오브젝트에 꼬리를 달아야한다
+                    player = ObjBackUp.GetComponent<Player>();
+                    player.CurryTeam(RedCurryCheck);
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 잡는다
                 {
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
                     player.AgainStartPos();
                     listObjectWhereFootHold.Remove(data);
+                    if(CurryBlue == true)
+                    {
+                        //CarryTeam(data.objPlayer);
+                    }
                 }
                 break;
+        }
+    }
+
+    public void CheckCurry()
+    {
+        if(teamtype == 1)
+        {
+            BlueCurryCheck = true;
+        }
+        else if(teamtype == 2)
+        {
+            RedCurryCheck = true;
+        }
+    }
+
+    public void WithdrawalCheck()
+    {
+        if (teamtype == 1)
+        {
+            BlueCurryCheck = false;
+        }
+        else if (teamtype == 2)
+        {
+            RedCurryCheck = false;
         }
     }
 
@@ -706,27 +755,24 @@ public class Gamemanager : MonoBehaviour
     }
 
     /// <summary>
-    /// 같은팀일  경우 옆에 나란히 두는 형식으로 작동
+    /// teamtype에 따라 다름 1이면 레드팀이 들어옴 2이면 블루팀이 들어옴
     /// </summary>
-    /// <param name="_player1">이동시킨말이 받는 오브젝트</param>
-    /// <param name="_player2">해당 칸에 존대하는 오브젝트</param>
-    private void CarryTeam(GameObject _player1, GameObject _player2)
-    {
-        #region 오브젝트를 각각 움직이는 것을 다룸
-        //_player1.transform.position = new Vector3(_player1.transform.position.x - 0.4f,_player1.transform.position.y,0);
-        //_player2.transform.position = new Vector3(_player2.transform.position.x + 0.4f,_player2.transform.position.y,0);
-        //if(teamtype == 1)//블루팀이 업을 경우
-        //{
-        //    CurryBlue = true;
-        //}
-        //else if (teamtype == 2)//레드팀이 업을 경우
-        //{
-        //    CurryRed = true;
-        //}
-        #endregion
+    /// <param name="_player1"></param>
+    //private void CarryTeam(GameObject _player1)
+    //{
+    //    if(teamtype == 1)//블루팀 턴일 경우 블루팀 -> 레드팀을 잡음
+    //    {
+    //        CurryBlue = false;
+    //        player = _player1.GetComponent<Player>();//블루한테 잡힌말이 들어오도록 짜여짐
+    //        player.DesCurryTeam();
 
-
-    }
+    //        //업혀있는 말을 찾아 True로 전환 시켜야됨
+    //    }
+    //    else if(teamtype == 2)//레드팀 턴일 경우 레드팀이 블루팀을 잡음
+    //    {
+    //        CurryRed = false;
+    //    }
+    //}
 
 
 }

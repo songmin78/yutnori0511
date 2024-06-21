@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
 {
     [Header("아이들 오브젝트")]
     [SerializeField] GameObject findplayd;
-    [SerializeField] GameObject Curryobj;
+    [SerializeField] GameObject Curryobj1;
+    [SerializeField] GameObject Curryobj2;
     //[Header("플레이어")]
     //[SerializeField] bool playercheck1;//플레이어1번 부분
     //[SerializeField] bool playercheck2;//플레이어 2번 부분
@@ -45,15 +46,10 @@ public class Player : MonoBehaviour
     [SerializeField] bool movecheck;//자기 차례를 확인하기 위한 체크
     bool touchcheck;//플레이어접촉에 관한 부분
     float turntimes = 0.1f;//0.1초간의 시간을 줘서 바로 이동하지 않도록 조절함
+    //업었는지 안 업었는지 체크하는 코드
+    bool CurryBlue;
+    bool CurryRed;
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-    }
 
     public enum eRule
     {
@@ -366,11 +362,36 @@ public class Player : MonoBehaviour
 
     public void DesTeam()//업는 경우 잠시 사라지게 만드는 코드 부분
     {
+        transform.position = startmypos;
+        MaxmoveYutcount = 0;
         gameObject.SetActive(false);
     }
 
-    public void CurryTeam()
+    public void CurryTeam(bool _Currycheck)//업을 말을 생성
     {
-        Curryobj.SetActive(true);
+        if(_Currycheck == true)
+        {
+            Curryobj1.SetActive(true);
+            Curryobj2.SetActive(true);
+            Gamemanager.Instance.WithdrawalCheck();
+        }
+        else
+        {
+            if (Curryobj1.activeSelf == true)//activeSelf == 오브젝트가 켜저있는지 꺼져있는지 확인해주는 코드
+            {
+                Curryobj2.SetActive(true);
+            }
+            else if (Curryobj1.activeSelf == false)
+            {
+                Curryobj1.SetActive(true);
+            }
+            Gamemanager.Instance.CheckCurry();
+        }
+    }
+
+    public void DesCurryTeam()//업은 말을 삭제
+    {
+        Curryobj1.SetActive(false);
+        Curryobj2.SetActive(false);
     }
 }
