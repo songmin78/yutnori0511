@@ -47,8 +47,8 @@ public class Player : MonoBehaviour
     bool touchcheck;//플레이어접촉에 관한 부분
     float turntimes = 0.1f;//0.1초간의 시간을 줘서 바로 이동하지 않도록 조절함
     //업었는지 안 업었는지 체크하는 코드
-    bool CurryBlue;
-    bool CurryRed;
+    //bool CurryBlue;
+    //bool CurryRed;
 
 
     public enum eRule
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         //typeplayer();
 
         //testcode();
-        postest();
+        //postest();
         if (yutcontrol == eRule.notrecall)
         {
             //testcode();
@@ -268,6 +268,7 @@ public class Player : MonoBehaviour
                 if (rayHit.transform.gameObject == obj1)
                 {
                     transform.position = rayHit.transform.position;
+                    transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
                     MaxmoveYutcount = moveYutcount1;
                     Yutorder = 1;
                     //Gamemanager.Instance.MovePlayerFootHold(gameObject,(int)MaxmoveYutcount);
@@ -278,6 +279,7 @@ public class Player : MonoBehaviour
                 else if(rayHit.transform.gameObject == obj2)
                 {
                     transform.position = rayHit.transform.position;
+                    transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
                     MaxmoveYutcount = moveYutcount2;
                     Yutorder = 2;
                     Gamemanager.Instance.Footholdbox.positiondestory();
@@ -286,6 +288,7 @@ public class Player : MonoBehaviour
                 else if (rayHit.transform.gameObject == obj3)
                 {
                     transform.position = rayHit.transform.position;
+                    transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
                     MaxmoveYutcount = moveYutcount3;
                     Yutorder = 3;
                     Gamemanager.Instance.Footholdbox.positiondestory();
@@ -365,10 +368,25 @@ public class Player : MonoBehaviour
         transform.position = startmypos;
         MaxmoveYutcount = 0;
         gameObject.SetActive(false);
+        Curryobj1.SetActive(false);
     }
 
+    /// <summary>
+    /// 말을 업기위해 작동하는 코드
+    /// </summary>
+    /// <param name="_Currycheck">이미 말을 하나 업었다면 true</param>
+    /// <param name="_teamtype">팀 타입 즉 레드팀이 들어오는지 블루팀이 들어오는지 확인</param>
     public void CurryTeam(bool _Currycheck)//업을 말을 생성
     {
+        //if(_teamtype == 1)
+        //{
+        //    CurryBlue = true;
+        //}
+        //else if(_teamtype == 2)
+        //{
+        //    CurryRed = true;
+        //}
+
         if(_Currycheck == true)
         {
             Curryobj1.SetActive(true);
@@ -393,5 +411,24 @@ public class Player : MonoBehaviour
     {
         Curryobj1.SetActive(false);
         Curryobj2.SetActive(false);
+        //if (CurryBlue == true || CurryRed == true)
+        //{
+        //    Curryobj1.SetActive(false);
+        //    Curryobj2.SetActive(false);
+        //    if(CurryBlue == true)
+        //    {
+        //        CurryBlue = false;
+        //    }
+        //    else if(CurryRed == true)
+        //    {
+        //        CurryRed = false;
+        //    }
+        //}
+        //else
+        //{
+        //    return;
+        //}
     }
+
+
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Gamemanager : MonoBehaviour
 {
@@ -611,12 +610,10 @@ public class Gamemanager : MonoBehaviour
                 if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀의 태그를 달고 있을때 잡는다
                 {
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
-                    player.AgainStartPos();
-                    listObjectWhereFootHold.Remove(data);
-                    if(CurryRed == true)
-                    {
-                        //CarryTeam(data.objPlayer);//잡힌말의 타입이 들어감
-                    }
+                    player.AgainStartPos();//잡힌말의 위치를 초기화 시킴
+                    listObjectWhereFootHold.Remove(data);//초기화 이후에 리스트 빼기
+                    assistantPlayerRed(data.objPlayer);//업혀진 말들을 다시 보여주는 코드
+                    //player.DesCurryTeam();//업힌말이 있으면 업힌말을 삭제하는 코드
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 업는다
                 {
@@ -657,10 +654,8 @@ public class Gamemanager : MonoBehaviour
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
                     player.AgainStartPos();
                     listObjectWhereFootHold.Remove(data);
-                    if(CurryBlue == true)
-                    {
-                        //CarryTeam(data.objPlayer);
-                    }
+                    assistantPlayerBlue(data.objPlayer);//블루팀을 잡는다
+                    //player.DesCurryTeam();
                 }
                 break;
         }
@@ -754,25 +749,50 @@ public class Gamemanager : MonoBehaviour
         return isExist;
     }
 
-    /// <summary>
-    /// teamtype에 따라 다름 1이면 레드팀이 들어옴 2이면 블루팀이 들어옴
-    /// </summary>
-    /// <param name="_player1"></param>
-    //private void CarryTeam(GameObject _player1)
-    //{
-    //    if(teamtype == 1)//블루팀 턴일 경우 블루팀 -> 레드팀을 잡음
-    //    {
-    //        CurryBlue = false;
-    //        player = _player1.GetComponent<Player>();//블루한테 잡힌말이 들어오도록 짜여짐
-    //        player.DesCurryTeam();
+    private void assistantPlayerBlue(GameObject subplayer)
+    {
+        //GameObject subchild = subplayer.transform.GetChild(1).gameObject;//잡힌말의 자식오브젝트를 가져온다
+        if (subplayer.transform.GetChild(1).gameObject.activeSelf == false)//그 자식 오브젝트가 꺼져있다면 실행을 안한다
+        {
+            return;
+        }
+        else
+        {
+            for (int iNum = 0; iNum < objblue.Count; iNum++)
+            {
+                GameObject subobj = objblue[iNum];
+                if (subobj.activeSelf == false)
+                {
+                    subobj.SetActive(true);
+                    BlueCurryCheck = false;
+                }
+            }
+            player.DesCurryTeam();//업힌말이 있으면 업힌말을 삭제하는 코드
+        }
+    }
+    
+    private void assistantPlayerRed(GameObject subplayer)
+    {
+        //GameObject subchild = subplayer.transform.GetChild(1).gameObject;//잡힌말의 자식오브젝트를 가져온다
+        if(subplayer.transform.GetChild(1).gameObject.activeSelf == false)//그 자식 오브젝트가 꺼져있다면 실행을 안한다
+        {
+            return;
+        }
+        else
+        {
+            for (int iNum = 0; iNum < objred.Count; iNum++)
+            {
+                GameObject subobj = objred[iNum];
+                if (subobj.activeSelf == false)
+                {
+                    subobj.SetActive(true);
+                    RedCurryCheck = false;
+                }
+            }
+            player.DesCurryTeam();//업힌말이 있으면 업힌말을 삭제하는 코드
+        }
+    }
 
-    //        //업혀있는 말을 찾아 True로 전환 시켜야됨
-    //    }
-    //    else if(teamtype == 2)//레드팀 턴일 경우 레드팀이 블루팀을 잡음
-    //    {
-    //        CurryRed = false;
-    //    }
-    //}
 
 
 }
