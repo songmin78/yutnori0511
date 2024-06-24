@@ -42,15 +42,18 @@ public class Player : MonoBehaviour
     [SerializeField] float moveYutcount1;//첫번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount2;//두번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount3;//세번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
-    float MaxmoveYutcount;//이동후 자신의 위치를 저장
+    float MaxmoveYutcount;//이동후 자신의 위치를 저장(지름길도 저장함)
     [SerializeField] bool movecheck;//자기 차례를 확인하기 위한 체크
     bool touchcheck;//플레이어접촉에 관한 부분
     float turntimes = 0.1f;//0.1초간의 시간을 줘서 바로 이동하지 않도록 조절함
     //업었는지 안 업었는지 체크하는 코드
     //bool CurryBlue;
     //bool CurryRed;
-    [Header("지름길에 있는지 확인하는 부분")]
+    [Header("지름길에 관련된 부분을 관리")]
     [SerializeField] bool shortcutCheck;//지름에 도착했다면 체크하는 부분
+    [SerializeField] float pastYutcount1;//윷에 나온 숫자만큼 더하여 움직일 위치를 보여주는 부분(지름길에 있을 경우)
+    [SerializeField] float pastYutcount2;
+    [SerializeField] float pastYutcount3;
 
 
     public enum eRule
@@ -206,6 +209,12 @@ public class Player : MonoBehaviour
         //    Debug.Log(MaxmoveYutcount);
         //}
         #endregion
+        if(shortcutCheck == true)//지름길에 존재하고 있을 경우
+        {
+            pastYutcount1 = MaxmoveYutcount;
+            pastYutcount2 = MaxmoveYutcount;
+            pastYutcount3 = MaxmoveYutcount;
+        }
         moveYutcount1 = MaxmoveYutcount;
         moveYutcount2 = MaxmoveYutcount;
         moveYutcount3 = MaxmoveYutcount;
@@ -219,6 +228,13 @@ public class Player : MonoBehaviour
 
     private void yutmoving()//윷이 움직일 위치
     {
+        if(shortcutCheck == true)
+        {
+            pastYutcount1 += oneYut;
+            pastYutcount2 += twoYut;
+            pastYutcount3 += threeYut;
+            Gamemanager.Instance.Footholdbox.fastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
+        }
         moveYutcount1 += oneYut;
         moveYutcount2 += twoYut;
         moveYutcount3 += threeYut;
@@ -238,7 +254,7 @@ public class Player : MonoBehaviour
         oneYut = buttontimer.oneyut;
         twoYut = buttontimer.twoyut;
         threeYut = buttontimer.threeyut;
-        if(oneYut == -1 && MaxmoveYutcount == 0)
+        if(oneYut == -1 && MaxmoveYutcount == 0)//처음으로 돌린 윷이 빽도일 경우 턴 넘기기
         {
             Yutorder = 1;
             Gamemanager.Instance.Footholdbox.positiondestory();
@@ -303,7 +319,7 @@ public class Player : MonoBehaviour
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
                 Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount,gameObject);
-                Gamemanager.Instance.PastlLoadCheck((int)MaxmoveYutcount);
+                //Gamemanager.Instance.PastlLoadCheck((int)MaxmoveYutcount, gameObject);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
         }
@@ -355,6 +371,7 @@ public class Player : MonoBehaviour
     {
         transform.position = startmypos;
         MaxmoveYutcount = 0;
+        NotShortcutArrive();
     }
 
     //private void posmovecheck()//이동후에 플레이어들 위치 확인 해주는 부분
@@ -372,6 +389,7 @@ public class Player : MonoBehaviour
         MaxmoveYutcount = 0;
         gameObject.SetActive(false);
         Curryobj1.SetActive(false);
+        NotShortcutArrive();
     }
 
     /// <summary>
@@ -417,7 +435,7 @@ public class Player : MonoBehaviour
     }
 
 
-    public void ShortcutArrive()//지름길에 도착할때 작동되는 코드
+    public void ShortcutArrive()//지름길에 없을때 작동되는 코드
     {
         shortcutCheck = true;
     }
@@ -426,5 +444,7 @@ public class Player : MonoBehaviour
     {
         shortcutCheck = false;
     }
+
+    //지름길만 따로 관리해주는 코드 부분들 (복잡해질까봐 따로 빼놓음)
 
 }

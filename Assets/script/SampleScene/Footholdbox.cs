@@ -14,7 +14,9 @@ public class Footholdbox : MonoBehaviour
     [SerializeField] public GameObject poscheck1;//첫번째 윷의 이동 범위
     [SerializeField] public GameObject poscheck2;//2번째 윷의 이동 범위
     [SerializeField] public GameObject poscheck3;//3번째 윷의 이동 범위
-    [SerializeField] public GameObject shortcutcheck;//지름길에 들었을때만 보이는 범위
+    [SerializeField] public GameObject shortcutcheck1;//지름길에 들었을때만 보이는 범위
+    [SerializeField] public GameObject shortcutcheck2;//지름길에 들었을때만 보이는 범위
+    [SerializeField] public GameObject shortcutcheck3;//지름길에 들었을때만 보이는 범위
 
     [Header("윷 이동 부분")]//윷이 나온수 만큼 이동 할수있는 부분을 생성
     [SerializeField] float oneYut;
@@ -172,6 +174,36 @@ public class Footholdbox : MonoBehaviour
         {
             //poscheck3.SetActive(false);
             poscheck3.transform.position = new Vector3(0, -10, 0);
+        }
+    }
+
+    public void fastfindposition(float _position1, float _position2, float _position3, float _maxposition)
+    {
+        shortcutcheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
+        shortcutcheck1.SetActive(true);
+        if (_maxposition == 0 && _position2 == -1)
+        {
+            return;
+        }
+        shortcutcheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
+        shortcutcheck2.SetActive(true);
+        if (_maxposition == 0 && _position3 == -1)
+        {
+            return;
+        }
+        shortcutcheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
+        shortcutcheck3.SetActive(true);
+        if (_position1 == _maxposition)
+        {
+            shortcutcheck1.transform.position = new Vector3(0, -10, 0);
+        }
+        if (_position2 == _maxposition)
+        {
+            shortcutcheck2.transform.position = new Vector3(0, -10, 0);
+        }
+        if (_position3 == _maxposition)
+        {
+            shortcutcheck3.transform.position = new Vector3(0, -10, 0);
         }
     }
 

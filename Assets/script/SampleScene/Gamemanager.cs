@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -712,6 +713,7 @@ public class Gamemanager : MonoBehaviour
             };
 
             listObjectWhereFootHold.Add(data);
+            PastlLoadCheck(data, _player);
             //Debug.Log(data.objPlayer);
             //Debug.Log(_player);
         }
@@ -721,9 +723,11 @@ public class Gamemanager : MonoBehaviour
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == _player);
             data.objPlayer = _player;
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
+            PastlLoadCheck(data, _player);
             //Debug.Log(_player,data.trsFootHold);
             //Debug.Log(data.objPlayer);
         }
+
         //Debug.Log(_player);
     }
 
@@ -794,21 +798,14 @@ public class Gamemanager : MonoBehaviour
     }
 
     //지름길을 만들기 위해 쓰이는 코드위치
-    public void PastlLoadCheck(int _MaxmoveYutcount)
+    public void PastlLoadCheck(cObjectWhereFootHold _data, GameObject _player)
     {
-        if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject outplayer) == true)
+        if (_data.trsFootHold == Footholdbox.Yutfoothold[5] || _data.trsFootHold == Footholdbox.Yutfoothold[10])
         {
-            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == footholdbox.Yutfoothold[(int)_MaxmoveYutcount]);
-            if (data.trsFootHold == footholdbox.Yutfoothold[5] || data.trsFootHold == footholdbox.Yutfoothold[10])
-            {
-                Player.ShortcutArrive();
-                Debug.Log("위치에 도착함");
-            }
-            else
-            {
-
-            }
+            player = _data.objPlayer.GetComponent<Player>();
+            player.ShortcutArrive();
         }
     }
+
 
 }
