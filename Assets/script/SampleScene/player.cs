@@ -49,6 +49,8 @@ public class Player : MonoBehaviour
     //업었는지 안 업었는지 체크하는 코드
     //bool CurryBlue;
     //bool CurryRed;
+    [Header("지름길에 있는지 확인하는 부분")]
+    [SerializeField] bool shortcutCheck;//지름에 도착했다면 체크하는 부분
 
 
     public enum eRule
@@ -301,6 +303,7 @@ public class Player : MonoBehaviour
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
                 Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount,gameObject);
+                Gamemanager.Instance.PastlLoadCheck((int)MaxmoveYutcount);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
         }
@@ -411,24 +414,17 @@ public class Player : MonoBehaviour
     {
         Curryobj1.SetActive(false);
         Curryobj2.SetActive(false);
-        //if (CurryBlue == true || CurryRed == true)
-        //{
-        //    Curryobj1.SetActive(false);
-        //    Curryobj2.SetActive(false);
-        //    if(CurryBlue == true)
-        //    {
-        //        CurryBlue = false;
-        //    }
-        //    else if(CurryRed == true)
-        //    {
-        //        CurryRed = false;
-        //    }
-        //}
-        //else
-        //{
-        //    return;
-        //}
     }
 
+
+    public void ShortcutArrive()//지름길에 도착할때 작동되는 코드
+    {
+        shortcutCheck = true;
+    }
+
+    public void NotShortcutArrive()//지름길에 없을때 작동되는 코드
+    {
+        shortcutCheck = false;
+    }
 
 }

@@ -793,6 +793,22 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
+    //지름길을 만들기 위해 쓰이는 코드위치
+    public void PastlLoadCheck(int _MaxmoveYutcount)
+    {
+        if (IsPositionExistPlayer((int)_MaxmoveYutcount, out GameObject outplayer) == true)
+        {
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == footholdbox.Yutfoothold[(int)_MaxmoveYutcount]);
+            if (data.trsFootHold == footholdbox.Yutfoothold[5] || data.trsFootHold == footholdbox.Yutfoothold[10])
+            {
+                Player.ShortcutArrive();
+                Debug.Log("위치에 도착함");
+            }
+            else
+            {
 
+            }
+        }
+    }
 
 }
