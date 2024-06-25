@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField] float moveYutcount1;//첫번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount2;//두번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
     [SerializeField] float moveYutcount3;//세번째 윷에 나온 숫자만큼 더하여 어느정도 움직일지 미리 보여주는 부분
-    float MaxmoveYutcount;//이동후 자신의 위치를 저장(지름길도 저장함)
+    [SerializeField]float MaxmoveYutcount;//이동후 자신의 위치를 저장(지름길도 저장함)
     [SerializeField] bool movecheck;//자기 차례를 확인하기 위한 체크
     bool touchcheck;//플레이어접촉에 관한 부분
     float turntimes = 0.1f;//0.1초간의 시간을 줘서 바로 이동하지 않도록 조절함
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     [SerializeField] float pastYutcount1;//윷에 나온 숫자만큼 더하여 움직일 위치를 보여주는 부분(지름길에 있을 경우)
     [SerializeField] float pastYutcount2;
     [SerializeField] float pastYutcount3;
+    int countYut;//1 이라면 5번 지름길,2이라면 10번 지름길, 3번이라면 22번 32번 지름
 
 
     public enum eRule
@@ -228,12 +229,9 @@ public class Player : MonoBehaviour
 
     private void yutmoving()//윷이 움직일 위치
     {
-        if(shortcutCheck == true)
+        if (shortcutCheck == true)
         {
-            pastYutcount1 += oneYut;
-            pastYutcount2 += twoYut;
-            pastYutcount3 += threeYut;
-            Gamemanager.Instance.Footholdbox.fastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
+            countShortcut();
         }
         moveYutcount1 += oneYut;
         moveYutcount2 += twoYut;
@@ -269,9 +267,12 @@ public class Player : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray, LayerMask.GetMask("Ground"));
 
-
             if (rayHit.transform != null)
             {
+                if(shortcutCheck == true)
+                {
+                    fastpositionselect(rayHit);
+                }
                 GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
                 GameObject obj2 = Gamemanager.Instance.Footholdbox.poscheck2;
                 GameObject obj3 = Gamemanager.Instance.Footholdbox.poscheck3;
@@ -325,6 +326,47 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void fastpositionselect(RaycastHit2D rayHit)//지름길에 들어올경우
+    {
+        GameObject obj1 = Gamemanager.Instance.Footholdbox.shortcutcheck1;
+        GameObject obj2 = Gamemanager.Instance.Footholdbox.shortcutcheck2;
+        GameObject obj3 = Gamemanager.Instance.Footholdbox.shortcutcheck3;
+
+        if (rayHit.transform.gameObject == obj1)
+        {
+            transform.position = rayHit.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            MaxmoveYutcount = pastYutcount1;
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            changeYutzero();
+        }
+        else if (rayHit.transform.gameObject == obj2)
+        {
+            transform.position = rayHit.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            MaxmoveYutcount = pastYutcount2;
+            Yutorder = 2;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            changeYutzero();
+        }
+        else if (rayHit.transform.gameObject == obj3)
+        {
+            transform.position = rayHit.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            MaxmoveYutcount = pastYutcount3;
+            Yutorder = 3;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            changeYutzero();
+        }
+        else
+        {
+            return;
+        }
+        //Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
+        //Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount, gameObject);
+    }
+
     private void changeYutzero()//말을 움직인 후에 이동한 숫자를 0으로 만드는 코드
     {
         GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
@@ -346,6 +388,7 @@ public class Player : MonoBehaviour
         }
         //posmovecheck();
         movecheck = false;
+        shortcutCheck = false;
         yutcontrol = eRule.notrecall;
         //Gamemanager.Instance.Footholdbox.movecheckchange(oneYut, twoYut, threeYut);
         Gamemanager.Instance.Footholdbox.movedestory();
@@ -435,8 +478,9 @@ public class Player : MonoBehaviour
     }
 
 
-    public void ShortcutArrive()//지름길에 없을때 작동되는 코드
+    public void ShortcutArrive(int _countYut)//지름길에 없을때 작동되는 코드
     {
+        countYut = _countYut;
         shortcutCheck = true;
     }
 
@@ -447,4 +491,29 @@ public class Player : MonoBehaviour
 
     //지름길만 따로 관리해주는 코드 부분들 (복잡해질까봐 따로 빼놓음)
 
+    private void countShortcut()//지름길 부분을 따로 관리
+    {
+        switch (countYut)
+        {
+            case 1:
+                pastYutcount1 = pastYutcount1 + 14 + oneYut;
+                pastYutcount2 = pastYutcount2 + 14 + twoYut;
+                pastYutcount3 = pastYutcount3 + 14 + threeYut;
+                Gamemanager.Instance.Footholdbox.fastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
+                break;
+            case 2:
+                pastYutcount1 = pastYutcount1 + 19 + oneYut;
+                pastYutcount2 = pastYutcount2 + 19 + twoYut;
+                pastYutcount3 = pastYutcount3 + 19 + threeYut;
+                Gamemanager.Instance.Footholdbox.Centerfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
+                break;
+            case 3://지금 가장 중앙에 있을 경우
+                MaxmoveYutcount = 35;
+                pastYutcount1 = 37 + oneYut;
+                pastYutcount2 = 37 + twoYut;
+                pastYutcount3 = 37 + threeYut;
+                Gamemanager.Instance.Footholdbox.lastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
+                break;
+        }
+    }
 }

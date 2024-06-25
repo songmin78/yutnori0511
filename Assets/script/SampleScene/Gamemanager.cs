@@ -800,10 +800,26 @@ public class Gamemanager : MonoBehaviour
     //지름길을 만들기 위해 쓰이는 코드위치
     public void PastlLoadCheck(cObjectWhereFootHold _data, GameObject _player)
     {
-        if (_data.trsFootHold == Footholdbox.Yutfoothold[5] || _data.trsFootHold == Footholdbox.Yutfoothold[10])
+        //0 ~ 19까지는 외각으로 부분 지름길은 5,10부분
+        //20~29까지는 지름길 [5]에서 쭉 갈때 기준으로 가는 길
+        //30 ~ 34까지는 지름길 [10]에서 쭉 갈때 기준으로 가는 길
+        //
+        if (_data.trsFootHold == Footholdbox.Yutfoothold[5] || _data.trsFootHold == Footholdbox.Yutfoothold[10] || _data.trsFootHold == Footholdbox.Yutfoothold[22]
+            || _data.trsFootHold == Footholdbox.Yutfoothold[32])
         {
             player = _data.objPlayer.GetComponent<Player>();
-            player.ShortcutArrive();
+            if(_data.trsFootHold == Footholdbox.Yutfoothold[5])
+            {
+                player.ShortcutArrive(1);
+            }
+            else if(_data.trsFootHold == Footholdbox.Yutfoothold[10])
+            {
+                player.ShortcutArrive(2);
+            }
+            else if(_data.trsFootHold == Footholdbox.Yutfoothold[22] || _data.trsFootHold == Footholdbox.Yutfoothold[32])
+            {
+                player.ShortcutArrive(3);
+            }
         }
     }
 

@@ -177,31 +177,91 @@ public class Footholdbox : MonoBehaviour
         }
     }
 
-    public void fastfindposition(float _position1, float _position2, float _position3, float _maxposition)
+    public void fastfindposition(float _fastposition1, float _fastposition2, float _fastposition3, float _fastmaxposition)
     {
-        shortcutcheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
+        shortcutcheck1.transform.position = Yutfoothold[(int)_fastposition1].transform.position;
         shortcutcheck1.SetActive(true);
-        if (_maxposition == 0 && _position2 == -1)
+        if (_fastmaxposition == 0 && _fastposition2 == -1)
         {
             return;
         }
-        shortcutcheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
+        shortcutcheck2.transform.position = Yutfoothold[(int)_fastposition2].transform.position;
         shortcutcheck2.SetActive(true);
-        if (_maxposition == 0 && _position3 == -1)
+        if (_fastmaxposition == 0 && _fastposition3 == -1)
         {
             return;
         }
-        shortcutcheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
+        shortcutcheck3.transform.position = Yutfoothold[(int)_fastposition3].transform.position;
         shortcutcheck3.SetActive(true);
-        if (_position1 == _maxposition)
+        if (_fastposition1 == _fastmaxposition + 14)
         {
             shortcutcheck1.transform.position = new Vector3(0, -10, 0);
         }
-        if (_position2 == _maxposition)
+        if (_fastposition2 == _fastmaxposition + 14)
         {
             shortcutcheck2.transform.position = new Vector3(0, -10, 0);
         }
-        if (_position3 == _maxposition)
+        if (_fastposition3 == _fastmaxposition + 14)
+        {
+            shortcutcheck3.transform.position = new Vector3(0, -10, 0);
+        }
+    }
+
+    public void Centerfindposition(float _centerposition1, float _centerposition2, float _centerposition3, float _centermaxposition)
+    {
+        shortcutcheck1.transform.position = Yutfoothold[(int)_centerposition1].transform.position;
+        shortcutcheck1.SetActive(true);
+        if (_centermaxposition == 0 && _centerposition2 == -1)
+        {
+            return;
+        }
+        shortcutcheck2.transform.position = Yutfoothold[(int)_centerposition2].transform.position;
+        shortcutcheck2.SetActive(true);
+        if (_centermaxposition == 0 && _centerposition3 == -1)
+        {
+            return;
+        }
+        shortcutcheck3.transform.position = Yutfoothold[(int)_centerposition3].transform.position;
+        shortcutcheck3.SetActive(true);
+        if (_centerposition1 == _centermaxposition + 19)
+        {
+            shortcutcheck1.transform.position = new Vector3(0, -10, 0);
+        }
+        if (_centerposition2 == _centermaxposition + 19)
+        {
+            shortcutcheck2.transform.position = new Vector3(0, -10, 0);
+        }
+        if (_centerposition3 == _centermaxposition + 19)
+        {
+            shortcutcheck3.transform.position = new Vector3(0, -10, 0);
+        }
+    }
+
+    public void lastfindposition(float _lastPosition1, float _lastPosition2, float _lastPosition3, float _lastMaxposition)
+    {
+        shortcutcheck1.transform.position = Yutfoothold[(int)_lastPosition1].transform.position;
+        shortcutcheck1.SetActive(true);
+        if (_lastMaxposition == 0 && _lastPosition2 == -1)
+        {
+            return;
+        }
+        shortcutcheck2.transform.position = Yutfoothold[(int)_lastPosition2].transform.position;
+        shortcutcheck2.SetActive(true);
+        if (_lastMaxposition == 0 && _lastPosition3 == -1)
+        {
+            return;
+        }
+        shortcutcheck3.transform.position = Yutfoothold[(int)_lastPosition3].transform.position;
+        shortcutcheck3.SetActive(true);
+        if (_lastPosition1 == _lastMaxposition + 2)
+        {
+            shortcutcheck1.transform.position = new Vector3(0, -10, 0);
+        }
+        if (_lastPosition2 == _lastMaxposition + 2)
+        {
+            shortcutcheck2.transform.position = new Vector3(0, -10, 0);
+        }
+        if (_lastPosition3 == _lastMaxposition + 2)
         {
             shortcutcheck3.transform.position = new Vector3(0, -10, 0);
         }
@@ -212,28 +272,34 @@ public class Footholdbox : MonoBehaviour
         poscheck1.SetActive(false);
         poscheck2.SetActive(false);
         poscheck3.SetActive(false);
+        shortcutcheck1.SetActive(false);
+        shortcutcheck2.SetActive(false);
+        shortcutcheck3.SetActive(false);
     }
 
-    public void movecheckchange(float _oneYut, float _twoYut, float _threeYut)//이미 이동한 위치 표시를 밖으로 빼버리는 코드
-    {
-        if(_oneYut == 0)
-        {
-            poscheck1.transform.position = new Vector3(0, -10, 0);
-        }
-        else if(_twoYut == 0)
-        {
-            poscheck2.transform.position = new Vector3(0, -10, 0);
-        }
-        else if(_threeYut == 0)
-        {
-            poscheck3.transform.position = new Vector3(0, -10, 0);
-        }
-    }
+    //public void movecheckchange(float _oneYut, float _twoYut, float _threeYut)//이미 이동한 위치 표시를 밖으로 빼버리는 코드
+    //{
+    //    if(_oneYut == 0)
+    //    {
+    //        poscheck1.transform.position = new Vector3(0, -10, 0);
+    //    }
+    //    else if(_twoYut == 0)
+    //    {
+    //        poscheck2.transform.position = new Vector3(0, -10, 0);
+    //    }
+    //    else if(_threeYut == 0)
+    //    {
+    //        poscheck3.transform.position = new Vector3(0, -10, 0);
+    //    }
+    //}
     public void movedestory()//표식을 맵 밖으로 이동
     {
         poscheck1.transform.position = new Vector3(0, -10, 0);
         poscheck2.transform.position = new Vector3(0, -10, 0);
         poscheck3.transform.position = new Vector3(0, -10, 0);
+        shortcutcheck1.transform.position = new Vector3(0, -10, 0);
+        shortcutcheck2.transform.position = new Vector3(0, -10, 0);
+        shortcutcheck3.transform.position = new Vector3(0, -10, 0);
     }
 
     //public void posplayercheck(float _MaxmoveYutcount)//위치 리스트에 위치 값을 넣는다
