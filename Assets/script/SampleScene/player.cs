@@ -232,6 +232,9 @@ public class Player : MonoBehaviour
         if (shortcutCheck == true)
         {
             countShortcut();
+            moveYutcount1 = MaxmoveYutcount;
+            moveYutcount2 = MaxmoveYutcount;
+            moveYutcount3 = MaxmoveYutcount;
         }
         moveYutcount1 += oneYut;
         moveYutcount2 += twoYut;
@@ -482,6 +485,10 @@ public class Player : MonoBehaviour
     {
         countYut = _countYut;
         shortcutCheck = true;
+        if(countYut == 3)
+        {
+            MaxmoveYutcount = 38;
+        }
     }
 
     public void NotShortcutArrive()//지름길에 없을때 작동되는 코드
@@ -496,24 +503,39 @@ public class Player : MonoBehaviour
         switch (countYut)
         {
             case 1:
-                pastYutcount1 = pastYutcount1 + 14 + oneYut;
-                pastYutcount2 = pastYutcount2 + 14 + twoYut;
-                pastYutcount3 = pastYutcount3 + 14 + threeYut;
+                pastYutcount1 = pastYutcount1 + 15 + oneYut;
+                pastYutcount2 = pastYutcount2 + 15 + twoYut;
+                pastYutcount3 = pastYutcount3 + 15 + threeYut;
                 Gamemanager.Instance.Footholdbox.fastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
                 break;
             case 2:
-                pastYutcount1 = pastYutcount1 + 19 + oneYut;
-                pastYutcount2 = pastYutcount2 + 19 + twoYut;
-                pastYutcount3 = pastYutcount3 + 19 + threeYut;
+                pastYutcount1 = pastYutcount1 + 21 + oneYut;
+                pastYutcount2 = pastYutcount2 + 21 + twoYut;
+                pastYutcount3 = pastYutcount3 + 21 + threeYut;
                 Gamemanager.Instance.Footholdbox.Centerfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
                 break;
             case 3://지금 가장 중앙에 있을 경우
-                MaxmoveYutcount = 35;
-                pastYutcount1 = 37 + oneYut;
-                pastYutcount2 = 37 + twoYut;
-                pastYutcount3 = 37 + threeYut;
+                MaxmoveYutcount = 38;
+                pastYutcount1 = 41 + oneYut;
+                pastYutcount2 = 41 + twoYut;
+                pastYutcount3 = 41 + threeYut;
                 Gamemanager.Instance.Footholdbox.lastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
                 break;
         }
     }
+
+    //리스트로 말 이동 테스트코드 부분
+    private void testMove()
+    {
+        //현재 찾고싶은 리스트 속 이름 => chagefoothold
+        for (int iNum = 0; iNum < oneYut; iNum++)
+        {
+            Transform moveYut =  Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount1 + iNum]);
+            if(moveYut != null)
+            {
+                Debug.Log("도착 지점");
+            }
+        }
+    }
+
 }

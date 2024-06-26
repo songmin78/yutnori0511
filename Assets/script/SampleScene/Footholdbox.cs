@@ -102,7 +102,16 @@ public class Footholdbox : MonoBehaviour
     //}
     #endregion
 
-   
+   public Transform findYut(Transform chagefoothold)
+    {
+        return Yutfoothold.Find(x => x.transform == chagefoothold);
+    }
+    
+    public Transform MidFoothold(Transform chagefoothold4)
+    {
+        return Yutfoothold.Find(x => x.transform == chagefoothold4);
+    }
+
     #region
 
     //public float GetAt(int index)
@@ -193,15 +202,15 @@ public class Footholdbox : MonoBehaviour
         }
         shortcutcheck3.transform.position = Yutfoothold[(int)_fastposition3].transform.position;
         shortcutcheck3.SetActive(true);
-        if (_fastposition1 == _fastmaxposition + 14)
+        if (_fastposition1 == _fastmaxposition + 15)
         {
             shortcutcheck1.transform.position = new Vector3(0, -10, 0);
         }
-        if (_fastposition2 == _fastmaxposition + 14)
+        if (_fastposition2 == _fastmaxposition + 15)
         {
             shortcutcheck2.transform.position = new Vector3(0, -10, 0);
         }
-        if (_fastposition3 == _fastmaxposition + 14)
+        if (_fastposition3 == _fastmaxposition + 15)
         {
             shortcutcheck3.transform.position = new Vector3(0, -10, 0);
         }
@@ -223,15 +232,15 @@ public class Footholdbox : MonoBehaviour
         }
         shortcutcheck3.transform.position = Yutfoothold[(int)_centerposition3].transform.position;
         shortcutcheck3.SetActive(true);
-        if (_centerposition1 == _centermaxposition + 19)
+        if (_centerposition1 == _centermaxposition + 21)
         {
             shortcutcheck1.transform.position = new Vector3(0, -10, 0);
         }
-        if (_centerposition2 == _centermaxposition + 19)
+        if (_centerposition2 == _centermaxposition + 21)
         {
             shortcutcheck2.transform.position = new Vector3(0, -10, 0);
         }
-        if (_centerposition3 == _centermaxposition + 19)
+        if (_centerposition3 == _centermaxposition + 21)
         {
             shortcutcheck3.transform.position = new Vector3(0, -10, 0);
         }
@@ -253,15 +262,15 @@ public class Footholdbox : MonoBehaviour
         }
         shortcutcheck3.transform.position = Yutfoothold[(int)_lastPosition3].transform.position;
         shortcutcheck3.SetActive(true);
-        if (_lastPosition1 == _lastMaxposition + 2)
+        if (_lastPosition1 == _lastMaxposition + 3)
         {
             shortcutcheck1.transform.position = new Vector3(0, -10, 0);
         }
-        if (_lastPosition2 == _lastMaxposition + 2)
+        if (_lastPosition2 == _lastMaxposition + 3)
         {
             shortcutcheck2.transform.position = new Vector3(0, -10, 0);
         }
-        if (_lastPosition3 == _lastMaxposition + 2)
+        if (_lastPosition3 == _lastMaxposition + 3)
         {
             shortcutcheck3.transform.position = new Vector3(0, -10, 0);
         }

@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -714,6 +713,7 @@ public class Gamemanager : MonoBehaviour
 
             listObjectWhereFootHold.Add(data);
             PastlLoadCheck(data, _player);
+            midcheck(_movePos);
             //Debug.Log(data.objPlayer);
             //Debug.Log(_player);
         }
@@ -724,6 +724,7 @@ public class Gamemanager : MonoBehaviour
             data.objPlayer = _player;
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
             PastlLoadCheck(data, _player);
+            midcheck(_movePos);
             //Debug.Log(_player,data.trsFootHold);
             //Debug.Log(data.objPlayer);
         }
@@ -804,8 +805,8 @@ public class Gamemanager : MonoBehaviour
         //20~29까지는 지름길 [5]에서 쭉 갈때 기준으로 가는 길
         //30 ~ 34까지는 지름길 [10]에서 쭉 갈때 기준으로 가는 길
         //
-        if (_data.trsFootHold == Footholdbox.Yutfoothold[5] || _data.trsFootHold == Footholdbox.Yutfoothold[10] || _data.trsFootHold == Footholdbox.Yutfoothold[22]
-            || _data.trsFootHold == Footholdbox.Yutfoothold[32])
+        if (_data.trsFootHold == Footholdbox.Yutfoothold[5] || _data.trsFootHold == Footholdbox.Yutfoothold[10] || _data.trsFootHold == Footholdbox.Yutfoothold[34]
+            || _data.trsFootHold == Footholdbox.Yutfoothold[23])
         {
             player = _data.objPlayer.GetComponent<Player>();
             if(_data.trsFootHold == Footholdbox.Yutfoothold[5])
@@ -816,12 +817,19 @@ public class Gamemanager : MonoBehaviour
             {
                 player.ShortcutArrive(2);
             }
-            else if(_data.trsFootHold == Footholdbox.Yutfoothold[22] || _data.trsFootHold == Footholdbox.Yutfoothold[32])
+            else if(_data.trsFootHold == Footholdbox.Yutfoothold[23] || _data.trsFootHold == Footholdbox.Yutfoothold[34])
             {
                 player.ShortcutArrive(3);
             }
         }
     }
 
+    private void midcheck(int _trsFoodhold)
+    {
+        if (Footholdbox.MidFoothold(Footholdbox.Yutfoothold[_trsFoodhold]) == null)
+        {
+            Debug.Log("도달함");
+        }
+    }
 
 }
