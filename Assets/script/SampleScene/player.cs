@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     [SerializeField] float pastYutcount1;//윷에 나온 숫자만큼 더하여 움직일 위치를 보여주는 부분(지름길에 있을 경우)
     [SerializeField] float pastYutcount2;
     [SerializeField] float pastYutcount3;
-    int countYut;//1 이라면 5번 지름길,2이라면 10번 지름길, 3번이라면 22번 32번 지름
+    [SerializeField]int countYut;//1 이라면 5번 지름길,2이라면 10번 지름길, 3번이라면 22번 32번 지름
 
 
     public enum eRule
@@ -236,9 +236,12 @@ public class Player : MonoBehaviour
             moveYutcount2 = MaxmoveYutcount;
             moveYutcount3 = MaxmoveYutcount;
         }
-        moveYutcount1 += oneYut;
-        moveYutcount2 += twoYut;
-        moveYutcount3 += threeYut;
+        yutPosCount1();
+        yutPosCount2();
+        yutPosCount3();
+        //moveYutcount1 += oneYut;
+        //moveYutcount2 += twoYut;
+        //moveYutcount3 += threeYut;
         Gamemanager.Instance.Footholdbox.findposition(moveYutcount1, moveYutcount2, moveYutcount3, MaxmoveYutcount);
         //GameObject obj = GameObject.Find("footholdbox");
         //Footholdbox footholdbox = obj.GetComponent<Footholdbox>();
@@ -525,17 +528,52 @@ public class Player : MonoBehaviour
     }
 
     //리스트로 말 이동 테스트코드 부분
-    private void testMove()
+    private void yutPosCount1()
     {
         //현재 찾고싶은 리스트 속 이름 => chagefoothold
-        for (int iNum = 0; iNum < oneYut; iNum++)
+         for (int iNum = 0; iNum < oneYut; iNum++)
         {
-            Transform moveYut =  Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount1 + iNum]);
-            if(moveYut != null)
+            //oneYut이 4라면 1~3까지만 적용
+            Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount1 + iNum].gameObject);
+            Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
             {
-                Debug.Log("도착 지점");
+                moveYutcount1 += iNum;
+
+                return;
             }
         }
+        moveYutcount1 += oneYut;
+    }
+    private void yutPosCount2()
+    {
+        //현재 찾고싶은 리스트 속 이름 => chagefoothold
+        for (int iNum = 0; iNum < twoYut; iNum++)
+        {
+            Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount2 + iNum].gameObject);
+            Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
+            {
+                moveYutcount2 += iNum;
+                return;
+            }
+        }
+        moveYutcount2 += twoYut;
+    }
+    private void yutPosCount3()
+    {
+        //현재 찾고싶은 리스트 속 이름 => chagefoothold
+        for (int iNum = 0; iNum < threeYut; iNum++)
+        {
+            Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount3 + iNum].gameObject);
+            Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
+            {
+                moveYutcount3 += iNum;
+                return;
+            }
+        }
+        moveYutcount3 += threeYut;
     }
 
 }

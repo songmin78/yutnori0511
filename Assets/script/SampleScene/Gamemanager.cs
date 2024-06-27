@@ -12,7 +12,7 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] List<GameObject> objblue;
     [SerializeField] List<GameObject> objred;
 
-    public class cObjectWhereFootHold
+   public class cObjectWhereFootHold
     {
         public GameObject objPlayer;
         public Transform trsFootHold;
@@ -712,8 +712,8 @@ public class Gamemanager : MonoBehaviour
             };
 
             listObjectWhereFootHold.Add(data);
-            PastlLoadCheck(data, _player);
-            midcheck(_movePos);
+            PastlLoadCheck(data.trsFootHold, _player);
+            //midcheck(_movePos);
             //Debug.Log(data.objPlayer);
             //Debug.Log(_player);
         }
@@ -723,8 +723,8 @@ public class Gamemanager : MonoBehaviour
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == _player);
             data.objPlayer = _player;
             data.trsFootHold = footholdbox.Yutfoothold[_movePos];
-            PastlLoadCheck(data, _player);
-            midcheck(_movePos);
+            PastlLoadCheck(data.trsFootHold, _player);
+            //midcheck(_movePos);
             //Debug.Log(_player,data.trsFootHold);
             //Debug.Log(data.objPlayer);
         }
@@ -799,25 +799,25 @@ public class Gamemanager : MonoBehaviour
     }
 
     //지름길을 만들기 위해 쓰이는 코드위치
-    public void PastlLoadCheck(cObjectWhereFootHold _data, GameObject _player)
+    public void PastlLoadCheck(Transform _data, GameObject _player)
     {
         //0 ~ 19까지는 외각으로 부분 지름길은 5,10부분
         //20~29까지는 지름길 [5]에서 쭉 갈때 기준으로 가는 길
         //30 ~ 34까지는 지름길 [10]에서 쭉 갈때 기준으로 가는 길
         //
-        if (_data.trsFootHold == Footholdbox.Yutfoothold[5] || _data.trsFootHold == Footholdbox.Yutfoothold[10] || _data.trsFootHold == Footholdbox.Yutfoothold[34]
-            || _data.trsFootHold == Footholdbox.Yutfoothold[23])
+        if (_data == Footholdbox.Yutfoothold[5] || _data == Footholdbox.Yutfoothold[10] || _data == Footholdbox.Yutfoothold[34]
+            || _data == Footholdbox.Yutfoothold[23])
         {
-            player = _data.objPlayer.GetComponent<Player>();
-            if(_data.trsFootHold == Footholdbox.Yutfoothold[5])
+            player = _player.GetComponent<Player>();
+            if(_data == Footholdbox.Yutfoothold[5])
             {
                 player.ShortcutArrive(1);
             }
-            else if(_data.trsFootHold == Footholdbox.Yutfoothold[10])
+            else if(_data == Footholdbox.Yutfoothold[10])
             {
                 player.ShortcutArrive(2);
             }
-            else if(_data.trsFootHold == Footholdbox.Yutfoothold[23] || _data.trsFootHold == Footholdbox.Yutfoothold[34])
+            else if (_data == Footholdbox.Yutfoothold[23] || _data == Footholdbox.Yutfoothold[34])
             {
                 player.ShortcutArrive(3);
             }
@@ -826,9 +826,10 @@ public class Gamemanager : MonoBehaviour
 
     private void midcheck(int _trsFoodhold)
     {
-        if (Footholdbox.MidFoothold(Footholdbox.Yutfoothold[_trsFoodhold]) == null)
+        Transform midYut = Footholdbox.MidFoothold(Footholdbox.Yutfoothold[_trsFoodhold].gameObject);
+        if(midYut != null)
         {
-            Debug.Log("도달함");
+
         }
     }
 

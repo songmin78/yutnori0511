@@ -102,14 +102,19 @@ public class Footholdbox : MonoBehaviour
     //}
     #endregion
 
-   public Transform findYut(Transform chagefoothold)
+   //public Transform findYut(GameObject chagefoothold)
+   // {
+   //     return Yutfoothold.Find(x => x.gameObject.name == "chagefoothold");
+   // }
+
+    public Transform findYut(GameObject chagefoothold)
     {
-        return Yutfoothold.Find(x => x.transform == chagefoothold);
+        return Yutfoothold.Find(x => x.gameObject == chagefoothold);
     }
-    
-    public Transform MidFoothold(Transform chagefoothold4)
+
+    public Transform MidFoothold(GameObject chagefoothold4)
     {
-        return Yutfoothold.Find(x => x.transform == chagefoothold4);
+        return Yutfoothold.Find(x => x.gameObject == chagefoothold4);
     }
 
     #region
