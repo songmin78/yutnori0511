@@ -319,10 +319,6 @@ public class Player : MonoBehaviour
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
                 }
-                else
-                {
-                    return;
-                }
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)MaxmoveYutcount);
                 Gamemanager.Instance.holdboxPosCheck(MaxmoveYutcount,gameObject);
@@ -505,13 +501,13 @@ public class Player : MonoBehaviour
     {
         switch (countYut)
         {
-            case 1:
+            case 1://첫번째 줄에 있는 지름길
                 pastYutcount1 = pastYutcount1 + 15 + oneYut;
                 pastYutcount2 = pastYutcount2 + 15 + twoYut;
                 pastYutcount3 = pastYutcount3 + 15 + threeYut;
                 Gamemanager.Instance.Footholdbox.fastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, MaxmoveYutcount);
                 break;
-            case 2:
+            case 2://2번째 줄에 있는 지름길
                 pastYutcount1 = pastYutcount1 + 21 + oneYut;
                 pastYutcount2 = pastYutcount2 + 21 + twoYut;
                 pastYutcount3 = pastYutcount3 + 21 + threeYut;
@@ -536,6 +532,7 @@ public class Player : MonoBehaviour
             //oneYut이 4라면 1~3까지만 적용
             Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount1 + iNum].gameObject);
             Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            //하나하나씩 늘리다 보니 결승점과 만나는드가 겹치니 그대로 들어감
             if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
             {
                 moveYutcount1 += iNum;
@@ -576,4 +573,8 @@ public class Player : MonoBehaviour
         moveYutcount3 += threeYut;
     }
 
+    private void backcheck()//빽도에 걸렸을때 정상적으로 뒤로 뺄수 있게 도와주는 코드 부분
+    {
+
+    }
 }

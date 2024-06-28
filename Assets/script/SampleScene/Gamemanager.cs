@@ -269,6 +269,7 @@ public class Gamemanager : MonoBehaviour
             if (rayHit.transform != null && rayHit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 //Debug.Log(rayHit.transform.name);
+                Footholdbox.movedestory();
                 selectcharactor(rayHit.transform.gameObject);
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
@@ -824,13 +825,5 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    private void midcheck(int _trsFoodhold)
-    {
-        Transform midYut = Footholdbox.MidFoothold(Footholdbox.Yutfoothold[_trsFoodhold].gameObject);
-        if(midYut != null)
-        {
-
-        }
-    }
 
 }

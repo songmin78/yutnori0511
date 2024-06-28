@@ -91,8 +91,8 @@ public class Yutstartbutton : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.N))//È®Á¤ À·°¡ ¶ßµµ·Ï º¯°æ
         {
-            yutnumber = 4;
-            Stickcount = 4;
+            yutnumber = 5;
+            Stickcount = 0;
             for (int yutstick = 0; yutstick < 4; yutstick++)
             {
                 randomcount = 1;
@@ -116,15 +116,33 @@ public class Yutstartbutton : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.B))
         {
-            yutnumber = 2;
-            Stickcount = 2;
-            for (int yutstick = 0; yutstick < 2; yutstick++)
+            yutnumber = 3;
+            Stickcount = 3;
+            for (int yutstick = 0; yutstick < 3; yutstick++)
             {
                 randomcount = 1;
                 chageyut += 1;
                 Yutcount();
             }
             yutlist();
+            yutstart = false;
+            if (oneyut != 0 && twoyut != 0 && threeyut != 0)
+            {
+                Gamemanager.Instance.nextturn();
+                return;
+            }
+
+            //GameObject findtimer = GameObject.Find("Playtimemanager");
+            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
+            playtimer.checktime = true;
+            Gamemanager.Instance.throwyutbutton = false;
+        }
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            yutnumber = -1;
+            Stickcount = 0;
+            yutturnNumber();
+            Debug.Log("»ªµµ");
             yutstart = false;
             if (oneyut != 0 && twoyut != 0 && threeyut != 0)
             {

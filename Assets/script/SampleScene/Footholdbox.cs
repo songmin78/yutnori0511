@@ -117,6 +117,7 @@ public class Footholdbox : MonoBehaviour
         return Yutfoothold.Find(x => x.gameObject == chagefoothold4);
     }
 
+
     #region
 
     //public float GetAt(int index)
@@ -142,6 +143,23 @@ public class Footholdbox : MonoBehaviour
 
     public void findposition(float _position1, float _position2, float _position3, float _maxposition)
     {
+        if (Yutfoothold[38].gameObject == Yutfoothold[(int)_maxposition].gameObject)//중앙에 플레이어가 존재할 경우
+        {
+            //06/28 해결책 player스크립트에 _position위치를 돌려 보내주면 해결됨 
+            if (_position1 + 1 == _maxposition)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
+            {
+                _position1 = 33;
+            }
+            else if (_position2 + 1 == _maxposition)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
+            {
+                _position2 = 33;
+            }
+            else if (_position3 + 1 == _maxposition)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
+            {
+                _position3 = 33;
+            }
+        }
+
         poscheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
         //poscheck1.transform.position = new Vector3(poscheck1.transform.position.x, poscheck1.transform.position.y - 0.1f, poscheck1.transform.position.z);
         poscheck1.SetActive(true);
@@ -160,20 +178,6 @@ public class Footholdbox : MonoBehaviour
         //poscheck3.transform.position = new Vector3(poscheck3.transform.position.x, poscheck3.transform.position.y - 0.1f, poscheck3.transform.position.z);
         poscheck3.SetActive(true);
 
-        //if(_position1 == _position2)
-        //{
-        //    poscheck2.SetActive(false);
-        //}
-        //else if(_position1 == _position3)
-        //{
-        //    poscheck3.SetActive(false);
-        //}
-        //else if(_position2 == _position3)
-        //{
-        //    poscheck3.SetActive(false);  
-        //}
-
-        //samenumber();
         if (_position1 == _maxposition)
         {
             //poscheck1.SetActive(false);
@@ -251,8 +255,25 @@ public class Footholdbox : MonoBehaviour
         }
     }
 
+
     public void lastfindposition(float _lastPosition1, float _lastPosition2, float _lastPosition3, float _lastMaxposition)
     {
+        if (Yutfoothold[38].gameObject == Yutfoothold[(int)_lastMaxposition].gameObject)//중앙에 존재할 경우
+        {
+            if (_lastPosition1 == 40)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
+            {
+                _lastPosition1 = 22;
+            }
+            else if (_lastPosition2 == 40)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
+            {
+                _lastPosition2 = 22;
+            }
+            else if (_lastPosition3 == 40)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
+            {
+                _lastPosition3 = 22;
+            }
+        }
+
         shortcutcheck1.transform.position = Yutfoothold[(int)_lastPosition1].transform.position;
         shortcutcheck1.SetActive(true);
         if (_lastMaxposition == 0 && _lastPosition2 == -1)
