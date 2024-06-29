@@ -27,6 +27,10 @@ public class Footholdbox : MonoBehaviour
     [SerializeField]bool redcheck;
     [SerializeField] bool bluecheck;
 
+    bool Exitcheck1;
+    bool Exitcheck2;
+    bool Exitcheck3;
+
     //int testd;//윷이 나온수 만큼 이동 할수있는 부분을 생성
 
     private void Start()
@@ -145,7 +149,6 @@ public class Footholdbox : MonoBehaviour
     {
         if (Yutfoothold[38].gameObject == Yutfoothold[(int)_maxposition].gameObject)//중앙에 플레이어가 존재할 경우
         {
-            //06/28 해결책 player스크립트에 _position위치를 돌려 보내주면 해결됨 
             if (_position1 + 1 == _maxposition)//빽도일 경우 원래 수보다 -1 이니 같게 만들려면 더해야한다
             {
                 _position1 = 33;
@@ -158,25 +161,49 @@ public class Footholdbox : MonoBehaviour
             {
                 _position3 = 33;
             }
+            //Gamemanager.Instance.Player.ChangeYutPos(_position1, _position2, _position3);
         }
 
         poscheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
         //poscheck1.transform.position = new Vector3(poscheck1.transform.position.x, poscheck1.transform.position.y - 0.1f, poscheck1.transform.position.z);
-        poscheck1.SetActive(true);
-        if(_maxposition == 0 && _position2 == -1)
+        if (Exitcheck1 == true)
+        {
+            poscheck1.SetActive(false);
+        }
+        else
+        {
+            poscheck1.SetActive(true);
+        }
+
+        if (_maxposition == 0 && _position2 == -1)
         {
             return;
         }
         poscheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
         //poscheck2.transform.position = new Vector3(poscheck2.transform.position.x, poscheck2.transform.position.y - 0.1f, poscheck2.transform.position.z);
-        poscheck2.SetActive(true);
+        if (Exitcheck2 == true)
+        {
+            poscheck2.SetActive(false);
+        }
+        else
+        {
+            poscheck2.SetActive(true);
+        }
+
         if (_maxposition == 0 && _position3 == -1)
         {
             return;
         }
         poscheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
         //poscheck3.transform.position = new Vector3(poscheck3.transform.position.x, poscheck3.transform.position.y - 0.1f, poscheck3.transform.position.z);
-        poscheck3.SetActive(true);
+        if (Exitcheck3 == true)
+        {
+            poscheck3.SetActive(false);
+        }
+        else
+        {
+            poscheck3.SetActive(true);
+        }
 
         if (_position1 == _maxposition)
         {
@@ -199,16 +226,16 @@ public class Footholdbox : MonoBehaviour
     {
         shortcutcheck1.transform.position = Yutfoothold[(int)_fastposition1].transform.position;
         shortcutcheck1.SetActive(true);
-        if (_fastmaxposition == 0 && _fastposition2 == -1)
-        {
-            return;
-        }
+        //if (_fastmaxposition == 0 && _fastposition2 == -1)
+        //{
+        //    return;
+        //}
         shortcutcheck2.transform.position = Yutfoothold[(int)_fastposition2].transform.position;
         shortcutcheck2.SetActive(true);
-        if (_fastmaxposition == 0 && _fastposition3 == -1)
-        {
-            return;
-        }
+        //if (_fastmaxposition == 0 && _fastposition3 == -1)
+        //{
+        //    return;
+        //}
         shortcutcheck3.transform.position = Yutfoothold[(int)_fastposition3].transform.position;
         shortcutcheck3.SetActive(true);
         if (_fastposition1 == _fastmaxposition + 15)
@@ -272,6 +299,7 @@ public class Footholdbox : MonoBehaviour
             {
                 _lastPosition3 = 22;
             }
+            Gamemanager.Instance.Player.LastChangeYutPos(_lastPosition1, _lastPosition2, _lastPosition3);
         }
 
         shortcutcheck1.transform.position = Yutfoothold[(int)_lastPosition1].transform.position;
@@ -350,4 +378,15 @@ public class Footholdbox : MonoBehaviour
     //        redcheck = true;
     //    }
     //}
+
+    public void ExitPlayer1() { Exitcheck1 = true; }
+    public void ExitPlayer2() { Exitcheck2 = true; }
+    public void ExitPlayer3() { Exitcheck3 = true; }
+    public void ExitPlayerFalse()
+    {
+        Exitcheck1 = false; 
+        Exitcheck2 = false; 
+        Exitcheck3 = false; 
+    }
+
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Gamemanager : MonoBehaviour
 {
+    [SerializeField] Button ClearButton;
     Animation anim;
     Animator animator;
     [SerializeField] Image startcheck;
@@ -63,6 +64,9 @@ public class Gamemanager : MonoBehaviour
 
     private Player player;
     private Footholdbox footholdbox;
+    //결승점에 통과한 말을 알려주는 오브젝트
+    GameObject Clearobj;
+    float ClearNumber;
 
     public enum eRule
     {
@@ -103,6 +107,25 @@ public class Gamemanager : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Maxstartturnyut = startturnyut;
         Maxtimewait = timewait;
+
+        ClearButton.onClick.AddListener(() =>
+        {
+            if (objblue.Find(x => x.gameObject == Clearobj) != null)
+            {
+                objblue.Remove(Clearobj);
+            }
+            else if (objred.Find(x => x.gameObject == Clearobj) != null)
+            {
+                objred.Remove(Clearobj);
+            }
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == Clearobj);
+            listObjectWhereFootHold.Remove(data);
+            //Clearobj.gameObject.transform.position = new Vector3(0, -10, 0);
+            Footholdbox.positiondestory();
+            Player.ManagerYutorderCheck(ClearNumber);
+            Clearobj.gameObject.SetActive(false);
+            ClearButton.gameObject.SetActive(false);
+        });
     }
 
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
@@ -269,7 +292,9 @@ public class Gamemanager : MonoBehaviour
             if (rayHit.transform != null && rayHit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 //Debug.Log(rayHit.transform.name);
+                DesYutButton();
                 Footholdbox.movedestory();
+                Footholdbox.ExitPlayerFalse();
                 selectcharactor(rayHit.transform.gameObject);
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
@@ -579,6 +604,7 @@ public class Gamemanager : MonoBehaviour
         //Player players = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();//그 자리에 있는 오브젝트에 있는 플레이어 스크립트를 불러온다
         player = listObjectWhereFootHold[iNum].objPlayer.GetComponent<Player>();
         GameObject ObjBackUp = listObjectWhereFootHold[iNum].objPlayer;//원래 그 자리에있던 말을 백업 해두기위해 만든 코드
+        Player objs = ObjBackUp.gameObject.GetComponent<Player>();
         //Player players = data.objPlayer.GetComponent<Player>();
         #region
         //switch (teamtype)
@@ -612,7 +638,7 @@ public class Gamemanager : MonoBehaviour
                 {
                     data.objPlayer = listObjectWhereFootHold[iNum].objPlayer;
                     player.AgainStartPos();//잡힌말의 위치를 초기화 시킴
-                    listObjectWhereFootHold.Remove(data);//초기화 이후에 리스트 빼기
+                    listObjectWhereFootHold.Remove(data);//위치를 초기화 이후에 리스트 빼기
                     assistantPlayerRed(data.objPlayer);//업혀진 말들을 다시 보여주는 코드
                     //player.DesCurryTeam();//업힌말이 있으면 업힌말을 삭제하는 코드
                 }
@@ -627,7 +653,12 @@ public class Gamemanager : MonoBehaviour
                     //player.CurryTeam();
                     //CurryBlue = true;
                     #endregion
+                    //NotCarryPrevention(_dplayer);//업기전에 물어보기
                     player = _dplayer.GetComponent<Player>();//잡는말을 가져온다
+                    if (player.GoPlayer == false || player.MaxmoveYutcount != objs.MaxmoveYutcount)
+                    {
+                        return;
+                    }
                     player.DesTeam();//처음으로 보내고 오브젝트를 끈다
                     data = listObjectWhereFootHold.Find(x => x.objPlayer == _dplayer);
                     listObjectWhereFootHold.Remove(data);
@@ -643,6 +674,10 @@ public class Gamemanager : MonoBehaviour
                 if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀 태그를 달고있 을때 업는다
                 {
                     player = _dplayer.GetComponent<Player>();//잡는말을 가져온다
+                    if (player.GoPlayer == false || player.MaxmoveYutcount != objs.MaxmoveYutcount)
+                    {
+                        return;
+                    }
                     player.DesTeam();//처음으로 보내고 오브젝트를 끈다
                     data = listObjectWhereFootHold.Find(x => x.objPlayer == _dplayer);
                     listObjectWhereFootHold.Remove(data);
@@ -825,5 +860,16 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
+    //말이 윷판을 다 돌고 나갈수 있을때 작동하도록 만든 부분들
+    public void PosClearYut(GameObject _obj, float _Yutorder)//나갈수 있는 버튼을 생성해주는 부분
+    {
+        ClearButton.gameObject.SetActive(true);
+        Clearobj = _obj;
+        ClearNumber = _Yutorder;
+    }
 
+    private void DesYutButton()//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+    {
+        ClearButton.gameObject.SetActive(false);
+    }
 }
