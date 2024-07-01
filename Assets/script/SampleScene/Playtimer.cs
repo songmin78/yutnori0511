@@ -186,7 +186,7 @@ public class Playtimer : MonoBehaviour
         timegage.fillAmount = Maxthrowtime / throwtime;
     }
 
-    private void yuttest()
+    private void yuttest()//윷을 다시 던지기 위한 코드
     {
         if(returnYut == true)
         {

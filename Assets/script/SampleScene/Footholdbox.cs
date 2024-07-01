@@ -379,6 +379,11 @@ public class Footholdbox : MonoBehaviour
     //    }
     //}
 
+
+    /// <summary>
+    /// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드부분들
+    /// </summary>
+    /// Exitcheck == true일때 표시를 사라지게 만드는 코드가 작동하도록 설정됨
     public void ExitPlayer1() { Exitcheck1 = true; }
     public void ExitPlayer2() { Exitcheck2 = true; }
     public void ExitPlayer3() { Exitcheck3 = true; }

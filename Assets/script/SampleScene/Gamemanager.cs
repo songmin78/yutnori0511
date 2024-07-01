@@ -292,9 +292,9 @@ public class Gamemanager : MonoBehaviour
             if (rayHit.transform != null && rayHit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 //Debug.Log(rayHit.transform.name);
-                DesYutButton();
-                Footholdbox.movedestory();
-                Footholdbox.ExitPlayerFalse();
+                DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+                Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+                Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
                 selectcharactor(rayHit.transform.gameObject);
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
@@ -871,5 +871,20 @@ public class Gamemanager : MonoBehaviour
     private void DesYutButton()//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
     {
         ClearButton.gameObject.SetActive(false);
+    }
+
+    public void CheckBackYutPass()//윷이 빽도인데 필드에 윷이 하나도 없는 경우
+    {
+        if(teamtype == 1)//블루팀일 경우
+        {
+            //cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == trsYutfoolhold);
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold);
+            Debug.Log(data);
+        }
+        else if(teamtype == 2)//레드팀일 경우
+        {
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold);
+            Debug.Log(data);
+        }
     }
 }

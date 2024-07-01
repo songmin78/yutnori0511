@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -286,11 +287,12 @@ public class Player : MonoBehaviour
         oneYut = buttontimer.oneyut;
         twoYut = buttontimer.twoyut;
         threeYut = buttontimer.threeyut;
-        if(oneYut == -1 && maxmoveYutcount == 0)//처음으로 돌린 윷이 빽도일 경우 턴 넘기기
+        if(oneYut == -1 && maxmoveYutcount == 0)//돌린 윷이 빽도인데 대기중인 플레이어를 선택할 경우 그냥 체크를 안함
         {
-            Yutorder = 1;
-            Gamemanager.Instance.Footholdbox.positiondestory();
-            changeYutzero();
+            //Gamemanager.Instance.Footholdbox.positiondestory();
+            //Yutorder = 1;
+            //changeYutzero();
+            return;
         }
     }
 
@@ -423,6 +425,7 @@ public class Player : MonoBehaviour
                 break;
         }
         //posmovecheck();
+        pointCombine();
         goPlayer = true;//움직이기 시작하면 true
         movecheck = false;
         shortcutCheck = false;
@@ -435,6 +438,24 @@ public class Player : MonoBehaviour
         //Debug.Log(moveYutcount2);
         //Debug.Log(moveYutcount3);
         //Debug.Log(MaxmoveYutcount);
+    }
+
+    private void pointCombine()//딱 결승점에 도착 할 경우 결승점의 maxmoveYutcount를 50번으로 통일 시킨다
+    {
+        float point = maxmoveYutcount;
+        if (point == 20 || point == 31 || point == 37 || point == 41)
+        {
+            maxmoveYutcount = 49;
+        }
+    }
+
+    private void pointCombine2()//3번째 위치를 통일 시키기
+    {
+        float point = maxmoveYutcount;
+        if(point == 15 || point == 26 || point == 44)
+        {
+
+        }
     }
 
     private void postest()
@@ -588,13 +609,19 @@ public class Player : MonoBehaviour
     //리스트로 말 이동 테스트코드 부분
     private void yutPosCount1()
     {
-        //현재 찾고싶은 리스트 속 이름 => chagefoothold
-         for (int iNum = 0; iNum < oneYut; iNum++)
+        if (maxmoveYutcount == 49 && oneYut > 0)
         {
-            //oneYut이 4라면 1~3까지만 적용
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.ExitPlayer1();
+            Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+            return;
+        }
+        //현재 찾고싶은 리스트 속 이름 => chagefoothold
+        for (int iNum = 0; iNum < oneYut; iNum++)
+        {
             Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount1 + iNum].gameObject);
             Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
-            //하나하나씩 늘리다 보니 결승점과 만나는드가 겹치니 그대로 들어감
+            //문제: 하나하나씩 올리다 보니 결승점을  지나는리스트와 겹치니 그대로 들어감 => 해결
             if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
             {
                 moveYutcount1 += iNum;
@@ -605,9 +632,32 @@ public class Player : MonoBehaviour
             }
         }
         moveYutcount1 += oneYut;
+        if(moveYutcount1 == 0 && oneYut == -1)//빽도 변수 처리들
+        {
+            moveYutcount1 = 49;
+        }
+        else if(MaxmoveYutcount == 21 && oneYut == -1)
+        {
+            moveYutcount1 = 5;
+        }
+        else if(MaxmoveYutcount == 32 && oneYut == -1)
+        {
+            moveYutcount1 = 10;
+        }
+        //else if (Gamemanager.Instance.Footholdbox.Yutfoothold[15].gameObject && oneYut == -1)
+        //{
+        //    Debug.Log("테스트");
+        //}
     }
     private void yutPosCount2()
     {
+        if (maxmoveYutcount == 49 && twoYut > 0)
+        {
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.ExitPlayer1();
+            Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+            return;
+        }
         //현재 찾고싶은 리스트 속 이름 => chagefoothold
         for (int iNum = 0; iNum < twoYut; iNum++)
         {
@@ -623,9 +673,28 @@ public class Player : MonoBehaviour
             }
         }
         moveYutcount2 += twoYut;
+        if (moveYutcount2 == 0 && twoYut == -1)
+        {
+            moveYutcount2 = 49;
+        }
+        else if (MaxmoveYutcount == 21 && twoYut == -1)
+        {
+            moveYutcount2 = 5;
+        }
+        else if (MaxmoveYutcount == 32 && twoYut == -1)
+        {
+            moveYutcount2 = 10;
+        }
     }
     private void yutPosCount3()
     {
+        if (maxmoveYutcount == 49 && threeYut > 0)
+        {
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.ExitPlayer1();
+            Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+            return;
+        }
         //현재 찾고싶은 리스트 속 이름 => chagefoothold
         for (int iNum = 0; iNum < threeYut; iNum++)
         {
@@ -641,6 +710,18 @@ public class Player : MonoBehaviour
             }
         }
         moveYutcount3 += threeYut;
+        if (moveYutcount3 == 0 && threeYut == -1)
+        {
+            moveYutcount3 = 49;
+        }
+        else if (MaxmoveYutcount == 21 && threeYut == -1)
+        {
+            moveYutcount3 = 5;
+        }
+        else if (MaxmoveYutcount == 32 && threeYut == -1)
+        {
+            moveYutcount3 = 10;
+        }
     }
 
 

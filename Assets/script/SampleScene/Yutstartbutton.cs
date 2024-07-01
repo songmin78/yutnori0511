@@ -89,6 +89,8 @@ public class Yutstartbutton : MonoBehaviour
         {
             return;
         }
+
+        //특정 윷번호를 얻기 위한 코드들
         if (Input.GetKeyDown(KeyCode.N))//확정 윷가 뜨도록 변경
         {
             yutnumber = 5;
@@ -154,7 +156,10 @@ public class Yutstartbutton : MonoBehaviour
             Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
             playtimer.checktime = true;
             Gamemanager.Instance.throwyutbutton = false;
+            Gamemanager.Instance.CheckBackYutPass();
         }
+        //여기까지
+
         //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
         if (yutstart == true)
         {
@@ -197,6 +202,7 @@ public class Yutstartbutton : MonoBehaviour
                     yutnumber = -1;
                     yutturnNumber();
                     Debug.Log("빽도");
+                    Gamemanager.Instance.CheckBackYutPass();
                 }
                 yutdisposition.Add(randomcount);
             }
