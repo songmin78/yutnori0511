@@ -425,7 +425,8 @@ public class Player : MonoBehaviour
                 break;
         }
         //posmovecheck();
-        pointCombine();
+        pointCombine();//갈림길에서 빽도가 뜨면 이상한데에 표시가 뜨는 오류를 고치기 위한 코드
+        pointCombine2();
         goPlayer = true;//움직이기 시작하면 true
         movecheck = false;
         shortcutCheck = false;
@@ -454,7 +455,7 @@ public class Player : MonoBehaviour
         float point = maxmoveYutcount;
         if(point == 15 || point == 26 || point == 44)
         {
-
+            maxmoveYutcount = 44;
         }
     }
 
@@ -546,6 +547,10 @@ public class Player : MonoBehaviour
         {
             maxmoveYutcount = 38;
         }
+        else if(countYut == 4)
+        {
+            maxmoveYutcount = 44;
+        }
     }
 
     public void NotShortcutArrive()//지름길에 없을때 작동되는 코드
@@ -579,6 +584,24 @@ public class Player : MonoBehaviour
                 pastYutcount2 = 41 + twoYut;
                 pastYutcount3 = 41 + threeYut;
                 Gamemanager.Instance.Footholdbox.lastfindposition(pastYutcount1, pastYutcount2, pastYutcount3, maxmoveYutcount);
+                break;
+            case 4:
+                if (MaxmoveYutcount == 44)
+                {
+                    if (oneYut == -1)
+                    {
+                        pastYutcount1 -= 1;
+                    }
+                    else if (twoYut == -1)
+                    {
+                        pastYutcount2 -= 1;
+                    }
+                    else if (threeYut == -1)
+                    {
+                        pastYutcount3 -= 1;
+                    }
+                    Gamemanager.Instance.Footholdbox.DesPos(pastYutcount1, pastYutcount2, pastYutcount3, maxmoveYutcount);
+                }
                 break;
         }
     }
@@ -644,6 +667,10 @@ public class Player : MonoBehaviour
         {
             moveYutcount1 = 10;
         }
+        else if(MaxmoveYutcount == 44  && oneYut == -1)
+        {
+            moveYutcount1 = 14;
+        }
         //else if (Gamemanager.Instance.Footholdbox.Yutfoothold[15].gameObject && oneYut == -1)
         //{
         //    Debug.Log("테스트");
@@ -685,6 +712,10 @@ public class Player : MonoBehaviour
         {
             moveYutcount2 = 10;
         }
+        else if (MaxmoveYutcount == 44 && twoYut == -1)
+        {
+            moveYutcount2 = 14;
+        }
     }
     private void yutPosCount3()
     {
@@ -720,7 +751,11 @@ public class Player : MonoBehaviour
         }
         else if (MaxmoveYutcount == 32 && threeYut == -1)
         {
-            moveYutcount3 = 10;
+            moveYutcount3 = 14;
+        }
+        else if (MaxmoveYutcount == 44 && threeYut == -1)
+        {
+            moveYutcount3 = 14;
         }
     }
 

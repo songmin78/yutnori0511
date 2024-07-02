@@ -54,6 +54,11 @@ public class Yutstartbutton : MonoBehaviour
         });
     }
 
+    private void Start()
+    {
+        Gamemanager.Instance.Yutstartbuttons = this;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -143,6 +148,12 @@ public class Yutstartbutton : MonoBehaviour
         {
             yutnumber = -1;
             Stickcount = 0;
+            for (int yutstick = 0; yutstick < 4; yutstick++)
+            {
+                randomcount = 1;
+                chageyut += 1;
+                Yutcount();
+            }
             yutturnNumber();
             Debug.Log("»ªµµ");
             yutstart = false;
@@ -410,5 +421,15 @@ public class Yutstartbutton : MonoBehaviour
         yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
         chageyut = 0;
+    }
+
+   public void ClaerYutCount()
+    {
+        zeromovecheck = true;
+        numberzero();
+        Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
+        playtimer.checktime = true;
+        stayyutcheck = true;
+        playtimer.returnYut = true;
     }
 }

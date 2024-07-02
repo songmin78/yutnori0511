@@ -330,6 +330,40 @@ public class Footholdbox : MonoBehaviour
         }
     }
 
+    public void DesPos(float _position1, float _position2, float _position3, float _maxposition)
+    {
+        if(_position1 == _maxposition)
+        {
+            shortcutcheck1.transform.position = new Vector3(0, -10, 0);
+            shortcutcheck1.SetActive(false);
+        }
+        else
+        {
+            shortcutcheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
+            shortcutcheck1.SetActive(true);
+        }
+        if (_position2 == _maxposition)
+        {
+            shortcutcheck2.transform.position = new Vector3(0, -10, 0);
+            shortcutcheck2.SetActive(false);
+        }
+        else
+        {
+            shortcutcheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
+            shortcutcheck2.SetActive(true);
+        }
+        if (_position3 == _maxposition)
+        {
+            shortcutcheck3.transform.position = new Vector3(0, -10, 0);
+            shortcutcheck3.SetActive(false);
+        }
+        else
+        {
+            shortcutcheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
+            shortcutcheck3.SetActive(true);
+        }
+    }
+
     public void positiondestory()//같은 숫자가 걸릴 경우
     {
         poscheck1.SetActive(false);

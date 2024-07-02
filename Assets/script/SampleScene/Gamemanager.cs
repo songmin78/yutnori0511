@@ -64,6 +64,7 @@ public class Gamemanager : MonoBehaviour
 
     private Player player;
     private Footholdbox footholdbox;
+    private Yutstartbutton yutstartbutton;
     //결승점에 통과한 말을 알려주는 오브젝트
     GameObject Clearobj;
     float ClearNumber;
@@ -90,6 +91,12 @@ public class Gamemanager : MonoBehaviour
     {
         get { return footholdbox; }
         set { footholdbox = value; }
+    }
+
+    public Yutstartbutton Yutstartbuttons
+    {
+        get { return yutstartbutton; }
+        set { yutstartbutton = value; }
     }
 
     private void Awake()
@@ -450,8 +457,9 @@ public class Gamemanager : MonoBehaviour
             {
                 changecheck = 0;
             }
-            Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
-            yutstartbutton.getbackYut();
+            Yutstartbuttons.getbackYut();
+            //Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
+            //yutstartbutton.getbackYut();
         }
         else//더한 값이 0이 아닐 경우
         {
@@ -655,7 +663,7 @@ public class Gamemanager : MonoBehaviour
                     #endregion
                     //NotCarryPrevention(_dplayer);//업기전에 물어보기
                     player = _dplayer.GetComponent<Player>();//잡는말을 가져온다
-                    if (player.GoPlayer == false || player.MaxmoveYutcount != objs.MaxmoveYutcount)
+                    if (player.GoPlayer == false)//player.MaxmoveYutcount != objs.MaxmoveYutcount
                     {
                         return;
                     }
@@ -674,7 +682,12 @@ public class Gamemanager : MonoBehaviour
                 if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//잡히는 말이 레드팀 태그를 달고있 을때 업는다
                 {
                     player = _dplayer.GetComponent<Player>();//잡는말을 가져온다
-                    if (player.GoPlayer == false || player.MaxmoveYutcount != objs.MaxmoveYutcount)
+                    //if (player.GoPlayer == false || player.MaxmoveYutcount != objs.MaxmoveYutcount)
+                    //{
+                    //    return;
+                    //}
+                    //문제점 지금까지 리스트에서 같은 이름으로 처리를 하다보니 이걸 넣을 경우 겹치는 리스트끼리는 안 잡히게 된다
+                    if (player.GoPlayer == false)//안보이는 발판을 하나 더 생성해서 해결됨
                     {
                         return;
                     }
@@ -842,7 +855,7 @@ public class Gamemanager : MonoBehaviour
         //30 ~ 34까지는 지름길 [10]에서 쭉 갈때 기준으로 가는 길
         //
         if (_data == Footholdbox.Yutfoothold[5] || _data == Footholdbox.Yutfoothold[10] || _data == Footholdbox.Yutfoothold[34]
-            || _data == Footholdbox.Yutfoothold[23])
+            || _data == Footholdbox.Yutfoothold[23] || _data == Footholdbox.Yutfoothold[44])
         {
             player = _player.GetComponent<Player>();
             if(_data == Footholdbox.Yutfoothold[5])
@@ -856,6 +869,10 @@ public class Gamemanager : MonoBehaviour
             else if (_data == Footholdbox.Yutfoothold[23] || _data == Footholdbox.Yutfoothold[34])
             {
                 player.ShortcutArrive(3);
+            }
+            else if(_data == Footholdbox.Yutfoothold[44])
+            {
+                player.ShortcutArrive(4);
             }
         }
     }
@@ -875,16 +892,8 @@ public class Gamemanager : MonoBehaviour
 
     public void CheckBackYutPass()//윷이 빽도인데 필드에 윷이 하나도 없는 경우
     {
-        if(teamtype == 1)//블루팀일 경우
-        {
-            //cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold == trsYutfoolhold);
-            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold);
-            Debug.Log(data);
-        }
-        else if(teamtype == 2)//레드팀일 경우
-        {
-            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.trsFootHold);
-            Debug.Log(data);
-        }
+
     }
+
+
 }
