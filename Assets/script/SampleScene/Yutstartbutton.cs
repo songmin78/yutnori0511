@@ -18,7 +18,7 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float threeyut = 0;
     public bool zeromovecheck;
 
-    float yuttype;
+    //float yuttype;
     [Header("윷 던지기 버튼")]
     //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
     [SerializeField] Button startbutton;
@@ -26,7 +26,7 @@ public class Yutstartbutton : MonoBehaviour
     bool randomcheck;//윷이 뭘 떴는지 확인 해주는 코드
     int randomcount;
     int Stickcount;
-    public bool waittime;//캐릭터를 움직이기위한 시간에 버튼을 눌러도 작동 안되게 설정
+    //public bool waittime;//캐릭터를 움직이기위한 시간에 버튼을 눌러도 작동 안되게 설정
     public bool yutstarttimer;
     [Header("기 타")]
     //[SerializeField] Image timegage;
@@ -37,6 +37,13 @@ public class Yutstartbutton : MonoBehaviour
     [Header("스크립트오브젝트를 관리")]
     [SerializeField] GameObject Playtimemanager;
 
+    public enum eRule
+    {
+        YutStartButton1,
+        YutStartButton2,
+        YutStartButton3,
+    }
+    private eRule curButton = eRule.YutStartButton1;
 
     [SerializeField] List<int> yutdisposition = new List<int>();
     private void Awake()
@@ -66,7 +73,7 @@ public class Yutstartbutton : MonoBehaviour
         //{
         //    return;
         //}
-        yutplaytimer();
+        //yutplaytimer();
         startyutnbutton();
         resetyut();
         //returnyut();
@@ -74,17 +81,35 @@ public class Yutstartbutton : MonoBehaviour
         numberzero();
         //moveyut();
 
+        if(curButton == eRule.YutStartButton1)
+        {
+
+        }
+        else if(curButton == eRule.YutStartButton2)
+        {
+
+        }
+        else if(curButton == eRule.YutStartButton3)
+        {
+
+        }
+
     }
 
-    private void yutplaytimer()
+    public void yutplaytimer()
     {
-        if (yutstarttimer == true)
-        {
-            yutdisposition.Clear();
-            Stickcount = 0;
-            yutstart = true;
-            yutstarttimer = false;
-        }
+        //if (yutstarttimer == true)
+        //{
+        //    yutdisposition.Clear();
+        //    Stickcount = 0;
+        //    yutstart = true;
+        //    yutstarttimer = false;
+        //}
+
+        //코드 최적화 중
+        yutdisposition.Clear();
+        Stickcount = 0;
+        yutstart = true;
     }
 
 
@@ -112,13 +137,11 @@ public class Yutstartbutton : MonoBehaviour
                 Gamemanager.Instance.nextturn();
                 return;
             }
-            //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
-            playtimer.checktime = true;
+            Gamemanager.Instance.Playtimer.cheangeyuttime();
             if (yutnumber == 4 || yutnumber == 5)
             {
                 stayyutcheck = true;
-                playtimer.returnYut = true;
+                //playtimer.returnYut = true;
             }
         }
         if(Input.GetKeyDown(KeyCode.B))
@@ -138,10 +161,7 @@ public class Yutstartbutton : MonoBehaviour
                 Gamemanager.Instance.nextturn();
                 return;
             }
-
-            //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
-            playtimer.checktime = true;
+            Gamemanager.Instance.Playtimer.cheangeyuttime();
             Gamemanager.Instance.throwyutbutton = false;
         }
         if(Input.GetKeyDown(KeyCode.M))
@@ -163,9 +183,7 @@ public class Yutstartbutton : MonoBehaviour
                 return;
             }
 
-            //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
-            playtimer.checktime = true;
+            Gamemanager.Instance.Playtimer.cheangeyuttime();
             Gamemanager.Instance.throwyutbutton = false;
             Gamemanager.Instance.CheckBackYutPass();
         }
@@ -226,8 +244,7 @@ public class Yutstartbutton : MonoBehaviour
             }
             yutstart = false;
             //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
-            playtimer.checktime = true;
+            Gamemanager.Instance.Playtimer.cheangeyuttime();
             if (yutnumber == 4 || yutnumber == 5)//모 또는 윷이 뜰 경우
             {
                 stayyutcheck = true;
@@ -235,7 +252,7 @@ public class Yutstartbutton : MonoBehaviour
                 {
                     return;
                 }
-                playtimer.returnYut = true;
+                //playtimer.returnYut = true;
             }
             else//모 또는 윷이 안뜰 경우
             {
@@ -394,8 +411,7 @@ public class Yutstartbutton : MonoBehaviour
         if (stayyutcheck == true)
         {
             //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
-            playtimer.returnyut = true;
+            Gamemanager.Instance.Playtimer.ReturnCheck();
             if (stayyut < 0)
             {
                 yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -404,7 +420,7 @@ public class Yutstartbutton : MonoBehaviour
                 yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
                 stayyut = 1;
                 stayyutcheck = false;
-                playtimer.returnyut = false;
+                Gamemanager.Instance.Playtimer.BackReturnCheck();
                 chageyut = 0;
             }
             else
@@ -425,11 +441,13 @@ public class Yutstartbutton : MonoBehaviour
 
    public void ClaerYutCount()
     {
+        yutlist();
+        Gamemanager.Instance.nextturn();
+        Gamemanager.Instance.Playtimer.cheangeyuttime();
+
         zeromovecheck = true;
         numberzero();
-        Playtimer playtimer = Playtimemanager.GetComponent<Playtimer>();
-        playtimer.checktime = true;
-        stayyutcheck = true;
-        playtimer.returnYut = true;
+        //playtimer.checktime = true;
+        //stayyutcheck = true;
     }
 }

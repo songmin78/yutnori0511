@@ -65,6 +65,7 @@ public class Gamemanager : MonoBehaviour
     private Player player;
     private Footholdbox footholdbox;
     private Yutstartbutton yutstartbutton;
+    private Playtimer playtimer;
     //결승점에 통과한 말을 알려주는 오브젝트
     GameObject Clearobj;
     float ClearNumber;
@@ -97,6 +98,12 @@ public class Gamemanager : MonoBehaviour
     {
         get { return yutstartbutton; }
         set { yutstartbutton = value; }
+    }
+
+    public Playtimer Playtimer
+    {
+        get { return playtimer; }
+        set { playtimer = value; }
     }
 
     private void Awake()
@@ -477,8 +484,7 @@ public class Gamemanager : MonoBehaviour
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
 
-            Playtimer startplayer = Playtimemanager.GetComponent<Playtimer>();
-            startplayer.turnendchange((int)changecheck);
+            Playtimer.turnendchange((int)changecheck);
         }
         else if (throwyutbutton == false)
         {
@@ -892,8 +898,31 @@ public class Gamemanager : MonoBehaviour
 
     public void CheckBackYutPass()//윷이 빽도인데 필드에 윷이 하나도 없는 경우
     {
-
+        if(teamtype == 1)//블루팀 일때
+        {
+            Yutstartbuttons.ClaerYutCount();
+        }
+        else if(teamtype == 2)
+        {
+            Yutstartbuttons.ClaerYutCount();
+        }
     }
 
+    public void TimeOverChange()//시간초내에 이동하지 않으면 턴이 변경되게 하는 부분
+    {
+        throwbutton.gameObject.SetActive(true);
+        Playtimemanager.SetActive(true);
+        Yuttimer.SetActive(true);
+        Yutbox.SetActive(true);
+        playerbox.SetActive(true);
+
+        Playtimer.turnendchange((int)changecheck);
+    }
+    public void PlayerTimeChange()
+    {
+        throwbutton.gameObject.SetActive(false);
+        Yuttimer.SetActive(false);
+        curState = eRule.SelectCharacter;
+    }
 
 }
