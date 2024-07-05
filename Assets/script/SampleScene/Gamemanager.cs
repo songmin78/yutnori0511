@@ -347,6 +347,7 @@ public class Gamemanager : MonoBehaviour
     //    return true;
     //}
 
+    //시작하고 팀 체인지가 안되는 현상이 있음 07/05일자
     private void startturn()//처음에 누가 먼저 시작하는지 알려주는 코드
     {
         animator = startcheck.gameObject.GetComponentInChildren<Animator>();
@@ -363,13 +364,14 @@ public class Gamemanager : MonoBehaviour
                 animator.SetFloat("CharacterChange", changecheck);
             }
 
-            if (Maxstartturnyut < 0)//0보다 작을 경우
+            if (Maxstartturnyut < 0)//0보다 작을 경우 즉 시간이 다 된 경우
             {
                 Maxstartturnyut = startturnyut;
                 starttype = false;
                 startcheck.gameObject.SetActive(false);
                 curState = eRule.ThrowYut;
                 throwyutbutton = true;
+
             }
 
         }

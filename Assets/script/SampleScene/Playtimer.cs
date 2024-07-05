@@ -194,7 +194,8 @@ public class Playtimer : MonoBehaviour
             }
 
             //Gamemanager.Instance.Yutstartbuttons.waittime = false;//나중에 다시 건들 예정
-            Gamemanager.Instance.Yutstartbuttons.zeromovecheck = true;
+            //Gamemanager.Instance.Yutstartbuttons.zeromovecheck = true;
+            Gamemanager.Instance.Yutstartbuttons.numberzero();
 
             changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
             curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경

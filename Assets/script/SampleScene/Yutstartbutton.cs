@@ -74,20 +74,20 @@ public class Yutstartbutton : MonoBehaviour
         //    return;
         //}
         //yutplaytimer();
-        startyutnbutton();
-        resetyut();
+        //startyutnbutton();//윷 던지기 버튼
+        //resetyut();// 윷이 모 또는 윷에 걸릴 경우
         //returnyut();
 
-        numberzero();
+        //numberzero();//이동 거리 초기화
         //moveyut();
 
-        if(curButton == eRule.YutStartButton1)
+        if (curButton == eRule.YutStartButton1)
         {
-
+            startyutnbutton();
         }
         else if(curButton == eRule.YutStartButton2)
         {
-
+            resetyut();
         }
         else if(curButton == eRule.YutStartButton3)
         {
@@ -140,8 +140,9 @@ public class Yutstartbutton : MonoBehaviour
             Gamemanager.Instance.Playtimer.cheangeyuttime();
             if (yutnumber == 4 || yutnumber == 5)
             {
-                stayyutcheck = true;
+                //stayyutcheck = true;
                 //playtimer.returnYut = true;
+                curButton = eRule.YutStartButton2;
             }
         }
         if(Input.GetKeyDown(KeyCode.B))
@@ -247,7 +248,8 @@ public class Yutstartbutton : MonoBehaviour
             Gamemanager.Instance.Playtimer.cheangeyuttime();
             if (yutnumber == 4 || yutnumber == 5)//모 또는 윷이 뜰 경우
             {
-                stayyutcheck = true;
+                curButton = eRule.YutStartButton2;
+                //stayyutcheck = true;
                 if (threeyut != 0)
                 {
                     return;
@@ -345,15 +347,18 @@ public class Yutstartbutton : MonoBehaviour
     }
 
 
-    private void numberzero()//이동 거리 초기화
+    public void numberzero()//이동 거리 초기화
     {
-        if (zeromovecheck == true)
-        {
-            oneyut = 0;
-            twoyut = 0;
-            threeyut = 0;
-            zeromovecheck = false;
-        }
+        //if (zeromovecheck == true)
+        //{
+        //    oneyut = 0;
+        //    twoyut = 0;
+        //    threeyut = 0;
+        //    zeromovecheck = false;
+        //}
+        oneyut = 0;
+        twoyut = 0;
+        threeyut = 0;
     }
 
     private void Yutcount()//윷이 앞면에 뜨냐 뒷면에 뜨냐 보여주는 부분
@@ -408,25 +413,43 @@ public class Yutstartbutton : MonoBehaviour
 
     private void resetyut()//윷이 모 또는 윷에 걸릴 경우
     {
-        if (stayyutcheck == true)
+        //if (stayyutcheck == true)
+        //{
+        //    //GameObject findtimer = GameObject.Find("Playtimemanager");
+        //    Gamemanager.Instance.Playtimer.ReturnCheck();
+        //    if (stayyut < 0)
+        //    {
+        //        yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //        yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //        yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //        yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //        stayyut = 1;
+        //        stayyutcheck = false;
+        //        Gamemanager.Instance.Playtimer.BackReturnCheck();
+        //        chageyut = 0;
+        //    }
+        //    else
+        //    {
+        //        stayyut -= Time.deltaTime;
+        //    }
+        //}
+
+        Gamemanager.Instance.Playtimer.ReturnCheck();
+        if (stayyut < 0)
         {
-            //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Gamemanager.Instance.Playtimer.ReturnCheck();
-            if (stayyut < 0)
-            {
-                yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
-                yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
-                yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
-                yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
-                stayyut = 1;
-                stayyutcheck = false;
-                Gamemanager.Instance.Playtimer.BackReturnCheck();
-                chageyut = 0;
-            }
-            else
-            {
-                stayyut -= Time.deltaTime;
-            }
+            yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
+            yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
+            yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
+            yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+            stayyut = 1;
+            //stayyutcheck = false;
+            Gamemanager.Instance.Playtimer.BackReturnCheck();
+            chageyut = 0;
+            curButton = eRule.YutStartButton1;
+        }
+        else
+        {
+            stayyut -= Time.deltaTime;
         }
     }
 
@@ -445,7 +468,7 @@ public class Yutstartbutton : MonoBehaviour
         Gamemanager.Instance.nextturn();
         Gamemanager.Instance.Playtimer.cheangeyuttime();
 
-        zeromovecheck = true;
+        //zeromovecheck = true;
         numberzero();
         //playtimer.checktime = true;
         //stayyutcheck = true;
