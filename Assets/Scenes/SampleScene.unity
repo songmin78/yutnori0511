@@ -1095,7 +1095,6 @@ MonoBehaviour:
   threeyut: 0
   zeromovecheck: 0
   startbutton: {fileID: 1353190356}
-  waittime: 0
   yutstarttimer: 0
   stayyut: 1
   Playtimemanager: {fileID: 2031114142}
@@ -6113,7 +6112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2031114143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6132,10 +6131,7 @@ MonoBehaviour:
   Maxthrowtime: 0
   waitmovetime: 10
   Maxwaitmovetime: 0
-  checktime: 0
   timegage: {fileID: 1950449413}
-  returnYut: 0
-  returnyut: 0
 --- !u!4 &2031114144
 Transform:
   m_ObjectHideFlags: 0

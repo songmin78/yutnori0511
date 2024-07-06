@@ -40,6 +40,7 @@ public class Playtimer : MonoBehaviour
     private void Start()
     {
         Gamemanager.Instance.Playtimer = this;
+        curTimer = eRule.ReturnTimeStay;
     }
 
     void Update()
@@ -66,10 +67,20 @@ public class Playtimer : MonoBehaviour
             movewaittimer();//말이 움직이는것을 기다리는 코드
             //timecalculate();
         }
-        else if(curTimer == eRule.ReturnTimeStay)
+        else if(curTimer == eRule.ReturnTimeStay)//이 스크립트가 작동 안하게 대기하는 코드부분
         {
             return;
         }
+    }
+
+    public void StayTurnTime()//이 스크립트가 작동 안되게 바꾸는 코드 
+    {
+        curTimer = eRule.ReturnTimeStay;
+    }
+
+    public void StartTurnTime()//시작타이머가 돌아가도록 하는 코드
+    {
+        curTimer = eRule.Throwtime;
     }
 
     public void startturn(int _startteam)//먼저 시작할 팀 설정

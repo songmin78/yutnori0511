@@ -371,7 +371,7 @@ public class Gamemanager : MonoBehaviour
                 startcheck.gameObject.SetActive(false);
                 curState = eRule.ThrowYut;
                 throwyutbutton = true;
-
+                startTeamTurn();
             }
 
         }
@@ -413,13 +413,14 @@ public class Gamemanager : MonoBehaviour
         if (throwyutbutton == true)
         {
             throwbutton.gameObject.SetActive(true);
-            Playtimemanager.SetActive(true);
+            //Playtimemanager.SetActive(true);
             Yuttimer.SetActive(true);
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
 
-            Playtimer startplayer = Playtimemanager.GetComponent<Playtimer>();
-            startplayer.startturn((int)changecheck);
+            //Playtimer startplayer = Playtimemanager.GetComponent<Playtimer>();
+            //startplayer.startturn((int)changecheck);
+            Playtimer.startturn((int)changecheck);
         }
         else if (throwyutbutton == false)
         {
@@ -493,6 +494,26 @@ public class Gamemanager : MonoBehaviour
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);
             curState = eRule.SelectCharacter;
+        }
+    }
+
+    private void startTeamTurn()
+    {
+        if (throwyutbutton == true)
+        {
+            throwbutton.gameObject.SetActive(true);
+            //Playtimemanager.SetActive(true);
+            Yuttimer.SetActive(true);
+            Yutbox.SetActive(true);
+            playerbox.SetActive(true);
+
+            Playtimer.turnendchange((int)changecheck);
+            playtimer.StartTurnTime();
+        }
+        else if (throwyutbutton == false)
+        {
+            throwbutton.gameObject.SetActive(false);
+            Yuttimer.SetActive(false);
         }
     }
 
