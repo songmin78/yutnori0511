@@ -62,12 +62,12 @@ public class Playtimer : MonoBehaviour
             timecalculate();
             //cheangeyuttime();//윷 던지기 버튼을 누를때 작동
         }
-        else if(curTimer == eRule.Movetime)
+        else if (curTimer == eRule.Movetime)
         {
             movewaittimer();//말이 움직이는것을 기다리는 코드
             //timecalculate();
         }
-        else if(curTimer == eRule.ReturnTimeStay)//이 스크립트가 작동 안하게 대기하는 코드부분
+        else if (curTimer == eRule.ReturnTimeStay)//이 스크립트가 작동 안하게 대기하는 코드부분
         {
             return;
         }

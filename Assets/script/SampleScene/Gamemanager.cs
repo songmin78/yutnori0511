@@ -413,7 +413,7 @@ public class Gamemanager : MonoBehaviour
         if (throwyutbutton == true)
         {
             throwbutton.gameObject.SetActive(true);
-            //Playtimemanager.SetActive(true);
+            Playtimemanager.SetActive(true);
             Yuttimer.SetActive(true);
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
