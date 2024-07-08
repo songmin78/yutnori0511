@@ -64,6 +64,7 @@ public class Yutstartbutton : MonoBehaviour
     private void Start()
     {
         Gamemanager.Instance.Yutstartbuttons = this;
+        curButton = eRule.YutStartButton3;
     }
 
     // Update is called once per frame
@@ -91,7 +92,7 @@ public class Yutstartbutton : MonoBehaviour
         }
         else if(curButton == eRule.YutStartButton3)
         {
-
+            return;
         }
 
     }

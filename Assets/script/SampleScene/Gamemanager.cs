@@ -499,22 +499,14 @@ public class Gamemanager : MonoBehaviour
 
     private void startTeamTurn()
     {
-        if (throwyutbutton == true)
-        {
-            throwbutton.gameObject.SetActive(true);
-            //Playtimemanager.SetActive(true);
-            Yuttimer.SetActive(true);
-            Yutbox.SetActive(true);
-            playerbox.SetActive(true);
+        throwbutton.gameObject.SetActive(true);
+        //Playtimemanager.SetActive(true);
+        Yuttimer.SetActive(true);
+        Yutbox.SetActive(true);
+        playerbox.SetActive(true);
 
-            Playtimer.turnendchange((int)changecheck);
-            playtimer.StartTurnTime();
-        }
-        else if (throwyutbutton == false)
-        {
-            throwbutton.gameObject.SetActive(false);
-            Yuttimer.SetActive(false);
-        }
+        Playtimer.turnendchange((int)changecheck);
+        playtimer.StartTurnTime();
     }
 
 
