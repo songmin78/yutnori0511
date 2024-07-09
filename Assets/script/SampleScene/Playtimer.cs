@@ -92,6 +92,7 @@ public class Playtimer : MonoBehaviour
             case 1:
                 teamblue = true; break;
         }
+        changeteam();
     }
 
     private void waityuttime()//윷을 던지기 위해 기다리는 시간 코드
@@ -313,5 +314,25 @@ public class Playtimer : MonoBehaviour
     public void BackReturnCheck()//모나 윷이 걸릴때 바로 돌아가지 않도록 조절하는 코드
     {
         curTimer = eRule.Throwtime;
+    }
+    public void TurnChangeCheck()//플레이어 
+    {
+        Maxwaitmovetime = waitmovetime;
+        if (teamred == true)//이동시간이 다 끝났을 경우 팀 변경
+        {
+            teamred = false;
+            teamblue = true;
+        }
+        else if (teamblue == true)
+        {
+            teamred = true;
+            teamblue = false;
+        }
+        Gamemanager.Instance.Yutstartbuttons.numberzero();
+
+        changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
+        curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
+        Gamemanager.Instance.TimeOverChange();
+        Debug.Log("던지기로 변경");
     }
 }

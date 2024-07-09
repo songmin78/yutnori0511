@@ -468,6 +468,7 @@ public class Gamemanager : MonoBehaviour
                 changecheck = 0;
             }
             Yutstartbuttons.getbackYut();
+            Playtimer.TurnChangeCheck();
             //Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
             //yutstartbutton.getbackYut();
         }
@@ -505,6 +506,7 @@ public class Gamemanager : MonoBehaviour
         Yutbox.SetActive(true);
         playerbox.SetActive(true);
 
+        //Playtimer.startturn((int)changecheck);
         Playtimer.turnendchange((int)changecheck);
         playtimer.StartTurnTime();
         Yutstartbuttons.ControlCheck1();
