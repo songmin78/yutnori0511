@@ -315,7 +315,7 @@ public class Playtimer : MonoBehaviour
     {
         curTimer = eRule.Throwtime;
     }
-    public void TurnChangeCheck()//플레이어 
+    public void TurnChangeCheck()//플레이어가
     {
         Maxwaitmovetime = waitmovetime;
         if (teamred == true)//이동시간이 다 끝났을 경우 팀 변경
