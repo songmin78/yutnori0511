@@ -474,4 +474,9 @@ public class Yutstartbutton : MonoBehaviour
         //playtimer.checktime = true;
         //stayyutcheck = true;
     }
+
+    public void ControlCheck1()
+    {
+        curButton = eRule.YutStartButton1;
+    }
 }

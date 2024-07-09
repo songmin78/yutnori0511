@@ -507,6 +507,7 @@ public class Gamemanager : MonoBehaviour
 
         Playtimer.turnendchange((int)changecheck);
         playtimer.StartTurnTime();
+        Yutstartbuttons.ControlCheck1();
     }
 
 
