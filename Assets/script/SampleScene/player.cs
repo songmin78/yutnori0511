@@ -352,6 +352,7 @@ public class Player : MonoBehaviour
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
                 Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount,gameObject);
+                Gamemanager.Instance.DebugTest();
                 //Gamemanager.Instance.PastlLoadCheck((int)MaxmoveYutcount, gameObject);
             }
             //Debug.Log(rayHit.transform.gameObject.name);
