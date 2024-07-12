@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
     //public bool Exitcheck1;
     //public bool Exitcheck2;
     //public bool Exitcheck3;
-
+    bool NextTurnCheck;
 
     public enum eRule
     {
@@ -116,6 +116,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                movecheck = false;
                 return;
             }
         }
@@ -352,8 +353,14 @@ public class Player : MonoBehaviour
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
                 Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount,gameObject);
-                Gamemanager.Instance.DebugTest();
+                //Gamemanager.Instance.DebugTest();
                 //Gamemanager.Instance.PastlLoadCheck((int)MaxmoveYutcount, gameObject);
+                if(NextTurnCheck == true)
+                {
+                    NextTurnCheck = false;
+                    Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+                }
+                movecheck = false;
             }
             //Debug.Log(rayHit.transform.gameObject.name);
         }
@@ -408,8 +415,9 @@ public class Player : MonoBehaviour
 
     private void changeYutzero()//말을 움직인 후에 이동한 숫자를 0으로 만드는 코드
     {
-        GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
-        Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
+        //GameObject findyut = GameObject.Find("Yutstartbutton");//해당 이름의 오브젝트를 찾는다
+        //Yutstartbutton buttontimer = findyut.GetComponent<Yutstartbutton>();
+        Yutstartbutton buttontimer = Gamemanager.Instance.Yutstartbuttons;
         switch(Yutorder)
         {
             case 1:
@@ -426,20 +434,39 @@ public class Player : MonoBehaviour
                 break;
         }
         //posmovecheck();
-        pointCombine();//갈림길에서 빽도가 뜨면 이상한데에 표시가 뜨는 오류를 고치기 위한 코드
-        pointCombine2();
-        goPlayer = true;//움직이기 시작하면 true
-        movecheck = false;
-        shortcutCheck = false;
-        yutcontrol = eRule.notrecall;
-        //Gamemanager.Instance.Footholdbox.movecheckchange(oneYut, twoYut, threeYut);
-        Gamemanager.Instance.Footholdbox.movedestory();
-        Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
-        findplayd.SetActive(false);
+        MoveCheckControl();
+        #region
+        //pointCombine();//갈림길에서 빽도가 뜨면 이상한데에 표시가 뜨는 오류를 고치기 위한 코드
+        //pointCombine2();
+        //goPlayer = true;//움직이기 시작하면 true
+        //movecheck = false;
+        //shortcutCheck = false;
+        //yutcontrol = eRule.notrecall;
+        ////Gamemanager.Instance.Footholdbox.movecheckchange(oneYut, twoYut, threeYut);
+        //Gamemanager.Instance.Footholdbox.movedestory();
+        ////Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+        //findplayd.SetActive(false);
+        #endregion
         //Debug.Log(moveYutcount1);
         //Debug.Log(moveYutcount2);
         //Debug.Log(moveYutcount3);
         //Debug.Log(MaxmoveYutcount);
+        if(oneYut + twoYut + threeYut == 0)
+        {
+            NextTurnCheck = true;
+        }
+    }
+
+    public void MoveCheckControl()
+    {
+        pointCombine();//갈림길에서 빽도가 뜨면 이상한데에 표시가 뜨는 오류를 고치기 위한 코드
+        pointCombine2();
+        goPlayer = true;//움직이기 시작하면 true
+        //movecheck = false;
+        shortcutCheck = false;
+        yutcontrol = eRule.notrecall;
+        Gamemanager.Instance.Footholdbox.movedestory();
+        findplayd.SetActive(false);
     }
 
     private void pointCombine()//딱 결승점에 도착 할 경우 결승점의 maxmoveYutcount를 50번으로 통일 시킨다

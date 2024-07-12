@@ -246,7 +246,7 @@ public class Gamemanager : MonoBehaviour
 
     private void selectcharactor(GameObject _value)//다른 오브젝트를 누를때 기존에 오브젝트는 끄는 코드
     {
-        Debug.Log(teamtype);
+        //Debug.Log(teamtype);
         if (teamtype == 1)//블루팀일 경우
         {
             int count = objblue.Count;
@@ -473,6 +473,7 @@ public class Gamemanager : MonoBehaviour
             Playtimer.TurnChangeCheck();
             //Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
             //yutstartbutton.getbackYut();
+            //Player.MoveCheckControl();
         }
         else//더한 값이 0이 아닐 경우
         {
@@ -618,7 +619,7 @@ public class Gamemanager : MonoBehaviour
             {
                 if (data.trsFootHold == listObjectWhereFootHold[iNum].trsFootHold && dplayer != listObjectWhereFootHold[iNum].objPlayer)
                 {
-                    Debug.Log(teamtype);
+                    //Debug.Log(teamtype);
                     checkCount(data, dplayer, iNum);
                     break;
                 }
@@ -633,7 +634,7 @@ public class Gamemanager : MonoBehaviour
 
     private void checkCount(cObjectWhereFootHold data, GameObject _dplayer, int iNum)//말이 말을 잡을 경우에 실행되는 코드
     {
-        Debug.Log(teamtype);
+        //Debug.Log(teamtype);
         //data <= 말을 움직이는 데이터
         //listObjectWhereFootHold <= 그 공간에 있는 말
 
@@ -736,6 +737,7 @@ public class Gamemanager : MonoBehaviour
                 }
                 break;
         }
+        //turnendcheck(Player.oneYut, Player.twoYut, Player.threeYut);
     }
 
     public void CheckCurry()
