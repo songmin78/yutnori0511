@@ -21,12 +21,15 @@ public class Playtimer : MonoBehaviour
     //public bool returnYut;//모나 윷이 뜨면 true로 전환
     //[SerializeField] GameObject poscheck1;//첫번째 윷의 이동 범위
     //public bool returnyut;//모나 윷이 뜰때 바로 시간이 돌아가는것을 방지
+    [Header("빽도 관련 부분")]
+    [SerializeField] float BackTime;
+    [SerializeField]float MaxBackTime;
 
     public enum eRule
     {
         Throwtime,
         Movetime,
-        Returnthrowtime,
+        BackChangeTimer,
         ReturnTimeStay,//윷타이머가 안 돌아가게 관리하는 코드
     }
     private eRule curTimer = eRule.Throwtime;
@@ -35,6 +38,7 @@ public class Playtimer : MonoBehaviour
     {
         Maxthrowtime = throwtime;
         Maxwaitmovetime = waitmovetime;
+        MaxBackTime = BackTime;
     }
 
     private void Start()
@@ -66,6 +70,18 @@ public class Playtimer : MonoBehaviour
         {
             movewaittimer();//말이 움직이는것을 기다리는 코드
             //timecalculate();
+        }
+        else if(curTimer == eRule.BackChangeTimer)//필드에 자기말이 없을때 빽도가 뜨면 턴을 넘기도록 만든 curTime
+        {
+            if(MaxBackTime < 0)
+            {
+                MaxBackTime = BackTime;
+                BackChangeTurn();
+            }
+            else
+            {
+                MaxBackTime -= Time.deltaTime;
+            }
         }
         else if (curTimer == eRule.ReturnTimeStay)//이 스크립트가 작동 안하게 대기하는 코드부분
         {
@@ -151,6 +167,12 @@ public class Playtimer : MonoBehaviour
         curTimer = eRule.Movetime;
     }
 
+    public void PassChange()
+    {
+        Maxthrowtime = throwtime;//초 초기화
+        curTimer = eRule.BackChangeTimer;
+    }
+
     private void movewaittimer()//말이 움직이는것을 기다리는 코드
     {
         #region  과거에 만든 코드들
@@ -212,6 +234,7 @@ public class Playtimer : MonoBehaviour
             changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
             curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
             Gamemanager.Instance.TimeOverChange();
+            Gamemanager.Instance.EndTurnCheck();//턴 체인지
             Debug.Log("던지기로 변경");
         }
         else
@@ -219,8 +242,25 @@ public class Playtimer : MonoBehaviour
             Maxwaitmovetime -= Time.deltaTime;
             //Gamemanager.Instance.Yutstartbuttons.waittime = true;
         }
+    }
 
-
+    public void BackChangeTurn()//빽도가 뜰때 턴 체인지 부분
+    {
+        if (teamred == true)//이동시간이 다 끝났을 경우 팀 변경
+        {
+            teamred = false;
+            teamblue = true;
+        }
+        else if (teamblue == true)
+        {
+            teamred = true;
+            teamblue = false;
+        }
+        Gamemanager.Instance.Yutstartbuttons.numberzero();
+        changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
+        curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
+        Gamemanager.Instance.TimeOverChange();
+        Gamemanager.Instance.EndTurnCheck();//턴 체인지
     }
 
     #region
@@ -333,6 +373,10 @@ public class Playtimer : MonoBehaviour
         changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
         curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
         Gamemanager.Instance.TimeOverChange();
-        Debug.Log("던지기로 변경");
+    }
+
+    public void RecycleTurn()
+    {
+        curTimer = eRule.Throwtime;
     }
 }

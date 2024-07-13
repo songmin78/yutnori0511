@@ -423,14 +423,17 @@ public class Player : MonoBehaviour
             case 1:
                 buttontimer.oneyut = 0;
                 oneYut = buttontimer.oneyut;
+                buttontimer.NotCheck1();
                 break;
             case 2:
                 buttontimer.twoyut = 0;
                 twoYut = buttontimer.twoyut;
+                buttontimer.NotCheck2();
                 break;
             case 3:
                 buttontimer.threeyut = 0;
                 threeYut = buttontimer.threeyut;
+                buttontimer.NotCheck3();
                 break;
         }
         //posmovecheck();
@@ -787,6 +790,11 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    public void DesObj(GameObject obj)
+    {
+        obj.transform.GetChild(0).gameObject.SetActive(false);
+        //findplayd.SetActive(false);
+        Gamemanager.Instance.Footholdbox.movedestory();
+    }
 
 }

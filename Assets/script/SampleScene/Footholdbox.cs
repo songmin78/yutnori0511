@@ -164,6 +164,22 @@ public class Footholdbox : MonoBehaviour
             //Gamemanager.Instance.Player.ChangeYutPos(_position1, _position2, _position3);
         }
 
+        if(_position1 == -1 && _position2 + _position3 == 0)
+        {
+            poscheck1.transform.position = new Vector3(0, -10, 0);
+            return;
+        }
+        else if (_position2 == -1 && _position1 + _position3 == 0)
+        {
+            poscheck1.transform.position = new Vector3(0, -10, 0);
+            return;
+        }
+        else if (_position3 == -1 && _position2 + _position1 == 0)
+        {
+            poscheck1.transform.position = new Vector3(0, -10, 0);
+            return;
+        }
+
         poscheck1.transform.position = Yutfoothold[(int)_position1].transform.position;
         //poscheck1.transform.position = new Vector3(poscheck1.transform.position.x, poscheck1.transform.position.y - 0.1f, poscheck1.transform.position.z);
         if (Exitcheck1 == true)
@@ -180,6 +196,7 @@ public class Footholdbox : MonoBehaviour
             return;
         }
         poscheck2.transform.position = Yutfoothold[(int)_position2].transform.position;
+        //if(_position2 == -1) { poscheck2.SetActive(false); }
         //poscheck2.transform.position = new Vector3(poscheck2.transform.position.x, poscheck2.transform.position.y - 0.1f, poscheck2.transform.position.z);
         if (Exitcheck2 == true)
         {
@@ -195,6 +212,7 @@ public class Footholdbox : MonoBehaviour
             return;
         }
         poscheck3.transform.position = Yutfoothold[(int)_position3].transform.position;
+        //if(_position3 == -1) { poscheck3.SetActive(false); }
         //poscheck3.transform.position = new Vector3(poscheck3.transform.position.x, poscheck3.transform.position.y - 0.1f, poscheck3.transform.position.z);
         if (Exitcheck3 == true)
         {
@@ -221,6 +239,7 @@ public class Footholdbox : MonoBehaviour
             poscheck3.transform.position = new Vector3(0, -10, 0);
         }
     }
+
 
     public void fastfindposition(float _fastposition1, float _fastposition2, float _fastposition3, float _fastmaxposition)
     {
@@ -427,5 +446,9 @@ public class Footholdbox : MonoBehaviour
         Exitcheck2 = false; 
         Exitcheck3 = false; 
     }
+
+    public void NotLook1(){ poscheck1.SetActive(false); }
+    public void NotLook2() { poscheck2.SetActive(false); }
+    public void NotLook3() { poscheck3.SetActive(false); }
 
 }

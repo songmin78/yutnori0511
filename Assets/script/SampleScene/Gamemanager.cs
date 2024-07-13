@@ -70,6 +70,10 @@ public class Gamemanager : MonoBehaviour
     GameObject Clearobj;
     float ClearNumber;
 
+    bool BackCheck = false;
+
+    bool TurnCycleCheck;//잡았다면 그 턴을 다시 실핼 할수 있게 도와주는 부분
+
     public enum eRule
     {
 
@@ -78,6 +82,7 @@ public class Gamemanager : MonoBehaviour
         SelectCharacter,//캐릭터를 선택
         ReturnthrowYut,//다시 윷을 던지는 부분
         waittime,//잠깜 기다리는 부분
+        RecycleTime,//다시 잡을 때 플레이어 터치 코드가 안 돌아가게 조치
     }
     private eRule curState = eRule.Preferencetime;
 
@@ -176,6 +181,10 @@ public class Gamemanager : MonoBehaviour
         else if (curState == eRule.waittime)
         {
             waitingtimer();
+        }
+        else if(curState == eRule.RecycleTime)
+        {
+            return;
         }
     }
 
@@ -457,6 +466,11 @@ public class Gamemanager : MonoBehaviour
 
     public void turnendcheck(float _oneYut, float _twoYut, float _thrYut)
     {
+        if (TurnCycleCheck == true)
+        {
+            //TurnCycleCheck = false;
+            return;
+        }
         if (_oneYut + _twoYut + _thrYut == 0)
         {
             curState = eRule.ReturnthrowYut;
@@ -678,6 +692,7 @@ public class Gamemanager : MonoBehaviour
                     listObjectWhereFootHold.Remove(data);//위치를 초기화 이후에 리스트 빼기
                     assistantPlayerRed(data.objPlayer);//업혀진 말들을 다시 보여주는 코드
                     //player.DesCurryTeam();//업힌말이 있으면 업힌말을 삭제하는 코드
+                    Yutstartbuttons.CatchReTurnTurn();
                 }
                 else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//잡히는 말이 블루팀 태그를 달고있을때 업는다
                 {
@@ -734,6 +749,7 @@ public class Gamemanager : MonoBehaviour
                     listObjectWhereFootHold.Remove(data);
                     assistantPlayerBlue(data.objPlayer);//블루팀을 잡는다
                     //player.DesCurryTeam();
+                    Yutstartbuttons.CatchReTurnTurn();
                 }
                 break;
         }
@@ -922,13 +938,58 @@ public class Gamemanager : MonoBehaviour
 
     public void CheckBackYutPass()//윷이 빽도인데 필드에 윷이 하나도 없는 경우
     {
-        if(teamtype == 1)//블루팀 일때
+        int MaxCount = listObjectWhereFootHold.Count;
+        if(teamtype == 1 )//블루팀 일때
         {
-            Yutstartbuttons.ClaerYutCount();
+            if (listObjectWhereFootHold.Count == 0)
+            {
+                Yutstartbuttons.ClaerYutCount();
+                return;
+            }
+            BackCheck = true;//빽도를 찾고 있을때 텀을 못 넘기게 도와주는 코드
+            for (int iNum = 0; iNum < MaxCount; iNum++)//총 리스트를 비교해서 찾아본다
+            {
+                if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//필드에 있을 경우
+                {
+                    BackCheck = false;
+                    return;
+                }
+                else if(listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam" )//for문에 레드팀이 잡힐 경우
+                {
+                    continue;
+                }
+            }
+            if (BackCheck == true)//필드에 없을 경우에 true가 유지됨
+            {
+                BackCheck = false;
+                Yutstartbuttons.ClaerYutCount();
+            }
         }
         else if(teamtype == 2)
         {
-            Yutstartbuttons.ClaerYutCount();
+            if (listObjectWhereFootHold.Count == 0)
+            {
+                Yutstartbuttons.ClaerYutCount();
+                return;
+            }
+            BackCheck = true;
+            for (int iNum = 0; iNum < MaxCount; iNum++)//총 리스트를 비교해서 찾아본다
+            {
+                if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//필드에 있을 경우
+                {
+                    BackCheck = false;
+                    return;
+                }
+                else if (listObjectWhereFootHold[iNum].objPlayer.tag == "BlueTeam")//for문에 레드팀이 잡힐 경우
+                {
+                    continue;
+                }
+            }
+            if (BackCheck == true)//필드에 없을 경우에 true가 유지됨
+            {
+                BackCheck = false;
+                Yutstartbuttons.ClaerYutCount();
+            }
         }
     }
 
@@ -953,4 +1014,73 @@ public class Gamemanager : MonoBehaviour
     {
         Debug.Log(teamtype);
     }
+
+    public void EndTurnCheck()
+    {
+        curState = eRule.ReturnthrowYut;
+        throwyutbutton = true;
+        desChangePos();
+        if (changecheck == 0)
+        {
+            changecheck = 1;
+        }
+        else
+        {
+            changecheck = 0;
+        }
+        Yutstartbuttons.getbackYut();
+        Playtimer.TurnChangeCheck();
+
+        
+    }
+
+    private void desChangePos()
+    {
+        if (teamtype == 1)//블루팀일 경우
+        {
+            int count = objblue.Count;
+            for (int iNum = 0; iNum < count; ++iNum)
+            {
+                Player selPlayer = objblue[iNum].GetComponent<Player>();
+                selPlayer.DesObj(objblue[iNum].gameObject);
+            }
+        }
+        else if (teamtype == 2)
+        {
+            int count = objred.Count;
+            for (int iNum = 0; iNum < count; ++iNum)
+            {
+                Player selPlayer = objred[iNum].GetComponent<Player>();
+                selPlayer.DesObj(objblue[iNum].gameObject);
+            }
+        }
+    }
+
+    public void RecycleTurnManager()
+    {
+        TurnCycleCheck = true;
+        //curState = eRule.ThrowYut;
+        throwbutton.gameObject.SetActive(true);
+        Playtimemanager.SetActive(true);
+        Yuttimer.SetActive(true);
+        Yutbox.SetActive(true);
+        playerbox.SetActive(true);
+        curState = eRule.RecycleTime;
+    }
+
+    public void RecycleTurnPass()
+    {
+        if(TurnCycleCheck == true)
+        {
+            TurnCycleCheck = false;
+            throwbutton.gameObject.SetActive(false);
+            Yuttimer.SetActive(false);
+            curState = eRule.SelectCharacter;
+        }
+        else
+        {
+            return;
+        }
+    }
+
 }
