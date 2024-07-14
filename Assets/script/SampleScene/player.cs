@@ -423,17 +423,17 @@ public class Player : MonoBehaviour
             case 1:
                 buttontimer.oneyut = 0;
                 oneYut = buttontimer.oneyut;
-                buttontimer.NotCheck1();
+                //buttontimer.NotCheck1();
                 break;
             case 2:
                 buttontimer.twoyut = 0;
                 twoYut = buttontimer.twoyut;
-                buttontimer.NotCheck2();
+                //buttontimer.NotCheck2();
                 break;
             case 3:
                 buttontimer.threeyut = 0;
                 threeYut = buttontimer.threeyut;
-                buttontimer.NotCheck3();
+                //buttontimer.NotCheck3();
                 break;
         }
         //posmovecheck();
@@ -797,4 +797,16 @@ public class Player : MonoBehaviour
         Gamemanager.Instance.Footholdbox.movedestory();
     }
 
+    public void ExitTurnPass()//탈출 버튼을 눌러 나갔을 경우 턴을 넘기는 것
+    {
+        changeYutzero();
+        Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
+        Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount, gameObject);
+        if (NextTurnCheck == true)
+        {
+            NextTurnCheck = false;
+            Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+        }
+        movecheck = false;
+    }
 }

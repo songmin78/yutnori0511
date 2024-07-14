@@ -144,6 +144,7 @@ public class Gamemanager : MonoBehaviour
             Player.ManagerYutorderCheck(ClearNumber);
             Clearobj.gameObject.SetActive(false);
             ClearButton.gameObject.SetActive(false);
+            Player.ExitTurnPass();
         });
     }
 
@@ -488,6 +489,7 @@ public class Gamemanager : MonoBehaviour
             //Yutstartbutton yutstartbutton = Yutstartbutton.GetComponent<Yutstartbutton>();
             //yutstartbutton.getbackYut();
             //Player.MoveCheckControl();
+            Yutstartbuttons.NotCheckTrue();
         }
         else//더한 값이 0이 아닐 경우
         {

@@ -353,17 +353,20 @@ public class Yutstartbutton : MonoBehaviour
     //이동 직후 그 윷을 0으로 만들어 버리니 1,2번째 윷 이동을 쓰고 잡을때 1번째 윷이 다시 입력이 된다
     private void yutturnNumber()//윷에 걸린 숫자만큼 숫자를 대입
     {
-        if (oneyut == 0)
+        if (oneyut == 0 && oneYutCheck == false || oneYutCheck == false)
         {
             oneyut = yutnumber;
+            NotCheck1();
         }
-        else if (oneyut != 0 && twoyut == 0)
+        else if (oneyut != 0 && twoyut == 0 && twoYutCheck == false || twoYutCheck == false)
         {
             twoyut = yutnumber;
+            NotCheck2();
         }
-        else if (oneyut != 0 && twoyut != 0 && threeyut == 0)
+        else if (oneyut != 0 && twoyut != 0 && threeyut == 0 && threeYutCheck == false|| threeYutCheck == false)
         {
             threeyut = yutnumber;
+            NotCheck3();
         }
     }
 
@@ -518,16 +521,23 @@ public class Yutstartbutton : MonoBehaviour
 
     }
 
-    public void NotCheck1()//한번 쓴 윷칸에 다시 못 들어오게 ㄷ와주는 부분
+    public void NotCheck1()//한번 쓴 윷칸에 다시 못 들어오게 도와주는 부분
     {
-
+        oneYutCheck = true;
     }
-    public void NotCheck2()//한번 쓴 윷칸에 다시 못 들어오게 ㄷ와주는 부분
+    public void NotCheck2()//한번 쓴 윷칸에 다시 못 들어오게 도와주는 부분
     {
-
+        twoYutCheck = true;
     }
-    public void NotCheck3()//한번 쓴 윷칸에 다시 못 들어오게 ㄷ와주는 부분
+    public void NotCheck3()//한번 쓴 윷칸에 다시 못 들어오게 도와주는 부분
     {
+        threeYutCheck = true;
+    }
 
+    public void NotCheckTrue()//윷값을 다시 쓸수 있게 도와주는 코드
+    {
+        oneYutCheck = false;
+        twoYutCheck = false;
+        threeYutCheck = false;
     }
 }
