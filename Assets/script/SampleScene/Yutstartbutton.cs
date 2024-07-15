@@ -12,7 +12,7 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField] GameObject yut4;
     [Header("윷으로 갈수있는 숫자 최대 3번까지 저장 가능")]
     float yutnumber = 0;
-    bool yutreturncheck;
+    //bool yutreturncheck;
     [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float oneyut = 0;
     [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float twoyut = 0;
     [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float threeyut = 0;
@@ -39,6 +39,7 @@ public class Yutstartbutton : MonoBehaviour
     bool oneYutCheck;
     bool twoYutCheck;
     bool threeYutCheck;
+    bool reCheck;//모나 윷이 뜨면 잠깐 true로 변경
 
     public enum eRule
     {
@@ -124,7 +125,7 @@ public class Yutstartbutton : MonoBehaviour
             return;
         }
 
-        #region
+        #region 특정키를 누르면 뜨게 만드는 부분
         //특정 윷번호를 얻기 위한 코드들
         if (Input.GetKeyDown(KeyCode.N))//확정 윷가 뜨도록 변경
         {
@@ -151,7 +152,7 @@ public class Yutstartbutton : MonoBehaviour
                 curButton = eRule.YutStartButton2;
             }
         }
-        if(Input.GetKeyDown(KeyCode.B))
+        if(Input.GetKeyDown(KeyCode.B))//걸이 뜨게 만드는 부분
         {
             yutnumber = 3;
             Stickcount = 3;
@@ -209,6 +210,7 @@ public class Yutstartbutton : MonoBehaviour
         //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
         if (yutstart == true)
         {
+            reCheck = false;
             #region
             //for(int yutstick = 0; yutstick < 4; yutstick++)//윷을 빽도를 제외한 3개를 던져 리스트에 나열 하도록 설정
             //{
@@ -244,23 +246,28 @@ public class Yutstartbutton : MonoBehaviour
                 }
                 if (yutstick == 3 && Stickcount == 0 && randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우
                 {
-                    randomcheck = true;
-                    yutnumber = -1;
-                    yutturnNumber();
-                    Debug.Log("빽도");
-                    if(oneyut == -1)
-                    {
-                        Gamemanager.Instance.CheckBackYutPass();
-                    }
+                    #region
+                    //randomcheck = true;
+                    //yutnumber = -1;
+                    //yutturnNumber();
+                    //Debug.Log("빽도");
+                    //if(oneyut == -1)
+                    //{
+                    //    Gamemanager.Instance.CheckBackYutPass();
+                    //}
+                    #endregion
+                    backPass();
+                    return;
                 }
                 yutdisposition.Add(randomcount);
             }
             //Debug.Log(Stickcount);
             yutlist();
             yutstart = false;
-            if (oneyut != 0 && twoyut != 0 && threeyut != 0)
+            if (oneyut != 0 && twoyut != 0 && threeyut != 0 && reCheck == true)//3번연속으로 모 또는 윷이 뜰 경우
             {
                 Gamemanager.Instance.nextturn();
+                Gamemanager.Instance.Playtimer.cheangeyuttime();
                 return;
             }
             //GameObject findtimer = GameObject.Find("Playtimemanager");
@@ -284,6 +291,35 @@ public class Yutstartbutton : MonoBehaviour
 
     }
 
+    private void backPass()//빽도에 걸렸을때 턴을 넘길수 있게 해주는 코드
+    {
+        randomcheck = true;
+        yutnumber = -1;
+        Stickcount = 0;
+        for (int yutstick = 0; yutstick < 4; yutstick++)
+        {
+            randomcount = 1;
+            chageyut += 1;
+            Yutcount();
+        }
+        yutturnNumber();
+        Debug.Log("빽도");
+        yutstart = false;
+        if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
+        {
+            Gamemanager.Instance.nextturn();//강제적으로 플레이어 선택 부분으로 이동
+        }
+        else
+        {
+            Gamemanager.Instance.Playtimer.cheangeyuttime();
+        }
+        Gamemanager.Instance.throwyutbutton = false;
+        if (oneyut == -1)
+        {
+            Gamemanager.Instance.CheckBackYutPass();
+        }
+        randomcheck = false;
+    }
 
     #region
     //private void moveyut()//윷이 뜬 수 만큼 이동할 거리를 정해줌
@@ -321,7 +357,7 @@ public class Yutstartbutton : MonoBehaviour
         {
             case 0://뒷면이 0개일 경우
                 yutnumber = 5;
-                yutreturncheck = true;
+                reCheck = true;
                 yutturnNumber();
                 Debug.Log("모");
                 break;
@@ -342,7 +378,7 @@ public class Yutstartbutton : MonoBehaviour
                 break;
             case 4:
                 yutnumber = 4;
-                yutreturncheck = true;
+                reCheck = true;
                 yutturnNumber();
                 Debug.Log("윷");
                 break;
@@ -505,7 +541,7 @@ public class Yutstartbutton : MonoBehaviour
 
     public void CatchReTurnTurn()//적 플레이어를 잡았을때 다시 한번 던질 수있는 코드
     {
-        if (threeyut != 0)
+        if (threeyut != 0 || threeYutCheck == true)
         {
             return;
         }

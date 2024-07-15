@@ -129,6 +129,8 @@ public class Gamemanager : MonoBehaviour
 
         ClearButton.onClick.AddListener(() =>
         {
+            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == Clearobj);
+            listObjectWhereFootHold.Remove(data);
             if (objblue.Find(x => x.gameObject == Clearobj) != null)
             {
                 objblue.Remove(Clearobj);
@@ -137,8 +139,6 @@ public class Gamemanager : MonoBehaviour
             {
                 objred.Remove(Clearobj);
             }
-            cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == Clearobj);
-            listObjectWhereFootHold.Remove(data);
             //Clearobj.gameObject.transform.position = new Vector3(0, -10, 0);
             Footholdbox.positiondestory();
             Player.ManagerYutorderCheck(ClearNumber);

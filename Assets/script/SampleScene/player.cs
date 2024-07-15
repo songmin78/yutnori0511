@@ -675,8 +675,17 @@ public class Player : MonoBehaviour
         {
             Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount1 + iNum].gameObject);
             Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            //Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform;
             //문제: 하나하나씩 올리다 보니 결승점을  지나는리스트와 겹치니 그대로 들어감 => 해결
             if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
+            {
+                moveYutcount1 += iNum;
+                Yutorder = 1;
+                Gamemanager.Instance.Footholdbox.ExitPlayer1();
+                Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+                return;
+            }
+            else if(Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform == moveYut && moveYutcount1 != 0 && iNum != 0)
             {
                 moveYutcount1 += iNum;
                 Yutorder = 1;
@@ -690,17 +699,22 @@ public class Player : MonoBehaviour
         {
             moveYutcount1 = 49;
         }
-        else if(MaxmoveYutcount == 21 && oneYut == -1)
+        else if(maxmoveYutcount == 21 && oneYut == -1)
         {
             moveYutcount1 = 5;
         }
-        else if(MaxmoveYutcount == 32 && oneYut == -1)
+        else if(maxmoveYutcount == 32 && oneYut == -1)
         {
             moveYutcount1 = 10;
         }
-        else if(MaxmoveYutcount == 44  && oneYut == -1)
+        else if(maxmoveYutcount == 44  && oneYut == -1)
         {
             moveYutcount1 = 14;
+        }
+
+        if(maxmoveYutcount == 42)
+        {
+            maxmoveYutcount = 24;
         }
         //else if (Gamemanager.Instance.Footholdbox.Yutfoothold[15].gameObject && oneYut == -1)
         //{
@@ -721,7 +735,16 @@ public class Player : MonoBehaviour
         {
             Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount2 + iNum].gameObject);
             Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            //Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform;
             if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
+            {
+                moveYutcount2 += iNum;
+                Yutorder = 2;
+                Gamemanager.Instance.Footholdbox.ExitPlayer2();
+                Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+                return;
+            }
+            else if (Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform == moveYut && moveYutcount1 != 0 && iNum != 0)
             {
                 moveYutcount2 += iNum;
                 Yutorder = 2;
@@ -735,18 +758,23 @@ public class Player : MonoBehaviour
         {
             moveYutcount2 = 49;
         }
-        else if (MaxmoveYutcount == 21 && twoYut == -1)
+        else if (maxmoveYutcount == 21 && twoYut == -1)
         {
             moveYutcount2 = 5;
         }
-        else if (MaxmoveYutcount == 32 && twoYut == -1)
+        else if (maxmoveYutcount == 32 && twoYut == -1)
         {
             moveYutcount2 = 10;
         }
-        else if (MaxmoveYutcount == 44 && twoYut == -1)
+        else if (maxmoveYutcount == 44 && twoYut == -1)
         {
             moveYutcount2 = 14;
         }
+        if (maxmoveYutcount == 42)
+        {
+            maxmoveYutcount = 24;
+        }
+
     }
     private void yutPosCount3()
     {
@@ -762,7 +790,16 @@ public class Player : MonoBehaviour
         {
             Transform moveYut = Gamemanager.Instance.Footholdbox.findYut(Gamemanager.Instance.Footholdbox.Yutfoothold[(int)moveYutcount3 + iNum].gameObject);
             Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[0].transform;
+            //Transform names = Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform;
             if (names == moveYut && moveYutcount1 != 0 && iNum != 0)
+            {
+                moveYutcount3 += iNum;
+                Yutorder = 3;
+                Gamemanager.Instance.Footholdbox.ExitPlayer3();
+                Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+                return;
+            }
+            else if (Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform == moveYut && moveYutcount1 != 0 && iNum != 0)
             {
                 moveYutcount3 += iNum;
                 Yutorder = 3;
@@ -776,17 +813,21 @@ public class Player : MonoBehaviour
         {
             moveYutcount3 = 49;
         }
-        else if (MaxmoveYutcount == 21 && threeYut == -1)
+        else if (maxmoveYutcount == 21 && threeYut == -1)
         {
             moveYutcount3 = 5;
         }
-        else if (MaxmoveYutcount == 32 && threeYut == -1)
+        else if (maxmoveYutcount == 32 && threeYut == -1)
         {
             moveYutcount3 = 14;
         }
-        else if (MaxmoveYutcount == 44 && threeYut == -1)
+        else if (maxmoveYutcount == 44 && threeYut == -1)
         {
             moveYutcount3 = 14;
+        }
+        if (maxmoveYutcount == 42)
+        {
+            maxmoveYutcount = 24;
         }
     }
 
