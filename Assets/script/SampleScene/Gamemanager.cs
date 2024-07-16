@@ -67,6 +67,7 @@ public class Gamemanager : MonoBehaviour
     private Footholdbox footholdbox;
     private Yutstartbutton yutstartbutton;
     private Playtimer playtimer;
+    private SceneChange sceneChange;
     //결승점에 통과한 말을 알려주는 오브젝트
     GameObject Clearobj;
     float ClearNumber;
@@ -121,6 +122,12 @@ public class Gamemanager : MonoBehaviour
         set { playtimer = value; }
     }
 
+    public SceneChange SceneChange
+    {
+        get { return sceneChange; }
+        set { sceneChange = value; }
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -173,6 +180,18 @@ public class Gamemanager : MonoBehaviour
 
         });
         #endregion
+
+        AgainButton.onClick.AddListener(() =>//게임을 다시 시작하는 코드
+        {
+            startcheck.gameObject.SetActive(true);
+            changecheck = 0;
+            curState = eRule.Preferencetime;
+        });
+
+        LobiButton.onClick.AddListener(() =>//로비로 돌아가는 코드
+        {
+            SceneChange.LobiChangeCheck();
+        });
     }
 
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
