@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Gamemanager : MonoBehaviour
 {
@@ -73,6 +74,14 @@ public class Gamemanager : MonoBehaviour
     bool BackCheck = false;
 
     bool TurnCycleCheck;//잡았다면 그 턴을 다시 실핼 할수 있게 도와주는 부분
+    [Header("우승한 팀 관련 코드 부분")]
+    [SerializeField] Canvas WinerTeamCanvas;
+    [SerializeField] Button AgainButton;//다시하기 버튼
+    [SerializeField] Button LobiButton;//로비로 돌아가는 버튼
+    [SerializeField] TMP_Text WinerCheck;
+    bool WinerRed;
+    bool WinerBlue;
+    
 
     public enum eRule
     {
@@ -83,6 +92,7 @@ public class Gamemanager : MonoBehaviour
         ReturnthrowYut,//다시 윷을 던지는 부분
         waittime,//잠깜 기다리는 부분
         RecycleTime,//다시 잡을 때 플레이어 터치 코드가 안 돌아가게 조치
+        GameClear,//게임이 클리어 할때 작동되게 하는 부분
     }
     private eRule curState = eRule.Preferencetime;
 
@@ -127,6 +137,7 @@ public class Gamemanager : MonoBehaviour
         Maxstartturnyut = startturnyut;
         Maxtimewait = timewait;
 
+        #region 게임 말이 나가기 버튼을 다루는 부분
         ClearButton.onClick.AddListener(() =>
         {
             cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == Clearobj);
@@ -139,13 +150,29 @@ public class Gamemanager : MonoBehaviour
             {
                 objred.Remove(Clearobj);
             }
+            Player.DesYutPlayer();
             //Clearobj.gameObject.transform.position = new Vector3(0, -10, 0);
             Footholdbox.positiondestory();
             Player.ManagerYutorderCheck(ClearNumber);
             Clearobj.gameObject.SetActive(false);
             ClearButton.gameObject.SetActive(false);
             Player.ExitTurnPass();
+
+            if(objblue.Count  == 0)
+            {
+                Debug.Log("블루팀 클리어");
+                WinerBlue = true;
+                curState = eRule.GameClear;
+            }
+            else if(objred.Count == 0)
+            {
+                Debug.Log("레드팀 클리어");
+                WinerRed = true;
+                curState = eRule.GameClear;
+            }
+
         });
+        #endregion
     }
 
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
@@ -186,6 +213,10 @@ public class Gamemanager : MonoBehaviour
         else if(curState == eRule.RecycleTime)
         {
             return;
+        }
+        else if(curState == eRule.GameClear)
+        {
+
         }
     }
 
@@ -1082,6 +1113,67 @@ public class Gamemanager : MonoBehaviour
         else
         {
             return;
+        }
+    }
+
+    public void ListClear()//현재 모든 팀을 다 업고 있을때 결승점을 지나면 전부 삭제 처리하도록 하는 코드
+    {
+        if(Clearobj.gameObject.tag == "RedTeam")
+        {
+            objred.Clear();
+        }
+        else if(Clearobj.gameObject.tag == "BlueTeam")
+        {
+            objblue.Clear();
+        }
+    }
+
+    public void LookAtYutPlayer()
+    {
+        if (Clearobj.gameObject.tag == "RedTeam")
+        {
+            for(int iNum = 0; iNum < objred.Count; iNum++)
+            {
+                if (objred[iNum].activeSelf == false)//만약에 오브젝트가 꺼져있다면
+                {
+                    objred.RemoveAt(iNum);
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        else if (Clearobj.gameObject.tag == "BlueTeam")
+        {
+            for (int iNum = 0; iNum < objblue.Count; iNum++)
+            {
+                if (objblue[iNum].activeSelf == false)//만약에 오브젝트가 꺼져있다면
+                {
+                    objblue.RemoveAt(iNum);
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
+    //==================================게임 클리어 부분을 만들 예정
+
+    private void teamWinCheck()
+    {
+        if(WinerBlue == true)
+        {
+            WinerBlue = false;
+            
+        }
+        else if(WinerRed == true)
+        {
+            WinerRed = false;
         }
     }
 

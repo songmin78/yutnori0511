@@ -409,6 +409,7 @@ public class Player : MonoBehaviour
 
     public void ManagerYutorderCheck(float _ClearNumber)//나가기 버튼을 누를때 이동을 한 윷의 숫자를 초기화
     {
+        //Debug.Log(gameObject);
         Yutorder = _ClearNumber;
         changeYutzero();
     }
@@ -840,6 +841,9 @@ public class Player : MonoBehaviour
 
     public void ExitTurnPass()//탈출 버튼을 눌러 나갔을 경우 턴을 넘기는 것
     {
+        oneYut = Gamemanager.Instance.Yutstartbuttons.oneyut;
+        twoYut = Gamemanager.Instance.Yutstartbuttons.twoyut;
+        threeYut = Gamemanager.Instance.Yutstartbuttons.threeyut;
         changeYutzero();
         Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
         Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount, gameObject);
@@ -849,5 +853,20 @@ public class Player : MonoBehaviour
             Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
         }
         movecheck = false;
+    }
+
+    public void DesYutPlayer()
+    {
+        if (Curryobj1.activeSelf == true)
+        {
+            if (Curryobj2.activeSelf == true)
+            {
+                Gamemanager.Instance.ListClear();
+            }
+            else
+            {
+                Gamemanager.Instance.LookAtYutPlayer();
+            }
+        }
     }
 }
