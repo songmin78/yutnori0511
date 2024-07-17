@@ -576,4 +576,20 @@ public class Yutstartbutton : MonoBehaviour
         twoYutCheck = false;
         threeYutCheck = false;
     }
+    public void YutReStartCheck()
+    {
+        yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
+        yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
+        yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
+        yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        chageyut = 0;
+
+        oneYutCheck = false;
+        twoYutCheck = false;
+        threeYutCheck = false;
+
+        oneyut = 0;
+        twoyut = 0;
+        threeyut = 0;
+    }
 }

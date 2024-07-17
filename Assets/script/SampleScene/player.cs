@@ -361,6 +361,7 @@ public class Player : MonoBehaviour
                     Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
                 }
                 movecheck = false;
+                Gamemanager.Instance.DesYutButton();
             }
             //Debug.Log(rayHit.transform.gameObject.name);
         }
@@ -868,5 +869,17 @@ public class Player : MonoBehaviour
                 Gamemanager.Instance.LookAtYutPlayer();
             }
         }
+    }
+
+    public void AgainPlayerStart()
+    {
+        goPlayer = false;
+        transform.position = startmypos;
+        maxmoveYutcount = 0;
+        NotShortcutArrive();
+        gameObject.SetActive(true);
+        findplayd.SetActive(false);
+        Curryobj1.SetActive(false);
+        Curryobj2.SetActive(false);
     }
 }

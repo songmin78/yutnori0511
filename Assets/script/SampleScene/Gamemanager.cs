@@ -10,9 +10,12 @@ public class Gamemanager : MonoBehaviour
     Animation anim;
     Animator animator;
     [SerializeField] Image startcheck;
+    TMP_Text text;
 
     [SerializeField] List<GameObject> objblue;
     [SerializeField] List<GameObject> objred;
+    [SerializeField]List<GameObject> backupBlue;
+    [SerializeField]List<GameObject> backupRed;
 
    public class cObjectWhereFootHold
     {
@@ -77,9 +80,9 @@ public class Gamemanager : MonoBehaviour
     bool TurnCycleCheck;//잡았다면 그 턴을 다시 실핼 할수 있게 도와주는 부분
     [Header("우승한 팀 관련 코드 부분")]
     [SerializeField] Canvas WinerTeamCanvas;
-    [SerializeField] Button AgainButton;//다시하기 버튼
-    [SerializeField] Button LobiButton;//로비로 돌아가는 버튼
-    [SerializeField] TMP_Text WinerCheck;
+    //[SerializeField] Button AgainButton;//다시하기 버튼
+    //[SerializeField] Button LobiButton;//로비로 돌아가는 버튼
+    [SerializeField] TMP_Text WinerTeamString;
     bool WinerRed;
     bool WinerBlue;
     
@@ -139,6 +142,7 @@ public class Gamemanager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        TMP_Text text = GetComponent<TMP_Text>();
         Animation anim = GetComponent<Animation>();
         Animator animator = GetComponent<Animator>();
         Maxstartturnyut = startturnyut;
@@ -169,29 +173,19 @@ public class Gamemanager : MonoBehaviour
             {
                 Debug.Log("블루팀 클리어");
                 WinerBlue = true;
+                teamWinCheck();
                 curState = eRule.GameClear;
             }
             else if(objred.Count == 0)
             {
                 Debug.Log("레드팀 클리어");
                 WinerRed = true;
+                teamWinCheck();
                 curState = eRule.GameClear;
             }
 
         });
         #endregion
-
-        AgainButton.onClick.AddListener(() =>//게임을 다시 시작하는 코드
-        {
-            startcheck.gameObject.SetActive(true);
-            changecheck = 0;
-            curState = eRule.Preferencetime;
-        });
-
-        LobiButton.onClick.AddListener(() =>//로비로 돌아가는 코드
-        {
-            SceneChange.LobiChangeCheck();
-        });
     }
 
     //public bool playertouch;//클릭 했을때 on으로 전환 클릭이 끝나면 off로 전환
@@ -983,7 +977,7 @@ public class Gamemanager : MonoBehaviour
         ClearNumber = _Yutorder;
     }
 
-    private void DesYutButton()//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+    public void DesYutButton()//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 또는 나가지 않았을때 삭제
     {
         ClearButton.gameObject.SetActive(false);
     }
@@ -1181,19 +1175,47 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    //==================================게임 클리어 부분을 만들 예정
+    //==================================게임 클리어 이후 부분을 만들 예정
 
     private void teamWinCheck()
     {
         if(WinerBlue == true)
         {
             WinerBlue = false;
-            
+            WinerTeamCanvas.gameObject.SetActive(true);
+            WinerTeamString.text = "안녕";
         }
         else if(WinerRed == true)
         {
             WinerRed = false;
+            WinerTeamCanvas.gameObject.SetActive(true);
+            WinerTeamString.text = "잘가";
         }
     }
+    #region
+    //public void ReStart()//다시 시작하기 버튼을 눌렀을때 작동
+    //{
+    //    //WinerTeamCanvas.gameObject.SetActive(false);
+    //    //startcheck.gameObject.SetActive(true);
+    //    //changecheck = 0;
+    //    //Yutstartbuttons.YutReStartCheck();
+    //    //footholdbox.movedestory();
+    //    //returnPosPlayer();
+    //    //curState = eRule.Preferencetime;
+    //}
+
+    //private void returnPosPlayer()//플레이어가 자기 자리로 가는 코드
+    //{
+    //    for(int iNum = 0; iNum < objblue.Count; iNum++)
+    //    {
+    //        Player.AgainPlayerStart();
+    //    }
+    //    for (int iNum = 0; iNum < objred.Count; iNum++)
+    //    {
+    //        Player.AgainPlayerStart();
+    //    }
+
+    //}
+    #endregion
 
 }
