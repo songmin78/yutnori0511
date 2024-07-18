@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Yutstartbutton : MonoBehaviour
 {
+    List<TMP_Text> TextList;
     [Header("À·°¡¶ô")]
     [SerializeField] GameObject yut1;
     [SerializeField] GameObject yut2;
@@ -40,6 +42,12 @@ public class Yutstartbutton : MonoBehaviour
     bool twoYutCheck;
     bool threeYutCheck;
     bool reCheck;//¸ð³ª À·ÀÌ ¶ß¸é Àá±ñ true·Î º¯°æ
+    [Header("º¸¿©ÁÖ´Â À· ÄÚµå ºÎºÐ")]
+    [SerializeField] GameObject Look1;
+    [SerializeField] GameObject Look2;
+    [SerializeField] GameObject Look3;
+    [SerializeField] GameObject Look4;
+    [SerializeField] TMP_Text LookText;
 
     public enum eRule
     {
@@ -185,6 +193,7 @@ public class Yutstartbutton : MonoBehaviour
             }
             yutturnNumber();
             Debug.Log("»ªµµ");
+            LookText.text = "»ªµµ";
             yutstart = false;
             if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
             {
@@ -304,6 +313,7 @@ public class Yutstartbutton : MonoBehaviour
         }
         yutturnNumber();
         Debug.Log("»ªµµ");
+        LookText.text = "»ªµµ";
         yutstart = false;
         if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
         {
@@ -360,27 +370,32 @@ public class Yutstartbutton : MonoBehaviour
                 reCheck = true;
                 yutturnNumber();
                 Debug.Log("¸ð");
+                LookText.text = "¸ð";
                 break;
             case 1:
                 yutnumber = 1;
                 yutturnNumber();
                 Debug.Log("µµ");
+                LookText.text = "µµ";
                 break;
             case 2:
                 yutnumber = 2;
                 yutturnNumber();
                 Debug.Log("°³");
+                LookText.text = "°³";
                 break;
             case 3:
                 yutnumber = 3;
                 yutturnNumber();
                 Debug.Log("°É");
+                LookText.text = "°É";
                 break;
             case 4:
                 yutnumber = 4;
                 reCheck = true;
                 yutturnNumber();
                 Debug.Log("À·");
+                LookText.text = "À·";
                 break;
         }
     }
@@ -447,24 +462,28 @@ public class Yutstartbutton : MonoBehaviour
                 if (randomcount == 1)
                 {
                     yut1.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Look1.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 break;
             case 2:
                 if (randomcount == 1)
                 {
                     yut2.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Look2.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 break;
             case 3:
                 if (randomcount == 1)
                 {
                     yut3.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Look3.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 break;
             case 4:
                 if (randomcount == 1)
                 {
                     yut4.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Look4.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 break;
         }
@@ -501,6 +520,7 @@ public class Yutstartbutton : MonoBehaviour
             yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
             yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
             yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+            lookReturnYut();
             stayyut = 1;
             //stayyutcheck = false;
             Gamemanager.Instance.Playtimer.BackReturnCheck();
@@ -519,6 +539,7 @@ public class Yutstartbutton : MonoBehaviour
         yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        lookReturnYut();
         chageyut = 0;
     }
 
@@ -550,6 +571,7 @@ public class Yutstartbutton : MonoBehaviour
         yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        lookReturnYut();
 
         Gamemanager.Instance.RecycleTurnManager();
         curButton = eRule.YutStartButton1;
@@ -576,20 +598,12 @@ public class Yutstartbutton : MonoBehaviour
         twoYutCheck = false;
         threeYutCheck = false;
     }
-    public void YutReStartCheck()
+
+    private void lookReturnYut()
     {
-        yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
-        yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
-        yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
-        yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
-        chageyut = 0;
-
-        oneYutCheck = false;
-        twoYutCheck = false;
-        threeYutCheck = false;
-
-        oneyut = 0;
-        twoyut = 0;
-        threeyut = 0;
+        Look1.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Look2.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Look3.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Look4.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

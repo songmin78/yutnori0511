@@ -10,7 +10,7 @@ public class Gamemanager : MonoBehaviour
     Animation anim;
     Animator animator;
     [SerializeField] Image startcheck;
-    TMP_Text text;
+    TMP_Text tmp;
 
     [SerializeField] List<GameObject> objblue;
     [SerializeField] List<GameObject> objred;
@@ -32,6 +32,7 @@ public class Gamemanager : MonoBehaviour
     //[SerializeField] public GameObject movelocation2;
     //[SerializeField] public GameObject movelocation3;
     [Header("기타")]
+    //[SerializeField] TMP_Text LookYut;
     public int Gameplayertype = 0;//1은 1번 차례일때 2는 2번 차례일때
     //시작할때 누가 먼저 윷을 던지는지 확인하는 부분
     float changecheck = 0;
@@ -142,7 +143,7 @@ public class Gamemanager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        TMP_Text text = GetComponent<TMP_Text>();
+        TMP_Text tmp = GetComponent<TMP_Text>();
         Animation anim = GetComponent<Animation>();
         Animator animator = GetComponent<Animator>();
         Maxstartturnyut = startturnyut;
@@ -198,6 +199,7 @@ public class Gamemanager : MonoBehaviour
 
     void Update()
     {
+        testText();
         //Onclickplayer();
 
         //testcode();
@@ -555,6 +557,7 @@ public class Gamemanager : MonoBehaviour
         }
         else if (throwyutbutton == false)
         {
+            Yutbox.SetActive(false);
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);
             curState = eRule.SelectCharacter;
@@ -1051,6 +1054,7 @@ public class Gamemanager : MonoBehaviour
     }
     public void PlayerTimeChange()
     {
+        Yutbox.gameObject.SetActive(false);
         throwbutton.gameObject.SetActive(false);
         Yuttimer.SetActive(false);
         curState = eRule.SelectCharacter;
@@ -1119,6 +1123,7 @@ public class Gamemanager : MonoBehaviour
         if(TurnCycleCheck == true)
         {
             TurnCycleCheck = false;
+            //Yutbox.SetActive(false);
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);
             curState = eRule.SelectCharacter;
@@ -1179,17 +1184,17 @@ public class Gamemanager : MonoBehaviour
 
     private void teamWinCheck()
     {
-        if(WinerBlue == true)
+        if (WinerBlue == true)
         {
             WinerBlue = false;
             WinerTeamCanvas.gameObject.SetActive(true);
-            WinerTeamString.text = "안녕";
+            WinerTeamString.text = "블루팀이 승리했습니다";
         }
-        else if(WinerRed == true)
+        else if (WinerRed == true)
         {
             WinerRed = false;
             WinerTeamCanvas.gameObject.SetActive(true);
-            WinerTeamString.text = "잘가";
+            WinerTeamString.text = "레드팀이 승리했습니다";
         }
     }
     #region
@@ -1218,4 +1223,11 @@ public class Gamemanager : MonoBehaviour
     //}
     #endregion
 
+    private void testText()
+    {
+        //if(Input.GetKeyDown(KeyCode.G))
+        //{
+        //    WinerTeamString.text = "테스트";
+        //}
+    }
 }

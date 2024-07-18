@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Playtimer : MonoBehaviour
 {
+    Animator animator;
+
     [SerializeField] bool teamred;
     [SerializeField] bool teamblue;
     [Header("윷을 던지기 까지의 남은 시간 정리")]
@@ -36,6 +38,8 @@ public class Playtimer : MonoBehaviour
 
     private void Awake()
     {
+        Animator animator = GetComponent<Animator>();
+
         Maxthrowtime = throwtime;
         Maxwaitmovetime = waitmovetime;
         MaxBackTime = BackTime;
@@ -325,11 +329,13 @@ public class Playtimer : MonoBehaviour
         if(teamblue == true)
         {
             Gamemanager.Instance.Chageplayteam(1);
+            animator.SetFloat("CharacterChange", 0);
             //Gamemanager.Instance.teamfalsecheck();
         }
         else if(teamred == true)
         {
             Gamemanager.Instance.Chageplayteam(2);
+            animator.SetFloat("CharacterChange", 1);
             //Gamemanager.Instance.teamfalsecheck();
         }
     }
