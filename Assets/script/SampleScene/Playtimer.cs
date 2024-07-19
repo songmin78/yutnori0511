@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Playtimer : MonoBehaviour
 {
     Animator animator;
+    [SerializeField] GameObject TestObj;
 
     [SerializeField] bool teamred;
     [SerializeField] bool teamblue;
@@ -20,6 +22,8 @@ public class Playtimer : MonoBehaviour
     [Header("기타")]
     //[SerializeField] public bool checktime;//윷을 던졌을때 true로 전환(밖에서 받아옴)
     [SerializeField] Image timegage;//시간초 줄어드는 게이지
+    [SerializeField] Image timegagePlayer;//플레이어가 조종하는 시간초 줄어드는 게이지
+    [SerializeField, Tooltip("던지는 턴인지 이동하는 턴인지 알려주는 텍스트")] TMP_Text Text;
     //public bool returnYut;//모나 윷이 뜨면 true로 전환
     //[SerializeField] GameObject poscheck1;//첫번째 윷의 이동 범위
     //public bool returnyut;//모나 윷이 뜰때 바로 시간이 돌아가는것을 방지
@@ -48,7 +52,13 @@ public class Playtimer : MonoBehaviour
     private void Start()
     {
         Gamemanager.Instance.Playtimer = this;
+        TestObj.gameObject.SetActive(false);
         curTimer = eRule.ReturnTimeStay;
+    }
+
+    public void LookScene()
+    {
+        TestObj.gameObject.SetActive(true);
     }
 
     void Update()
@@ -63,7 +73,7 @@ public class Playtimer : MonoBehaviour
         //yuttest();//윷을 다시 던지기 위한 코드 윷 또는 모가 뜰 경우<- 굳이 업데이트 돌려야하나?
         //changeteam();//차례가 끝나면 팀 변경 <- 굳이 업데이트문으로 돌릴 이유가 없을
 
-
+        ChangeAnimator();
         if (curTimer == eRule.Throwtime)//던지기 버튼을 안 누르면 자동으로 던져지도록하는 부분
         {
             waityuttime();
@@ -73,6 +83,7 @@ public class Playtimer : MonoBehaviour
         else if (curTimer == eRule.Movetime)
         {
             movewaittimer();//말이 움직이는것을 기다리는 코드
+            PlayTimeCalCulate();
             //timecalculate();
         }
         else if(curTimer == eRule.BackChangeTimer)//필드에 자기말이 없을때 빽도가 뜨면 턴을 넘기도록 만든 curTime
@@ -154,6 +165,18 @@ public class Playtimer : MonoBehaviour
         }
     }
 
+    private void ChangeAnimator()
+    {
+        animator = TestObj.gameObject.GetComponentInChildren<Animator>();
+        if (teamblue == true)
+        {
+            animator.SetFloat("TurnCheck", 1);
+        }
+        else if(teamred == true)
+        {
+            animator.SetFloat("TurnCheck", 0);
+        }
+    }
     public void cheangeyuttime()
     {
         #region 과거에 만든 코드들
@@ -166,8 +189,12 @@ public class Playtimer : MonoBehaviour
         //    //Debug.Log("이동으로 변경");
         //}
         #endregion
-
+        float yutnumber = Gamemanager.Instance.Yutstartbuttons.Yutnumber;
         Maxthrowtime = throwtime;//초 초기화
+        //if (Yutnumber == 4 || Yutnumber == 5)
+        //{
+        //    curButton = eRule.YutStartButton2;
+        //}
         curTimer = eRule.Movetime;
     }
 
@@ -307,6 +334,11 @@ public class Playtimer : MonoBehaviour
         timegage.fillAmount = Maxthrowtime / throwtime;
     }
 
+    private void PlayTimeCalCulate()
+    {
+        timegagePlayer.fillAmount = Maxwaitmovetime / waitmovetime;
+    }
+
     private void yuttest()//윷을 다시 던지기 위한 코드
     {
         #region 옛날에 만드 ㄴ코드들
@@ -329,13 +361,13 @@ public class Playtimer : MonoBehaviour
         if(teamblue == true)
         {
             Gamemanager.Instance.Chageplayteam(1);
-            animator.SetFloat("CharacterChange", 0);
+            //animator.SetFloat("CharacterChange", 0);
             //Gamemanager.Instance.teamfalsecheck();
         }
         else if(teamred == true)
         {
             Gamemanager.Instance.Chageplayteam(2);
-            animator.SetFloat("CharacterChange", 1);
+            //animator.SetFloat("CharacterChange", 1);
             //Gamemanager.Instance.teamfalsecheck();
         }
     }

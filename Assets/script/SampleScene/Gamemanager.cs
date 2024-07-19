@@ -46,6 +46,7 @@ public class Gamemanager : MonoBehaviour
     [Header("윷 타이머 부분")]
     [SerializeField, Tooltip("윷 타이머 작동 부분")] GameObject Playtimemanager;
     [SerializeField, Tooltip("윷 타이머가 줄어드는 막대기")] GameObject Yuttimer;
+    [SerializeField, Tooltip("플레이어이동이 줄어드는 막대기")] GameObject PlayerTimer;
     [SerializeField] GameObject Yutbox;
     [SerializeField] Button throwbutton;
     //끝
@@ -429,6 +430,7 @@ public class Gamemanager : MonoBehaviour
                 startcheck.gameObject.SetActive(false);
                 curState = eRule.ThrowYut;
                 throwyutbutton = true;
+                Playtimer.LookScene();
                 startTeamTurn();
             }
 
@@ -473,6 +475,7 @@ public class Gamemanager : MonoBehaviour
             throwbutton.gameObject.SetActive(true);
             Playtimemanager.SetActive(true);
             Yuttimer.SetActive(true);
+            PlayerTimer.SetActive(false);
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
 
@@ -484,6 +487,7 @@ public class Gamemanager : MonoBehaviour
         {
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);
+            PlayerTimer.SetActive(true);
             curState = eRule.SelectCharacter;
         }
     }
@@ -550,6 +554,7 @@ public class Gamemanager : MonoBehaviour
             throwbutton.gameObject.SetActive(true);
             Playtimemanager.SetActive(true);
             Yuttimer.SetActive(true);
+            PlayerTimer.SetActive(false);
             Yutbox.SetActive(true);
             playerbox.SetActive(true);
 
@@ -560,6 +565,7 @@ public class Gamemanager : MonoBehaviour
             Yutbox.SetActive(false);
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);
+            PlayerTimer.SetActive(true);
             curState = eRule.SelectCharacter;
         }
     }
@@ -569,6 +575,7 @@ public class Gamemanager : MonoBehaviour
         throwbutton.gameObject.SetActive(true);
         //Playtimemanager.SetActive(true);
         Yuttimer.SetActive(true);
+        PlayerTimer.SetActive(false);
         Yutbox.SetActive(true);
         playerbox.SetActive(true);
 
@@ -1047,6 +1054,7 @@ public class Gamemanager : MonoBehaviour
         throwbutton.gameObject.SetActive(true);
         Playtimemanager.SetActive(true);
         Yuttimer.SetActive(true);
+        PlayerTimer.SetActive(false);
         Yutbox.SetActive(true);
         playerbox.SetActive(true);
 
@@ -1057,6 +1065,7 @@ public class Gamemanager : MonoBehaviour
         Yutbox.gameObject.SetActive(false);
         throwbutton.gameObject.SetActive(false);
         Yuttimer.SetActive(false);
+        PlayerTimer.SetActive(true);
         curState = eRule.SelectCharacter;
     }
 
@@ -1112,20 +1121,26 @@ public class Gamemanager : MonoBehaviour
         //curState = eRule.ThrowYut;
         throwbutton.gameObject.SetActive(true);
         Playtimemanager.SetActive(true);
+        PlayerTimer.SetActive(false);//테스트 부분
         Yuttimer.SetActive(true);
         Yutbox.SetActive(true);
         playerbox.SetActive(true);
         curState = eRule.RecycleTime;
     }
 
-    public void RecycleTurnPass()
+    public void RecycleTurnPass( bool _recycleCheck)
     {
+        if(_recycleCheck == true && TurnCycleCheck == false)
+        {
+            return;
+        }
         if(TurnCycleCheck == true)
         {
             TurnCycleCheck = false;
             //Yutbox.SetActive(false);
             throwbutton.gameObject.SetActive(false);
             Yuttimer.SetActive(false);
+            PlayerTimer.SetActive(true);
             curState = eRule.SelectCharacter;
         }
         else
@@ -1229,5 +1244,19 @@ public class Gamemanager : MonoBehaviour
         //{
         //    WinerTeamString.text = "테스트";
         //}
+    }
+
+    public void ChangeGageBar(int _check)
+    {
+        if(_check == 0)//윷을 던지는 부분
+        {
+            Yuttimer.SetActive(true);
+            PlayerTimer.SetActive(false);
+        }
+        else if(_check == 1)//플레이어가 이동하는 부분
+        {
+            Yuttimer.SetActive(false);
+            PlayerTimer.SetActive(true);
+        }
     }
 }

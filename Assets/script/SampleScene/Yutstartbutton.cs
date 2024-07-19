@@ -14,6 +14,13 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField] GameObject yut4;
     [Header("윷으로 갈수있는 숫자 최대 3번까지 저장 가능")]
     float yutnumber = 0;
+    public float Yutnumber
+    {
+        get
+        {
+            return yutnumber;
+        }
+    }
     //bool yutreturncheck;
     [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float oneyut = 0;
     [SerializeField, Tooltip("윷던진후에 갈수있는 수를 저장")] public float twoyut = 0;
@@ -48,6 +55,7 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField] GameObject Look3;
     [SerializeField] GameObject Look4;
     [SerializeField] TMP_Text LookText;
+    bool recycleCheck;//모나 윷이 뜰때 시간 코드가 안 돌아가게 도와주는 코드
 
     public enum eRule
     {
@@ -253,7 +261,7 @@ public class Yutstartbutton : MonoBehaviour
                     chageyut += 1;
                     Yutcount();
                 }
-                if (yutstick == 3 && Stickcount == 0 && randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우
+                if (yutstick == 3 && Stickcount == 0 && randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우(빽도)
                 {
                     #region
                     //randomcheck = true;
@@ -284,9 +292,11 @@ public class Yutstartbutton : MonoBehaviour
             if (yutnumber == 4 || yutnumber == 5)//모 또는 윷이 뜰 경우
             {
                 curButton = eRule.YutStartButton2;
+                recycleCheck = true;
                 //stayyutcheck = true;
                 if (threeyut != 0)
                 {
+                    recycleCheck = false;
                     return;
                 }
                 //playtimer.returnYut = true;
@@ -295,7 +305,8 @@ public class Yutstartbutton : MonoBehaviour
             {
                 Gamemanager.Instance.throwyutbutton = false;
             }
-            Gamemanager.Instance.RecycleTurnPass();
+            Gamemanager.Instance.RecycleTurnPass(recycleCheck);
+            recycleCheck = false;
         }
 
     }
