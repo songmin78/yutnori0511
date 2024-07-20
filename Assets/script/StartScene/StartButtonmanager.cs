@@ -35,6 +35,7 @@ public class StartButtonmanager : MonoBehaviour
         tutorialstage.onClick.AddListener(() =>
         {
             //튜토리얼 씬으로 전환(아직 제작 안함)
+            SceneManager.LoadSceneAsync(2);//게임 시작을 전환
         });
 
         beforestage.onClick.AddListener(() =>

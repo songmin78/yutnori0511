@@ -8,9 +8,15 @@ public class Playtimer : MonoBehaviour
 {
     Animator animator;
     [SerializeField] GameObject TestObj;
-
     [SerializeField] bool teamred;
     [SerializeField] bool teamblue;
+    public bool TeamBlue
+    {
+        get
+        {
+            return teamblue;
+        }
+    }
     [Header("윷을 던지기 까지의 남은 시간 정리")]
     [SerializeField] float throwtime;
     [SerializeField]float Maxthrowtime;//확인 용
@@ -111,6 +117,9 @@ public class Playtimer : MonoBehaviour
 
     public void StartTurnTime()//시작타이머가 돌아가도록 하는 코드
     {
+        Text.text = "윷 던지기 턴";
+        Gamemanager.Instance.Yutstartbuttons.TextNull();
+        Gamemanager.Instance.Yutstartbuttons.NullText();
         curTimer = eRule.Throwtime;
     }
 
@@ -156,6 +165,7 @@ public class Playtimer : MonoBehaviour
             //Gamemanager.Instance.Yutstartbuttons.yutstarttimer = true;
             Gamemanager.Instance.Yutstartbuttons.yutplaytimer();
             curTimer = eRule.Movetime;
+            Text.text = "이동 턴";
             Gamemanager.Instance.PlayerTimeChange();
             Debug.Log("이동으로 변경");
         }
@@ -177,7 +187,7 @@ public class Playtimer : MonoBehaviour
             animator.SetFloat("TurnCheck", 0);
         }
     }
-    public void cheangeyuttime()
+    public void cheangeyuttime(bool _recycleCheck)
     {
         #region 과거에 만든 코드들
         //if (checktime == true)//윷 던지기 버튼을 누를 경우
@@ -189,13 +199,19 @@ public class Playtimer : MonoBehaviour
         //    //Debug.Log("이동으로 변경");
         //}
         #endregion
-        float yutnumber = Gamemanager.Instance.Yutstartbuttons.Yutnumber;
+        //float yutnumber = Gamemanager.Instance.Yutstartbuttons.Yutnumber;
         Maxthrowtime = throwtime;//초 초기화
+        Maxwaitmovetime = waitmovetime;//이동하는 부분 초 초기화
         //if (Yutnumber == 4 || Yutnumber == 5)
         //{
         //    curButton = eRule.YutStartButton2;
         //}
+        if (_recycleCheck == true)
+        {
+            return;
+        }
         curTimer = eRule.Movetime;
+        Text.text = "이동 턴";
     }
 
     public void PassChange()
@@ -264,6 +280,9 @@ public class Playtimer : MonoBehaviour
 
             changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
             curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
+            Text.text = "윷 던지기 턴";
+            Gamemanager.Instance.Yutstartbuttons.TextNull();
+            Gamemanager.Instance.Yutstartbuttons.NullText();
             Gamemanager.Instance.TimeOverChange();
             Gamemanager.Instance.EndTurnCheck();//턴 체인지
             Debug.Log("던지기로 변경");
@@ -290,6 +309,9 @@ public class Playtimer : MonoBehaviour
         Gamemanager.Instance.Yutstartbuttons.numberzero();
         changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
         curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
+        Text.text = "윷 던지기 턴";
+        Gamemanager.Instance.Yutstartbuttons.TextNull();
+        Gamemanager.Instance.Yutstartbuttons.NullText();
         Gamemanager.Instance.TimeOverChange();
         Gamemanager.Instance.EndTurnCheck();//턴 체인지
     }
@@ -393,7 +415,7 @@ public class Playtimer : MonoBehaviour
     {
         curTimer = eRule.Throwtime;
     }
-    public void TurnChangeCheck()//플레이어가
+    public void TurnChangeCheck()
     {
         Maxwaitmovetime = waitmovetime;
         if (teamred == true)//이동시간이 다 끝났을 경우 팀 변경
@@ -410,11 +432,16 @@ public class Playtimer : MonoBehaviour
 
         changeteam();//변경된 팀을 게임 메니저에 넣을수 있도록 도와주는 코드
         curTimer = eRule.Throwtime;//다시 윷을 던질수 있는 부분으로 변경
+        Text.text = "윷 던지기 턴";
+        Gamemanager.Instance.Yutstartbuttons.TextNull();
+        Gamemanager.Instance.Yutstartbuttons.NullText();
         Gamemanager.Instance.TimeOverChange();
     }
 
     public void RecycleTurn()
     {
         curTimer = eRule.Throwtime;
+        Text.text = "윷 던지기 턴";
+        Gamemanager.Instance.Yutstartbuttons.TextNull();
     }
 }

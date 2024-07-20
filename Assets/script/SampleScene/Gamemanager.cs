@@ -14,8 +14,6 @@ public class Gamemanager : MonoBehaviour
 
     [SerializeField] List<GameObject> objblue;
     [SerializeField] List<GameObject> objred;
-    [SerializeField]List<GameObject> backupBlue;
-    [SerializeField]List<GameObject> backupRed;
 
    public class cObjectWhereFootHold
     {
@@ -169,7 +167,6 @@ public class Gamemanager : MonoBehaviour
             Player.ManagerYutorderCheck(ClearNumber);
             Clearobj.gameObject.SetActive(false);
             ClearButton.gameObject.SetActive(false);
-            Player.ExitTurnPass();
 
             if(objblue.Count  == 0)
             {
@@ -177,6 +174,7 @@ public class Gamemanager : MonoBehaviour
                 WinerBlue = true;
                 teamWinCheck();
                 curState = eRule.GameClear;
+                Playtimer.StayTurnTime();
             }
             else if(objred.Count == 0)
             {
@@ -184,8 +182,10 @@ public class Gamemanager : MonoBehaviour
                 WinerRed = true;
                 teamWinCheck();
                 curState = eRule.GameClear;
+                Playtimer.StayTurnTime();
             }
 
+            Player.ExitTurnPass();
         });
         #endregion
     }
@@ -215,6 +215,7 @@ public class Gamemanager : MonoBehaviour
         }
         else if (curState == eRule.SelectCharacter)
         {
+            Yutbox.SetActive(false);
             playertypechoice();
             //positionobjcheck();
         }
@@ -486,6 +487,7 @@ public class Gamemanager : MonoBehaviour
         else if (throwyutbutton == false)
         {
             throwbutton.gameObject.SetActive(false);
+            Yutbox.SetActive(false);
             Yuttimer.SetActive(false);
             PlayerTimer.SetActive(true);
             curState = eRule.SelectCharacter;
@@ -1015,10 +1017,17 @@ public class Gamemanager : MonoBehaviour
                     continue;
                 }
             }
-            if (BackCheck == true)//필드에 없을 경우에 true가 유지됨
+            if (BackCheck == true)//필드에 말이 없을 경우에 true가 유지됨
             {
                 BackCheck = false;
                 Yutstartbuttons.ClaerYutCount();
+            }
+            else//필드에 말이 있을 경우
+            {
+                throwbutton.gameObject.SetActive(false);
+                Yuttimer.SetActive(false);
+                PlayerTimer.SetActive(true);
+                curState = eRule.SelectCharacter;
             }
         }
         else if(teamtype == 2)
@@ -1046,7 +1055,22 @@ public class Gamemanager : MonoBehaviour
                 BackCheck = false;
                 Yutstartbuttons.ClaerYutCount();
             }
+            else//필드에 말이 있을 경우
+            {
+                throwbutton.gameObject.SetActive(false);
+                Yuttimer.SetActive(false);
+                PlayerTimer.SetActive(true);
+                curState = eRule.SelectCharacter;
+            }
         }
+    }
+
+    public void PlayTimeTurn()//빽도가 걸릴때 플레이 타임으로 넘기기
+    {
+        throwbutton.gameObject.SetActive(false);
+        Yuttimer.SetActive(false);
+        PlayerTimer.SetActive(true);
+        curState = eRule.SelectCharacter;
     }
 
     public void TimeOverChange()//시간초내에 이동하지 않으면 턴이 변경되게 하는 부분
@@ -1128,13 +1152,17 @@ public class Gamemanager : MonoBehaviour
         curState = eRule.RecycleTime;
     }
 
-    public void RecycleTurnPass( bool _recycleCheck)
+    /// <summary>
+    /// TurnCycleCheck == 말을 잡고 다시 돌렸을때 true가 되도록 설정 되어있음
+    /// </summary>
+    /// <param name="_recycleCheck"></param>
+    public void RecycleTurnPass( bool _recycleCheck)//여기서 문제 발생 07/20일자
     {
-        if(_recycleCheck == true && TurnCycleCheck == false)
+        if(_recycleCheck == true && TurnCycleCheck == false)//모나 윷이 안 뜰 경우
         {
             return;
         }
-        if(TurnCycleCheck == true)
+        if(TurnCycleCheck == true && _recycleCheck == false)//말을 잡고 다시 던지기 턴인데 모나 윷이 안 걸린경우
         {
             TurnCycleCheck = false;
             //Yutbox.SetActive(false);
@@ -1143,7 +1171,7 @@ public class Gamemanager : MonoBehaviour
             PlayerTimer.SetActive(true);
             curState = eRule.SelectCharacter;
         }
-        else
+        else if(TurnCycleCheck == true && _recycleCheck == true)//말을 잡고 윷을 던질떄 모나 윷이 뜬 경우
         {
             return;
         }

@@ -57,6 +57,14 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField] TMP_Text LookText;
     bool recycleCheck;//모나 윷이 뜰때 시간 코드가 안 돌아가게 도와주는 코드
 
+    [Header("윷 보여주기 등록")]
+    [SerializeField] TMP_Text Blue1;
+    [SerializeField] TMP_Text Blue2;
+    [SerializeField] TMP_Text Blue3;
+    [SerializeField] TMP_Text Red1;
+    [SerializeField] TMP_Text Red2;
+    [SerializeField] TMP_Text Red3;
+
     public enum eRule
     {
         YutStartButton1,
@@ -143,84 +151,91 @@ public class Yutstartbutton : MonoBehaviour
 
         #region 특정키를 누르면 뜨게 만드는 부분
         //특정 윷번호를 얻기 위한 코드들
-        if (Input.GetKeyDown(KeyCode.N))//확정 윷가 뜨도록 변경
-        {
-            yutnumber = 5;
-            Stickcount = 0;
-            for (int yutstick = 0; yutstick < 4; yutstick++)
-            {
-                randomcount = 1;
-                chageyut += 1;
-                Yutcount();
-            }
-            yutlist();
-            if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
-            {
-                Gamemanager.Instance.nextturn();
-                Gamemanager.Instance.Playtimer.cheangeyuttime();
-                return;
-            }
-            Gamemanager.Instance.Playtimer.cheangeyuttime();
-            if (yutnumber == 4 || yutnumber == 5)
-            {
-                //stayyutcheck = true;
-                //playtimer.returnYut = true;
-                curButton = eRule.YutStartButton2;
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.B))//걸이 뜨게 만드는 부분
-        {
-            yutnumber = 3;
-            Stickcount = 3;
-            for (int yutstick = 0; yutstick < 3; yutstick++)
-            {
-                randomcount = 1;
-                chageyut += 1;
-                Yutcount();
-            }
-            yutlist();
-            yutstart = false;
-            if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
-            {
-                Gamemanager.Instance.nextturn();
-                return;
-            }
-            Gamemanager.Instance.Playtimer.cheangeyuttime();
-            Gamemanager.Instance.throwyutbutton = false;
-        }
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            randomcheck = true;
-            yutnumber = -1;
-            Stickcount = 0;
-            for (int yutstick = 0; yutstick < 4; yutstick++)
-            {
-                randomcount = 1;
-                chageyut += 1;
-                Yutcount();
-            }
-            yutturnNumber();
-            Debug.Log("빽도");
-            LookText.text = "빽도";
-            yutstart = false;
-            if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
-            {
-                Gamemanager.Instance.nextturn();//강제적으로 플레이어 선택 부분으로 이동
-            }
-            else
-            {
-                Gamemanager.Instance.Playtimer.cheangeyuttime();
-            }
+        //if (Input.GetKeyDown(KeyCode.N))//확정 윷가 뜨도록 변경
+        //{
+        //    yutnumber = 5;
+        //    Stickcount = 0;
+        //    for (int yutstick = 0; yutstick < 4; yutstick++)
+        //    {
+        //        randomcount = 1;
+        //        chageyut += 1;
+        //        Yutcount();
+        //    }
+        //    yutlist();
+        //    if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
+        //    {
+        //        Gamemanager.Instance.nextturn();
+        //        Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);
+        //        return;
+        //    }
+        //    recycleCheck = true;
+        //    Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);
+        //    recycleCheck = false;
+        //    if (yutnumber == 4 || yutnumber == 5)
+        //    {
+        //        //stayyutcheck = true;
+        //        //playtimer.returnYut = true;
+        //        curButton = eRule.YutStartButton2;
+        //    }
+        //}
+        //if(Input.GetKeyDown(KeyCode.B))//걸이 뜨게 만드는 부분
+        //{
+        //    yutnumber = 3;
+        //    Stickcount = 3;
+        //    for (int yutstick = 0; yutstick < 3; yutstick++)
+        //    {
+        //        randomcount = 1;
+        //        chageyut += 1;
+        //        Yutcount();
+        //    }
+        //    yutlist();
+        //    yutstart = false;
+        //    if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
+        //    {
+        //        Gamemanager.Instance.nextturn();
+        //        return;
+        //    }
+        //    Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//모나 윷이 아니라서 false가 입력
+        //    Gamemanager.Instance.throwyutbutton = false;
+        //}
+        //if(Input.GetKeyDown(KeyCode.M))
+        //{
+        //    randomcheck = true;
+        //    yutnumber = -1;
+        //    Stickcount = 0;
+        //    for (int yutstick = 0; yutstick < 4; yutstick++)
+        //    {
+        //        randomcount = 1;
+        //        chageyut += 1;
+        //        Yutcount();
+        //    }
+        //    yutturnNumber();
+        //    Debug.Log("빽도");
+        //    LookText.text = "빽도";
+        //    yutstart = false;
+        //    if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
+        //    {
+        //        Gamemanager.Instance.nextturn();//강제적으로 플레이어 선택 부분으로 이동
+        //    }
+        //    else
+        //    {
+        //        Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
+        //        Gamemanager.Instance.RecycleTurnPass(recycleCheck);
+        //    }
 
-            //Gamemanager.Instance.Playtimer.PassChange();
-            Gamemanager.Instance.throwyutbutton = false;
-            if(oneyut == -1)
-            {
-                Gamemanager.Instance.CheckBackYutPass();
-            }
-            randomcheck = false;
-            return;
-        }
+        //    //Gamemanager.Instance.Playtimer.PassChange();
+        //    Gamemanager.Instance.throwyutbutton = false;
+        //    if(oneyut == -1)
+        //    {
+        //        Gamemanager.Instance.CheckBackYutPass();
+        //    }
+        //    else
+        //    {
+        //        Gamemanager.Instance.PlayTimeTurn();
+        //    }
+        //    randomcheck = false;
+        //    return;
+        //}
         //여기까지
         #endregion
 
@@ -284,11 +299,10 @@ public class Yutstartbutton : MonoBehaviour
             if (oneyut != 0 && twoyut != 0 && threeyut != 0 && reCheck == true)//3번연속으로 모 또는 윷이 뜰 경우
             {
                 Gamemanager.Instance.nextturn();
-                Gamemanager.Instance.Playtimer.cheangeyuttime();
+                Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
                 return;
             }
             //GameObject findtimer = GameObject.Find("Playtimemanager");
-            Gamemanager.Instance.Playtimer.cheangeyuttime();
             if (yutnumber == 4 || yutnumber == 5)//모 또는 윷이 뜰 경우
             {
                 curButton = eRule.YutStartButton2;
@@ -305,6 +319,7 @@ public class Yutstartbutton : MonoBehaviour
             {
                 Gamemanager.Instance.throwyutbutton = false;
             }
+            Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
             Gamemanager.Instance.RecycleTurnPass(recycleCheck);
             recycleCheck = false;
         }
@@ -322,9 +337,9 @@ public class Yutstartbutton : MonoBehaviour
             chageyut += 1;
             Yutcount();
         }
-        yutturnNumber();
         Debug.Log("빽도");
         LookText.text = "빽도";
+        yutturnNumber();
         yutstart = false;
         if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
         {
@@ -332,12 +347,16 @@ public class Yutstartbutton : MonoBehaviour
         }
         else
         {
-            Gamemanager.Instance.Playtimer.cheangeyuttime();
+            Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);
         }
         Gamemanager.Instance.throwyutbutton = false;
         if (oneyut == -1)
         {
             Gamemanager.Instance.CheckBackYutPass();
+        }
+        else
+        {
+            Gamemanager.Instance.PlayTimeTurn();
         }
         randomcheck = false;
     }
@@ -379,34 +398,34 @@ public class Yutstartbutton : MonoBehaviour
             case 0://뒷면이 0개일 경우
                 yutnumber = 5;
                 reCheck = true;
-                yutturnNumber();
                 Debug.Log("모");
                 LookText.text = "모";
+                yutturnNumber();
                 break;
             case 1:
                 yutnumber = 1;
-                yutturnNumber();
                 Debug.Log("도");
                 LookText.text = "도";
+                yutturnNumber();
                 break;
             case 2:
                 yutnumber = 2;
-                yutturnNumber();
                 Debug.Log("개");
                 LookText.text = "개";
+                yutturnNumber();
                 break;
             case 3:
                 yutnumber = 3;
-                yutturnNumber();
                 Debug.Log("걸");
                 LookText.text = "걸";
+                yutturnNumber();
                 break;
             case 4:
                 yutnumber = 4;
                 reCheck = true;
-                yutturnNumber();
                 Debug.Log("윷");
                 LookText.text = "윷";
+                yutturnNumber();
                 break;
         }
     }
@@ -418,16 +437,40 @@ public class Yutstartbutton : MonoBehaviour
         if (oneyut == 0 && oneYutCheck == false || oneYutCheck == false)
         {
             oneyut = yutnumber;
+            if (Gamemanager.Instance.Playtimer.TeamBlue == true)
+            {
+                Blue1.text = LookText.text;
+            }
+            else
+            {
+                Red1.text = LookText.text;
+            }
             NotCheck1();
         }
         else if (oneyut != 0 && twoyut == 0 && twoYutCheck == false || twoYutCheck == false)
         {
             twoyut = yutnumber;
+            if (Gamemanager.Instance.Playtimer.TeamBlue == true)
+            {
+               Blue2.text = LookText.text;
+            }
+            else
+            {
+                Red2.text = LookText.text;
+            }
             NotCheck2();
         }
         else if (oneyut != 0 && twoyut != 0 && threeyut == 0 && threeYutCheck == false|| threeYutCheck == false)
         {
             threeyut = yutnumber;
+            if (Gamemanager.Instance.Playtimer.TeamBlue == true)
+            {
+               Blue3.text = LookText.text;
+            }
+            else
+            {
+                Red3.text = LookText.text;
+            }
             NotCheck3();
         }
     }
@@ -561,6 +604,7 @@ public class Yutstartbutton : MonoBehaviour
         Gamemanager.Instance.Playtimer.PassChange();
 
         //zeromovecheck = true;
+        NotCheckTrue();
         numberzero();
         //playtimer.checktime = true;
         //stayyutcheck = true;
@@ -616,5 +660,20 @@ public class Yutstartbutton : MonoBehaviour
         Look2.transform.rotation = Quaternion.Euler(0, 0, 0);
         Look3.transform.rotation = Quaternion.Euler(0, 0, 0);
         Look4.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void TextNull()
+    {
+        LookText.text = "";
+    }
+
+    public void NullText()
+    {
+        Blue1.text = "";
+        Blue2.text = "";
+        Blue3.text = "";
+        Red1.text = "";
+        Red2.text = "";
+        Red3.text = "";
     }
 }
