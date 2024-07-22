@@ -4395,6 +4395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aca4afb03f304429b82bce0f634fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialStageCheck: 1
   ClearButton: {fileID: 166851265}
   startcheck: {fileID: 288278257}
   objblue:
@@ -9101,6 +9102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storyText: {fileID: 513643131}
+  storyStayTime: 1
+  MaxstoryStayTime: 0
 --- !u!4 &1727671555
 Transform:
   m_ObjectHideFlags: 0

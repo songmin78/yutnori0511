@@ -26,6 +26,6 @@ public class TimeControl : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        
     }
+
 }

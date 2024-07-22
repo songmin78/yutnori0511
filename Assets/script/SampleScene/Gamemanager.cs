@@ -6,6 +6,17 @@ using TMPro;
 
 public class Gamemanager : MonoBehaviour
 {
+    [Header("튜토리얼 부분(튜토리얼 스테이지에서만 쓰임)")]
+    [SerializeField,Tooltip("튜토리얼 스테이지에 있을때 True로 쓰기")] bool tutorialStageCheck;
+    public bool TutorialStageCheck
+    {
+        get
+        {
+            return tutorialStageCheck;
+        }
+    }
+
+    [Header("일반게임")]
     [SerializeField] Button ClearButton;
     Animation anim;
     Animator animator;
@@ -71,6 +82,7 @@ public class Gamemanager : MonoBehaviour
     private Yutstartbutton yutstartbutton;
     private Playtimer playtimer;
     private SceneChange sceneChange;
+    private TutorialStory tutorialStory;
     //결승점에 통과한 말을 알려주는 오브젝트
     GameObject Clearobj;
     float ClearNumber;
@@ -129,6 +141,12 @@ public class Gamemanager : MonoBehaviour
     {
         get { return sceneChange; }
         set { sceneChange = value; }
+    }
+
+    public TutorialStory TutorialStory
+    {
+        get { return tutorialStory; }
+        set { tutorialStory = value; }
     }
 
     private void Awake()
@@ -418,6 +436,10 @@ public class Gamemanager : MonoBehaviour
             {
                 changecheck = Random.Range(0, 2);
                 starttype = true;
+                if (tutorialStageCheck == true)
+                {
+                    changecheck = 1;
+                }
             }
             else
             {
@@ -426,6 +448,11 @@ public class Gamemanager : MonoBehaviour
 
             if (Maxstartturnyut < 0)//0보다 작을 경우 즉 시간이 다 된 경우
             {
+                if (tutorialStageCheck == true)
+                {
+                    changecheck = 1;
+                    TutorialStory.TimeOff();
+                }
                 Maxstartturnyut = startturnyut;
                 starttype = false;
                 startcheck.gameObject.SetActive(false);
