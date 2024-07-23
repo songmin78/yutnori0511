@@ -9101,7 +9101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2af0120d14a6c4d9d7d7c76ed98bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasTutorial: {fileID: 12090539}
   storyText: {fileID: 513643131}
+  storyNext: 0
   storyStayTime: 1
   MaxstoryStayTime: 0
 --- !u!4 &1727671555
@@ -10350,9 +10352,9 @@ MonoBehaviour:
   TestObj: {fileID: 2122488333}
   teamred: 0
   teamblue: 0
-  throwtime: 5
+  throwtime: 100000
   Maxthrowtime: 0
-  waitmovetime: 20
+  waitmovetime: 100000
   Maxwaitmovetime: 0
   timegage: {fileID: 1950449413}
   timegagePlayer: {fileID: 457109354}

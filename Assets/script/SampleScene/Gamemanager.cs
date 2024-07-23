@@ -8,6 +8,8 @@ public class Gamemanager : MonoBehaviour
 {
     [Header("튜토리얼 부분(튜토리얼 스테이지에서만 쓰임)")]
     [SerializeField,Tooltip("튜토리얼 스테이지에 있을때 True로 쓰기")] bool tutorialStageCheck;
+    bool onlyStory1 = true;//딱 한번만 들어 오도록 설정
+    bool onlyStory2 = true;//딱 한번만 들어 오도록 설정
     public bool TutorialStageCheck
     {
         get
@@ -387,6 +389,12 @@ public class Gamemanager : MonoBehaviour
                 Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
                 Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
                 selectcharactor(rayHit.transform.gameObject);
+                if (tutorialStageCheck == true && onlyStory1 == true)
+                {
+                    onlyStory1 = false;
+                    TutorialStory.TimeOff();
+                    return;
+                }
                 //Player selPlayer = rayHit.transform.GetComponent<Player>();
                 //selPlayer.Playselectedcheck(true);
 
@@ -569,6 +577,11 @@ public class Gamemanager : MonoBehaviour
             //yutstartbutton.getbackYut();
             //Player.MoveCheckControl();
             Yutstartbuttons.NotCheckTrue();
+            if(tutorialStageCheck == true && onlyStory2 == true)
+            {
+                onlyStory2 = false;
+                TutorialStory.TimeOff();
+            }
         }
         else//더한 값이 0이 아닐 경우
         {
