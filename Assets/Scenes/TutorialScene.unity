@@ -10349,6 +10349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d81bed6671a7d842a6ac2716af5366e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialStageCheck: 1
   TestObj: {fileID: 2122488333}
   teamred: 0
   teamblue: 0

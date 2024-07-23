@@ -1327,4 +1327,10 @@ public class Gamemanager : MonoBehaviour
             PlayerTimer.SetActive(true);
         }
     }
+
+    //튜토리얼 부분
+    public void ButtonOff()
+    {
+        throwbutton.gameObject.SetActive(false);
+    }
 }

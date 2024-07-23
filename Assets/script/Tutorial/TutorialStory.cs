@@ -139,7 +139,7 @@ public class TutorialStory : MonoBehaviour
                 curStory = eRule.TutorialOn;
                 break;
             case 7:
-                storyText.text = "그럼 캐릭터를 선택 해봐 캐릭터는 오른쪽 아래에 있어";
+                storyText.text = "그럼 캐릭터를 선택 해봐 캐릭터는 오른쪽 아래에 있어 선택한 캐릭터는 머리에 사과가 보일거야";
                 tutorialOffCheck = true;
                 break;
             case 8://캐릭터를 선택 했을 경우 //바로 클릭이 되어 case 9로 넘어가는 현상이 생김
@@ -166,6 +166,13 @@ public class TutorialStory : MonoBehaviour
                 storyText.text = "윷을 던지는 시간이 다 닳면 윷이 자동으로 던져지지만 이동시간이 다 닳으면 그냥 턴이 넘어가니 조심해야되";
                 tutorialOffCheck = true;
                 break;
+            case 13:
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "레드에서 개가 떴네";
+                storyNext = false;
+                curStory = eRule.TutorialStay;
+                break;
+
         }
     }
 
@@ -179,7 +186,7 @@ public class TutorialStory : MonoBehaviour
     {
         Time.timeScale = 0;
         storyNumber += 1;
-        Debug.Log(storyNumber);
+        //Debug.Log(storyNumber);
         storyLine();
     }
 }

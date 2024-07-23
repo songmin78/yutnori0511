@@ -4079,6 +4079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aca4afb03f304429b82bce0f634fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialStageCheck: 0
   ClearButton: {fileID: 166851265}
   startcheck: {fileID: 288278257}
   objblue:
@@ -9830,6 +9831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d81bed6671a7d842a6ac2716af5366e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialStageCheck: 0
   TestObj: {fileID: 2122488333}
   teamred: 0
   teamblue: 0
@@ -10209,7 +10211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -120, y: 5}
+  m_AnchoredPosition: {x: -120, y: 0}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!212 &2122488335

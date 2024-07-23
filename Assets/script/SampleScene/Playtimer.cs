@@ -6,7 +6,14 @@ using UnityEngine.UI;
 
 public class Playtimer : MonoBehaviour
 {
+    [Header("튜토리얼 부분(튜토리얼 스테이지에서만 쓰임)")]
+    [SerializeField, Tooltip("튜토리얼 스테이지에 있을때 True로 쓰기")] bool tutorialStageCheck;
+    float tutorialTime = 1.5f;
+    float MaxtutorialTime;
+    bool buttonTutorial = true;
+
     Animator animator;
+    [Header("일반게임")]
     [SerializeField] GameObject TestObj;
     [SerializeField] bool teamred;
     [SerializeField] bool teamblue;
@@ -43,6 +50,7 @@ public class Playtimer : MonoBehaviour
         Movetime,
         BackChangeTimer,
         ReturnTimeStay,//윷타이머가 안 돌아가게 관리하는 코드
+        TutorialTime,//튜토리얼 레드팀일때 들어가는 코드
     }
     private eRule curTimer = eRule.Throwtime;
 
@@ -53,6 +61,7 @@ public class Playtimer : MonoBehaviour
         Maxthrowtime = throwtime;
         Maxwaitmovetime = waitmovetime;
         MaxBackTime = BackTime;
+        MaxtutorialTime = tutorialTime;
     }
 
     private void Start()
@@ -69,7 +78,10 @@ public class Playtimer : MonoBehaviour
 
     void Update()
     {
-
+        if (teamred == true && tutorialStageCheck == true)
+        {
+            curTimer = eRule.TutorialTime;
+        }
         //waityuttime();//윷 던지기 버튼을 안 누를때 작동
         //cheangeyuttime();//윷 던지기 버튼을 누를때 작동
         //movewaittimer();//말이 움직이는것을 기다리는 코드
@@ -107,6 +119,16 @@ public class Playtimer : MonoBehaviour
         else if (curTimer == eRule.ReturnTimeStay)//이 스크립트가 작동 안하게 대기하는 코드부분
         {
             return;
+        }
+        else if(curTimer == eRule.TutorialTime)
+        {
+            //if(buttonTutorial == true)
+            //{
+            //    buttonTutorial = false;
+            //    Gamemanager.Instance.ButtonOff();
+            //}
+            Gamemanager.Instance.ButtonOff();
+            TutorialTeam();
         }
     }
 
@@ -443,5 +465,20 @@ public class Playtimer : MonoBehaviour
         curTimer = eRule.Throwtime;
         Text.text = "윷 던지기 턴";
         Gamemanager.Instance.Yutstartbuttons.TextNull();
+    }
+
+    public void TutorialTeam()//레드팀 차례일때 자동으로 윷을 던지 도록 설정
+    {
+        if (MaxtutorialTime < 0)
+        {
+            MaxtutorialTime = tutorialTime;
+            Gamemanager.Instance.Yutstartbuttons.yutplaytimer();
+            curTimer = eRule.Movetime;
+            Gamemanager.Instance.PlayerTimeChange();
+        }
+        else
+        {
+            MaxtutorialTime -= Time.deltaTime;
+        }
     }
 }

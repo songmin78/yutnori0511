@@ -151,6 +151,11 @@ public class Yutstartbutton : MonoBehaviour
                 yutstart = false;
                 tutorialYutNumber();
             }
+            else if (Gamemanager.Instance.TutorialStory.StoryNumber == 12)
+            {
+                yutstart = false;
+                tutorialYut2();
+            }
             return;
         }
         if (stayyutcheck == true)
@@ -705,4 +710,22 @@ public class Yutstartbutton : MonoBehaviour
         Gamemanager.Instance.TutorialStory.TimeOff();
     }
 
+    private void tutorialYut2()//튜토리얼을 진행할때 윷을 강제적으로 제한 할수 있도록 만든 부분
+    {
+        yutnumber = 2;
+        Stickcount = 2;
+        for (int yutstick = 0; yutstick < 2; yutstick++)
+        {
+            randomcount = 1;
+            chageyut += 1;
+            Yutcount();
+        }
+        //yutdisposition.Add(randomcount);
+        yutlist();
+        yutstart = false;
+        Gamemanager.Instance.throwyutbutton = false;
+        Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
+        Gamemanager.Instance.RecycleTurnPass(recycleCheck);
+        Gamemanager.Instance.TutorialStory.TimeOff();
+    }
 }
