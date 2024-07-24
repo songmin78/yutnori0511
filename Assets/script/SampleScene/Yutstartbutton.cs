@@ -726,6 +726,6 @@ public class Yutstartbutton : MonoBehaviour
         Gamemanager.Instance.throwyutbutton = false;
         Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
         Gamemanager.Instance.RecycleTurnPass(recycleCheck);
-        Gamemanager.Instance.TutorialStory.TimeOff();
+        //Gamemanager.Instance.TutorialStory.TimeOff();
     }
 }

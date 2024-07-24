@@ -78,18 +78,24 @@ public class Player : MonoBehaviour
     //public bool Exitcheck3;
     bool NextTurnCheck;
 
+    //튜토리얼에 쓰이는 부분
+    float autoTime = 1;
+    float MaxAutoTime;
+
     public enum eRule
     {
         notrecall,//자기 차례가 아닐때 작동되는 부분
         playermovecheck,//원하는 위치로 이동 되는 부분
         endcheck,//자기 차례가 끝나면 대기 하는곳
         turntime,//턴을 급하게 넘기지 않도록 조절하는곳
+        autoplayer,//튜토리얼에서 쓰이는 부분
     }
     private eRule yutcontrol = eRule.notrecall;
 
     private void Awake()
     {
         //Gamemanager.Instance.Player = this;
+        MaxAutoTime = autoTime;
     }
 
     void Start()
@@ -123,6 +129,10 @@ public class Player : MonoBehaviour
         else if(yutcontrol == eRule.playermovecheck)
         {
             positionselect();
+        }
+        else if(yutcontrol == eRule.autoplayer)
+        {
+            autoTimeRed();
         }
 
     }
@@ -881,5 +891,47 @@ public class Player : MonoBehaviour
         findplayd.SetActive(false);
         Curryobj1.SetActive(false);
         Curryobj2.SetActive(false);
+    }
+
+    //튜토리얼 부분
+
+    private void autoTimeRed()
+    {
+        if(MaxAutoTime < 0)
+        {
+            MaxAutoTime = autoTime;
+            autoMoveRed();
+        }
+        else
+        {
+            MaxAutoTime -= Time.deltaTime;
+        }
+    }
+    public void autoMoveRed()
+    {
+        GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
+
+        transform.position = obj1.transform.position;
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+        maxmoveYutcount = moveYutcount1;
+        Yutorder = 1;
+        Gamemanager.Instance.Footholdbox.positiondestory();
+        changeYutzero();
+        Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
+        Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount, gameObject);
+        if (NextTurnCheck == true)
+        {
+            NextTurnCheck = false;
+            Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+        }
+        movecheck = false;
+        Gamemanager.Instance.DesYutButton();
+
+        Gamemanager.Instance.TutorialStory.TimeOff();
+    }
+
+    public void ChangeAutoTime()
+    {
+        yutcontrol = eRule.autoplayer;
     }
 }

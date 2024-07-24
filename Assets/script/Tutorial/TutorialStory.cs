@@ -27,6 +27,7 @@ public class TutorialStory : MonoBehaviour
         TutorialOff,//튜토리얼 부분이 비활성화
         StayTutorial,//투툐리얼 대사를 바로 넘길수 없게 조정
         TutorialStay,//튜토리얼화면 이 뜰때 잠시 기달려주는 코드
+        StayTime,//설명을 한번만 할때 패스하기 쉽게 만든 코드
     }
     private eRule curStory = eRule.StayTutorial;
 
@@ -92,7 +93,6 @@ public class TutorialStory : MonoBehaviour
             }
         }
 
-
     }
 
     private void nextStory()
@@ -147,6 +147,7 @@ public class TutorialStory : MonoBehaviour
                 storyText.text = "캐릭터를 선택했네? 그럼 윷판을 보면 흰색 공간이 보일거야";
                 storyNext = false;
                 curStory = eRule.TutorialStay;//바로 case9로 안 넘어가게 조절
+                //Gamemanager.Instance.StopOn();
                 break;
             case 9:
                 storyText.text = "그것은 너가 선택한 말이 움직일수 있는 부분을 보여준거야 그럼 그 부분을 클릭해봐";
@@ -166,11 +167,22 @@ public class TutorialStory : MonoBehaviour
                 storyText.text = "윷을 던지는 시간이 다 닳면 윷이 자동으로 던져지지만 이동시간이 다 닳으면 그냥 턴이 넘어가니 조심해야되";
                 tutorialOffCheck = true;
                 break;
-            case 13:
+            case 13://레드팀이 윷을 던진경우
                 canvasTutorial.gameObject.SetActive(true);
-                storyText.text = "레드에서 개가 떴네";
+                storyText.text = "레드팀에서 개가 떴네";
                 storyNext = false;
                 curStory = eRule.TutorialStay;
+                break;
+            case 14:
+                storyText.text = "이번에는 레드팀이 움직일 거야";
+                tutorialOffCheck = true;
+                break;
+            case 15://한번만 설명 하도록 만들어진 case
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "너 차례로 돌아왔어 다시 한번 윷을 던져 보자";
+                storyNext = false;
+                curStory = eRule.TutorialStay;
+                tutorialOffCheck = true;
                 break;
 
         }
@@ -179,6 +191,7 @@ public class TutorialStory : MonoBehaviour
     public void TimeOn()
     {
         canvasTutorial.gameObject.SetActive(false);
+        Gamemanager.Instance.StopOff();
         Time.timeScale = 1;
     }
 
@@ -188,5 +201,6 @@ public class TutorialStory : MonoBehaviour
         storyNumber += 1;
         //Debug.Log(storyNumber);
         storyLine();
+        Gamemanager.Instance.StopOn();
     }
 }

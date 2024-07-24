@@ -17,6 +17,7 @@ public class Gamemanager : MonoBehaviour
             return tutorialStageCheck;
         }
     }
+    bool stopPlay = false;
 
     [Header("일반게임")]
     [SerializeField] Button ClearButton;
@@ -220,6 +221,10 @@ public class Gamemanager : MonoBehaviour
 
     void Update()
     {
+        if(stopPlay == true)
+        {
+            return;
+        }
         testText();
         //Onclickplayer();
 
@@ -1333,4 +1338,26 @@ public class Gamemanager : MonoBehaviour
     {
         throwbutton.gameObject.SetActive(false);
     }
+
+    public void selectTeam()
+    {
+        DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+        Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+        Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
+        selectcharactor(objred[1].gameObject);
+        Player = objred[1].gameObject.GetComponent<Player>();
+        Player.ChangeAutoTime();
+        TutorialStory.TimeOff();
+    }
+
+    public void StopOn()
+    {
+        stopPlay = true;
+    }
+
+    public void StopOff()
+    {
+        stopPlay = false;
+    }
+
 }

@@ -11,6 +11,10 @@ public class Playtimer : MonoBehaviour
     float tutorialTime = 1.5f;
     float MaxtutorialTime;
     bool buttonTutorial = true;
+    float yutThrow = 1.5f;
+    [SerializeField]float MaxyutThrow;
+    bool tutorialCheck1 = true ;
+    bool tutorialCheck2 = true ;
 
     Animator animator;
     [Header("일반게임")]
@@ -51,6 +55,7 @@ public class Playtimer : MonoBehaviour
         BackChangeTimer,
         ReturnTimeStay,//윷타이머가 안 돌아가게 관리하는 코드
         TutorialTime,//튜토리얼 레드팀일때 들어가는 코드
+        TutorialMove,//튜토리얼 레드팀일때 들어가는 코드
     }
     private eRule curTimer = eRule.Throwtime;
 
@@ -62,6 +67,7 @@ public class Playtimer : MonoBehaviour
         Maxwaitmovetime = waitmovetime;
         MaxBackTime = BackTime;
         MaxtutorialTime = tutorialTime;
+        MaxyutThrow = yutThrow;
     }
 
     private void Start()
@@ -78,9 +84,13 @@ public class Playtimer : MonoBehaviour
 
     void Update()
     {
-        if (teamred == true && tutorialStageCheck == true)
+        if (teamred == true && tutorialStageCheck == true && tutorialCheck1 == true)
         {
             curTimer = eRule.TutorialTime;
+        }
+        else if(teamred == true && tutorialStageCheck == true && tutorialCheck2 == true)
+        {
+            curTimer = eRule.TutorialMove;
         }
         //waityuttime();//윷 던지기 버튼을 안 누를때 작동
         //cheangeyuttime();//윷 던지기 버튼을 누를때 작동
@@ -129,6 +139,10 @@ public class Playtimer : MonoBehaviour
             //}
             Gamemanager.Instance.ButtonOff();
             TutorialTeam();
+        }
+        else if (curTimer == eRule.TutorialMove)
+        {
+            automaticMove();
         }
     }
 
@@ -467,18 +481,39 @@ public class Playtimer : MonoBehaviour
         Gamemanager.Instance.Yutstartbuttons.TextNull();
     }
 
+    //튜토리얼 부분
     public void TutorialTeam()//레드팀 차례일때 자동으로 윷을 던지 도록 설정
     {
         if (MaxtutorialTime < 0)
         {
             MaxtutorialTime = tutorialTime;
             Gamemanager.Instance.Yutstartbuttons.yutplaytimer();
-            curTimer = eRule.Movetime;
+            //curTimer = eRule.Movetime;
             Gamemanager.Instance.PlayerTimeChange();
+            tutorialCheck1 = false;
+            curTimer = eRule.TutorialMove;
         }
         else
         {
             MaxtutorialTime -= Time.deltaTime;
         }
     }
+
+    private void automaticMove()
+    {
+        if(tutorialStageCheck == true)
+        {
+            if (MaxyutThrow < 0)
+            {
+                tutorialCheck2 = false;
+                MaxyutThrow = yutThrow;
+                Gamemanager.Instance.selectTeam();
+            }
+            else
+            {
+                MaxyutThrow -= Time.deltaTime;
+            }
+        }
+    }
+
 }
