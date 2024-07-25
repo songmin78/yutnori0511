@@ -78,9 +78,11 @@ public class Player : MonoBehaviour
     //public bool Exitcheck3;
     bool NextTurnCheck;
 
+
     //튜토리얼에 쓰이는 부분
     float autoTime = 1;
     float MaxAutoTime;
+    bool tutorialCheck = false;
 
     public enum eRule
     {

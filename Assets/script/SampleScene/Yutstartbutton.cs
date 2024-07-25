@@ -156,6 +156,16 @@ public class Yutstartbutton : MonoBehaviour
                 yutstart = false;
                 tutorialYut2();
             }
+            else if(Gamemanager.Instance.TutorialStory.StoryNumber == 15)
+            {
+                yutstart = false;
+                tutorialYut3();
+            }
+            else if (Gamemanager.Instance.TutorialStory.StoryNumber == 17)
+            {
+                yutstart = false;
+                tutorialYut4();
+            }
             return;
         }
         if (stayyutcheck == true)
@@ -727,5 +737,55 @@ public class Yutstartbutton : MonoBehaviour
         Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
         Gamemanager.Instance.RecycleTurnPass(recycleCheck);
         //Gamemanager.Instance.TutorialStory.TimeOff();
+    }
+
+    private void tutorialYut3()
+    {
+        //yutnumber = 5;
+        //Stickcount = 0;
+        //yutlist();
+        //curButton = eRule.YutStartButton2;
+        //recycleCheck = true;
+        //yutstart = false;
+        //Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);
+        //recycleCheck = false;
+        //Gamemanager.Instance.throwyutbutton = false;
+        //Gamemanager.Instance.RecycleTurnPass(recycleCheck);
+        //Gamemanager.Instance.TutorialStory.TimeOff();
+        //
+        yutnumber = 5;
+        Stickcount = 0;
+        yutlist();
+        if (oneyut != 0 && twoyut != 0 && threeyut != 0 || threeyut != 0)
+        {
+            Gamemanager.Instance.nextturn();
+            Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);
+            return;
+        }
+        recycleCheck = true;
+        Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);
+        recycleCheck = false;
+        if (yutnumber == 4 || yutnumber == 5)
+        {
+            curButton = eRule.YutStartButton2;
+        }
+        Gamemanager.Instance.TutorialStory.TimeOff();
+    }
+    private void tutorialYut4()//튜토리얼을 진행할때 윷을 강제적으로 제한 할수 있도록 만든 부분
+    {
+        yutnumber = 2;
+        Stickcount = 2;
+        for (int yutstick = 0; yutstick < 2; yutstick++)
+        {
+            randomcount = 1;
+            chageyut += 1;
+            Yutcount();
+        }
+        yutlist();
+        yutstart = false;
+        Gamemanager.Instance.throwyutbutton = false;
+        Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
+        Gamemanager.Instance.RecycleTurnPass(recycleCheck);
+        Gamemanager.Instance.TutorialStory.TimeOff();
     }
 }

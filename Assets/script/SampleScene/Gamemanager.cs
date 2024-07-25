@@ -10,6 +10,7 @@ public class Gamemanager : MonoBehaviour
     [SerializeField,Tooltip("튜토리얼 스테이지에 있을때 True로 쓰기")] bool tutorialStageCheck;
     bool onlyStory1 = true;//딱 한번만 들어 오도록 설정
     bool onlyStory2 = true;//딱 한번만 들어 오도록 설정
+    bool onlyStory3 = true;//개로 잡기 전까지true
     public bool TutorialStageCheck
     {
         get
@@ -389,6 +390,11 @@ public class Gamemanager : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray);
             if (rayHit.transform != null && rayHit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
+                Player = rayHit.transform.gameObject.GetComponent<Player>();
+                if (tutorialStageCheck == true && onlyStory1 == false && onlyStory3 == true && Player.GoPlayer == true)//튜토리얼에서 필드에 있는 캐릭터를 선택 할 경우
+                {
+                    return;
+                }
                 //Debug.Log(rayHit.transform.name);
                 DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
                 Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
@@ -1358,6 +1364,11 @@ public class Gamemanager : MonoBehaviour
     public void StopOff()
     {
         stopPlay = false;
+    }
+
+    public void TutorialHelp1()
+    {
+
     }
 
 }

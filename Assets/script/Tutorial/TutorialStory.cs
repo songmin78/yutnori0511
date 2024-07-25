@@ -180,10 +180,26 @@ public class TutorialStory : MonoBehaviour
             case 15://한번만 설명 하도록 만들어진 case
                 canvasTutorial.gameObject.SetActive(true);
                 storyText.text = "너 차례로 돌아왔어 다시 한번 윷을 던져 보자";
-                storyNext = false;
-                curStory = eRule.TutorialStay;
+                //storyNext = false;
+                //curStory = eRule.TutorialStay;
                 tutorialOffCheck = true;
                 break;
+            case 16://블루팀에서 다시 윷을 던진 경우
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "오 모가 떴잖아 윷이랑 모가 뜰 경우 윷을 다시 한번 던질수 있으니 많이 유리해지지";
+                storyNext = false;
+                curStory = eRule.TutorialStay;
+                break;
+            case 17:
+                storyText.text = "다시 한번 던져 보자";
+                tutorialOffCheck = true;
+                break;
+            case 18:
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "모랑 개가 떴네 로비에있는 말을 건들고 개로 한번 레드팀 말을 잡아보자";
+                tutorialOffCheck = true;
+                break;
+
 
         }
     }
@@ -203,4 +219,6 @@ public class TutorialStory : MonoBehaviour
         storyLine();
         Gamemanager.Instance.StopOn();
     }
+
+
 }

@@ -896,6 +896,10 @@ PrefabInstance:
       propertyPath: playercheck2
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2065766760384500157, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
+      propertyPath: tutorialStageCheck
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2260689394470506805, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
       propertyPath: m_Name
       value: Player2 (2)
@@ -4531,6 +4535,10 @@ PrefabInstance:
       propertyPath: playercheck2
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7537689792935685321, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
+      propertyPath: tutorialStageCheck
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
       propertyPath: m_Name
       value: Player1 (2)
@@ -5787,6 +5795,10 @@ PrefabInstance:
       propertyPath: playercheck1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7537689792935685321, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
+      propertyPath: tutorialStageCheck
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
       propertyPath: m_Name
       value: Player1
@@ -5864,6 +5876,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7537689792935685321, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
       propertyPath: playercheck2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7537689792935685321, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
+      propertyPath: tutorialStageCheck
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7121292525936958547, guid: 9b7826713dcc3bd4da9b2528d4a8b410, type: 3}
@@ -9298,6 +9314,10 @@ PrefabInstance:
       propertyPath: playercheck1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2065766760384500157, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
+      propertyPath: tutorialStageCheck
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2260689394470506805, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
       propertyPath: m_Name
       value: Player2
@@ -10350,6 +10370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialStageCheck: 1
+  MaxyutThrow: 0
   TestObj: {fileID: 2122488333}
   teamred: 0
   teamblue: 0
@@ -10508,6 +10529,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2065766760384500157, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
       propertyPath: playercheck2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065766760384500157, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
+      propertyPath: tutorialStageCheck
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2260689394470506805, guid: f3e43c55590ce3e4581ade924db464ad, type: 3}
