@@ -11,6 +11,7 @@ public class Gamemanager : MonoBehaviour
     bool onlyStory1 = true;//딱 한번만 들어 오도록 설정
     bool onlyStory2 = true;//딱 한번만 들어 오도록 설정
     bool onlyStory3 = true;//개로 잡기 전까지true
+    bool onlyStory4 = true;
     public bool TutorialStageCheck
     {
         get
@@ -19,6 +20,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
     bool stopPlay = false;
+    bool storylimit = false;
 
     [Header("일반게임")]
     [SerializeField] Button ClearButton;
@@ -337,7 +339,7 @@ public class Gamemanager : MonoBehaviour
             for (int iNum = 0; iNum < count; ++iNum)
             {
                 Player selPlayer = objblue[iNum].GetComponent<Player>();
-                selPlayer.Playselectedcheck(_value == objblue[iNum]);
+                selPlayer.Playselectedcheck(_value == objblue[iNum],storylimit);
                 //if (objred[iNum] == true)
                 //{
                 //    selPlayer.lookobj();
@@ -350,7 +352,7 @@ public class Gamemanager : MonoBehaviour
             for (int iNum = 0; iNum < count; ++iNum)
             {
                 Player selPlayer = objred[iNum].GetComponent<Player>();
-                selPlayer.Playselectedcheck(_value == objred[iNum]);
+                selPlayer.Playselectedcheck(_value == objred[iNum],storylimit);
                 //if (objred[iNum] == true)
                 //{
                 //    selPlayer.lookobj();
@@ -394,6 +396,17 @@ public class Gamemanager : MonoBehaviour
                 if (tutorialStageCheck == true && onlyStory1 == false && onlyStory3 == true && Player.GoPlayer == true)//튜토리얼에서 필드에 있는 캐릭터를 선택 할 경우
                 {
                     return;
+                }
+                else if (tutorialStageCheck == true && onlyStory1 == false && onlyStory3 == false && onlyStory4 == true)
+                {
+                    return;
+                    //for (int iNum = 0; iNum < listObjectWhereFootHold.Count; iNum++)
+                    //{
+                    //    if (listObjectWhereFootHold[iNum].trsFootHold != footholdbox.Yutfoothold[2])
+                    //    {
+                    //        return;
+                    //    }
+                    //}
                 }
                 //Debug.Log(rayHit.transform.name);
                 DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
@@ -1366,9 +1379,20 @@ public class Gamemanager : MonoBehaviour
         stopPlay = false;
     }
 
-    public void TutorialHelp1()
+    public void TutorialHelp1()//모 개 부분에서 모로 이동하는것을 방지
     {
-
+        storylimit = true;
     }
+
+    public void TutoPlayerGrap()//개로 적팀을 잡았을 경우
+    {
+        if (tutorialStageCheck == true && storylimit == true)
+        {
+            onlyStory3 = false;
+            storylimit = false;
+            TutorialStory.TimeOff();
+        }
+    }
+
 
 }

@@ -18,7 +18,7 @@ public class TutorialStory : MonoBehaviour
     [SerializeField]bool storyNext = false;//연타로 바로바로 스토리를 못 넘기게 제한하는 코드
     [SerializeField]float storyStayTime = 1f;
     [SerializeField]float MaxstoryStayTime;
-    bool tutorialOffCheck = false;
+    [SerializeField]bool tutorialOffCheck = false;
 
 
     public enum eRule
@@ -194,14 +194,35 @@ public class TutorialStory : MonoBehaviour
                 storyText.text = "다시 한번 던져 보자";
                 tutorialOffCheck = true;
                 break;
-            case 18:
+            case 18://윷을 다시 던지고 개가 뜬 경우
                 canvasTutorial.gameObject.SetActive(true);
                 storyText.text = "모랑 개가 떴네 로비에있는 말을 건들고 개로 한번 레드팀 말을 잡아보자";
+                Gamemanager.Instance.TutorialHelp1();
                 tutorialOffCheck = true;
                 break;
-
-
+            case 19://상대 말을 잡을 경우
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "잘했어! 이렇게 상대 말을 잡으면 윷을 던질 기회가 한번 더 생겨";
+                storyNext = false;
+                curStory = eRule.TutorialStay;
+                break;
+            case 20:
+                storyText.text = "하지만 상대 말을 잡더라도 말은 총 3번밖에 못 움직여";
+                tutorialOffCheck = false;
+                curStory = eRule.TutorialOn;
+                break;
+            case 21:
+                storyText.text = "너의 말 오른쪽을보면 총 기회가 뜨니 잘 확인해봐 그럼 다시 던져봐";
+                tutorialOffCheck = true;
+                break;
+            case 22:
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "도가 떴네 그럼 2번째칸에 있는 말을 3번째 칸에 있는 곳으로 움직여봐";
+                Gamemanager.Instance.TutorialHelp1();
+                tutorialOffCheck = true;
+                break;
         }
+        Debug.Log(storyNumber);
     }
 
     public void TimeOn()

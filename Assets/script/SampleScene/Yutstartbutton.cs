@@ -166,6 +166,11 @@ public class Yutstartbutton : MonoBehaviour
                 yutstart = false;
                 tutorialYut4();
             }
+            else if (Gamemanager.Instance.TutorialStory.StoryNumber == 21)
+            {
+                yutstart = false;
+                tutorialYut5();
+            }
             return;
         }
         if (stayyutcheck == true)
@@ -776,6 +781,23 @@ public class Yutstartbutton : MonoBehaviour
         yutnumber = 2;
         Stickcount = 2;
         for (int yutstick = 0; yutstick < 2; yutstick++)
+        {
+            randomcount = 1;
+            chageyut += 1;
+            Yutcount();
+        }
+        yutlist();
+        yutstart = false;
+        Gamemanager.Instance.throwyutbutton = false;
+        Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false
+        Gamemanager.Instance.RecycleTurnPass(recycleCheck);
+        Gamemanager.Instance.TutorialStory.TimeOff();
+    }
+    private void tutorialYut5()
+    {
+        yutnumber = 1;
+        Stickcount = 1;
+        for (int yutstick = 0; yutstick < 1; yutstick++)
         {
             randomcount = 1;
             chageyut += 1;

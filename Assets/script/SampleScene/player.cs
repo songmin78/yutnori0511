@@ -207,8 +207,9 @@ public class Player : MonoBehaviour
     //    Physics.Raycast(ray, );
     //}
     #endregion
-    public void Playselectedcheck(bool _value)
+    public void Playselectedcheck(bool _value,bool _storylimit)
     {
+        tutorialCheck = _storylimit;
         findplayd.SetActive(_value);
         if(_value == true)
         {
@@ -333,7 +334,7 @@ public class Player : MonoBehaviour
 
                 //Debug.Log(rayHit.transform.gameObject.name);
 
-                if (rayHit.transform.gameObject == obj1)
+                if (rayHit.transform.gameObject == obj1 && tutorialCheck == false)
                 {
                     transform.position = rayHit.transform.position;
                     transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
@@ -352,6 +353,7 @@ public class Player : MonoBehaviour
                     Yutorder = 2;
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
+                    Gamemanager.Instance.TutoPlayerGrap();
                 }
                 else if (rayHit.transform.gameObject == obj3)
                 {
