@@ -103,7 +103,12 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] TMP_Text WinerTeamString;
     bool WinerRed;
     bool WinerBlue;
-    
+
+    [Header("자동 윷놀이 기계(실험 부분)")]
+    [SerializeField] float redThrowTime = 1.5f;
+    [SerializeField]float maxRedThrowTime;
+    float redMoveTime = 1.5f;
+    [SerializeField]float maxRedMoveTime = 1.5f;
 
     public enum eRule
     {
@@ -115,6 +120,8 @@ public class Gamemanager : MonoBehaviour
         waittime,//잠깜 기다리는 부분
         RecycleTime,//다시 잡을 때 플레이어 터치 코드가 안 돌아가게 조치
         GameClear,//게임이 클리어 할때 작동되게 하는 부분
+        AutomaticRed,//자동으로 레드팀이 돌아 가도록 설정 
+        AutoMoveRedTeam,//자동으로 레드팀이 돌아 가도록 설정 
     }
     private eRule curState = eRule.Preferencetime;
 
@@ -171,6 +178,8 @@ public class Gamemanager : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         Maxstartturnyut = startturnyut;
         Maxtimewait = timewait;
+        maxRedThrowTime = redThrowTime;
+        maxRedMoveTime = redMoveTime;
 
         #region 게임 말이 나가기 버튼을 다루는 부분
         ClearButton.onClick.AddListener(() =>
@@ -230,7 +239,6 @@ public class Gamemanager : MonoBehaviour
         }
         testText();
         //Onclickplayer();
-
         //testcode();
         if (curState == eRule.Preferencetime)
         {
@@ -259,10 +267,15 @@ public class Gamemanager : MonoBehaviour
         {
             return;
         }
-        else if(curState == eRule.GameClear)
+        else if(curState == eRule.AutomaticRed && tutorialStageCheck == false)
         {
-
+            ThowRed();
         }
+        else if(curState == eRule.AutoMoveRedTeam && tutorialStageCheck == false)
+        {
+            AutoMoveRed();
+        }
+
     }
 
     #region
@@ -399,14 +412,8 @@ public class Gamemanager : MonoBehaviour
                 }
                 else if (tutorialStageCheck == true && onlyStory1 == false && onlyStory3 == false && onlyStory4 == true)
                 {
+                    tutoPlayerCheck();
                     return;
-                    //for (int iNum = 0; iNum < listObjectWhereFootHold.Count; iNum++)
-                    //{
-                    //    if (listObjectWhereFootHold[iNum].trsFootHold != footholdbox.Yutfoothold[2])
-                    //    {
-                    //        return;
-                    //    }
-                    //}
                 }
                 //Debug.Log(rayHit.transform.name);
                 DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
@@ -425,6 +432,18 @@ public class Gamemanager : MonoBehaviour
             }
         }
     }
+    
+    //private void disregardPlayer()
+    //{
+    //    if(teamtype == 1)
+    //    {
+
+    //    }
+    //    else if(teamtype == 2)
+    //    {
+
+    //    }
+    //}
 
     //private void findplayerteam()//선택한 플레이어캐릭터 확인?
     //{
@@ -446,6 +465,7 @@ public class Gamemanager : MonoBehaviour
                 break;
             case 2:
                 teamtype = team;
+                curState = eRule.AutomaticRed;
                 break;
         }
 
@@ -601,7 +621,8 @@ public class Gamemanager : MonoBehaviour
             //yutstartbutton.getbackYut();
             //Player.MoveCheckControl();
             Yutstartbuttons.NotCheckTrue();
-            if(tutorialStageCheck == true && onlyStory2 == true)
+            Player.AutoMoveClear();
+            if (tutorialStageCheck == true && onlyStory2 == true)
             {
                 onlyStory2 = false;
                 TutorialStory.TimeOff();
@@ -1352,7 +1373,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    //튜토리얼 부분
+    //튜토리얼 부분==========================================
     public void ButtonOff()
     {
         throwbutton.gameObject.SetActive(false);
@@ -1394,5 +1415,98 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
+    private void tutoPlayerCheck()
+    {
+        for (int iNum = 0; iNum < listObjectWhereFootHold.Count; iNum++)
+        {
+            if (listObjectWhereFootHold[iNum].trsFootHold == footholdbox.Yutfoothold[2])
+            {
+                DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+                Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+                Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
+                selectcharactor(listObjectWhereFootHold[iNum].objPlayer);
+                return;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
 
+    public void OnlyStory4Check()
+    {
+        if(tutorialStageCheck == true && onlyStory3 == false && onlyStory4 == true)
+        {
+            onlyStory4 = false;
+            storylimit = false;
+            TutorialStory.TimeOff();
+        }
+    }
+
+    //레드팀AI 만들어보기(실험 부분)
+
+    private void ThowRed()
+    {
+        if(maxRedThrowTime < 0)
+        {
+            maxRedThrowTime = redThrowTime;
+            //Yutstartbuttons.YutThrowClick();
+            Playtimer.RedSelect();
+            //curState = eRule.SelectCharacter;
+            curState = eRule.AutoMoveRedTeam;
+        }
+        else
+        {
+            maxRedThrowTime -= Time.deltaTime;
+        }
+    }
+
+    public void AutoMoveRed()
+    {
+        if(maxRedMoveTime < 0)
+        {
+            maxRedMoveTime = redMoveTime;
+            //for(int iNum = 0; iNum < objred.Count; iNum++)
+            //{
+            //    DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+            //    Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+            //    Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
+            //    selectcharactor(objred[iNum].gameObject);
+            //    Player = objred[iNum].gameObject.GetComponent<Player>();
+            //    Player.ChangeAutoTime();
+            //}
+
+            Player = objred[Random.Range(0,objred.Count)].gameObject.GetComponent<Player>();
+            if (Player.gameObject.activeSelf == false)
+            {
+                for(int iNum = 0; iNum < objred.Count; iNum++)
+                {
+                    if (objred[iNum].gameObject.activeSelf == true)
+                    {
+                        Player = objred[iNum].gameObject.GetComponent<Player>();
+                        return;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
+            Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+            Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
+            selectcharactor(Player.gameObject);
+            Player.AutoRedTime();
+        }
+        else
+        {
+            maxRedMoveTime -= Time.deltaTime;
+        }
+    }
+
+    public void AutoClickRed()
+    {
+        curState = eRule.AutomaticRed;
+    }
 }

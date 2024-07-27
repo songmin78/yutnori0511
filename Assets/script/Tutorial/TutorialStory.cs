@@ -7,6 +7,7 @@ public class TutorialStory : MonoBehaviour
 {
     [SerializeField] Canvas canvasTutorial;
     [SerializeField] TMP_Text storyText;
+    [SerializeField] Canvas lastScene;
     int storyNumber = 0;//튜토리얼 대사를 바꾸기 위한 위치 체크
     public int StoryNumber
     {
@@ -15,10 +16,10 @@ public class TutorialStory : MonoBehaviour
             return storyNumber;
         }
     }
-    [SerializeField]bool storyNext = false;//연타로 바로바로 스토리를 못 넘기게 제한하는 코드
-    [SerializeField]float storyStayTime = 1f;
-    [SerializeField]float MaxstoryStayTime;
-    [SerializeField]bool tutorialOffCheck = false;
+    bool storyNext = false;//연타로 바로바로 스토리를 못 넘기게 제한하는 코드
+    float storyStayTime = 0.7f;
+    float MaxstoryStayTime;
+    bool tutorialOffCheck = false;
 
 
     public enum eRule
@@ -38,6 +39,7 @@ public class TutorialStory : MonoBehaviour
 
     void Start()
     {
+        Gamemanager.Instance.StopOn();
         Gamemanager.Instance.TutorialStory = this;
         canvasTutorial.gameObject.SetActive(true);
         storyText.text = "안녕 플레이어 난 이게임을 설명할 블루라고해 반가워!";
@@ -221,6 +223,22 @@ public class TutorialStory : MonoBehaviour
                 Gamemanager.Instance.TutorialHelp1();
                 tutorialOffCheck = true;
                 break;
+            case 23://말을 업을 경우
+                canvasTutorial.gameObject.SetActive(true);
+                storyText.text = "잘했어 이렇게 자기 말끼리는 업을수 있어 하지만 잡히면 업힌말도 전부 처음으로 돌아가니 조심해야되";
+                storyNext = false;
+                curStory = eRule.TutorialStay;
+                break;
+            case 24:
+                storyText.text = "자 이렇게 기본적인것들은 다 알려준거 같네 이제 실전으로 가보자!";
+                tutorialOffCheck = false;
+                curStory = eRule.TutorialOn;
+                break;
+            case 25:
+                canvasTutorial.gameObject.SetActive(false);
+                lastScene.gameObject.SetActive(true);
+                break;
+
         }
         Debug.Log(storyNumber);
     }

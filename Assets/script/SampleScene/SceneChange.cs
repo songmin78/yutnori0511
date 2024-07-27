@@ -15,6 +15,7 @@ public class SceneChange : MonoBehaviour
         AgainButton.onClick.AddListener(() =>
         {
             SceneManager.LoadSceneAsync(1);
+            Time.timeScale = 1;
             //Gamemanager.Instance.ReStart();
         });
 

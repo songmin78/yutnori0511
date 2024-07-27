@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -84,6 +83,9 @@ public class Player : MonoBehaviour
     float MaxAutoTime;
     bool tutorialCheck = false;
 
+    //레드팀 자동 윷놀이 부분
+    int autoMove;
+
     public enum eRule
     {
         notrecall,//자기 차례가 아닐때 작동되는 부분
@@ -91,6 +93,7 @@ public class Player : MonoBehaviour
         endcheck,//자기 차례가 끝나면 대기 하는곳
         turntime,//턴을 급하게 넘기지 않도록 조절하는곳
         autoplayer,//튜토리얼에서 쓰이는 부분
+        autoPlayRed,//레드팀이 자동으로 쓰이게 만드는 부분
     }
     private eRule yutcontrol = eRule.notrecall;
 
@@ -135,6 +138,10 @@ public class Player : MonoBehaviour
         else if(yutcontrol == eRule.autoplayer)
         {
             autoTimeRed();
+        }
+        else if(yutcontrol == eRule.autoPlayRed)
+        {
+            RandomMoveRed();
         }
 
     }
@@ -316,6 +323,7 @@ public class Player : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(ray, LayerMask.GetMask("Ground"));
+            //RaycastHit2D rayHits = Physics2D.GetRayIntersection(ray, LayerMask.GetMask("Player"));
 
             if (rayHit.transform != null)
             {
@@ -363,6 +371,7 @@ public class Player : MonoBehaviour
                     Yutorder = 3;
                     Gamemanager.Instance.Footholdbox.positiondestory();
                     changeYutzero();
+                    Gamemanager.Instance.OnlyStory4Check();
                 }
                 //Debug.Log(rayHit.transform.gameObject);
                 Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
@@ -938,4 +947,110 @@ public class Player : MonoBehaviour
     {
         yutcontrol = eRule.autoplayer;
     }
+
+    //레드팀AI부분
+    public void AutoRedTime()
+    {
+        yutcontrol = eRule.autoPlayRed;
+    }
+
+    public void RandomMoveRed()
+    {
+        moveyutcount();
+        if (shortcutCheck == true)
+        {
+            fastAutoRedTeamMove();
+        }
+        GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
+        GameObject obj2 = Gamemanager.Instance.Footholdbox.poscheck2;
+        GameObject obj3 = Gamemanager.Instance.Footholdbox.poscheck3;
+
+        if (autoMove == 0)
+        {
+            transform.position = obj1.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            maxmoveYutcount = moveYutcount1;
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            autoMove += 1;
+            changeYutzero();
+        }
+        else if (autoMove == 1)
+        {
+            transform.position = obj2.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            maxmoveYutcount = moveYutcount2;
+            Yutorder = 2;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            autoMove += 1;
+            changeYutzero();
+        }
+        else if (autoMove == 2)
+        {
+            transform.position = obj3.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            maxmoveYutcount = moveYutcount3;
+            Yutorder = 3;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            autoMove += 1;
+            changeYutzero();
+        }
+        Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
+        Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount, gameObject);
+        if (NextTurnCheck == true)
+        {
+            NextTurnCheck = false;
+            Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+        }
+        movecheck = false;
+        Gamemanager.Instance.DesYutButton();
+    }
+
+    private void fastAutoRedTeamMove()//지름길에 들어올경우
+    {
+        GameObject obj1 = Gamemanager.Instance.Footholdbox.shortcutcheck1;
+        GameObject obj2 = Gamemanager.Instance.Footholdbox.shortcutcheck2;
+        GameObject obj3 = Gamemanager.Instance.Footholdbox.shortcutcheck3;
+
+        if (autoMove == 0)
+        {
+            transform.position = obj1.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            maxmoveYutcount = pastYutcount1;
+            Yutorder = 1;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            autoMove += 1;
+            changeYutzero();
+        }
+        else if (autoMove == 1)
+        {
+            transform.position = obj2.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            maxmoveYutcount = pastYutcount2;
+            Yutorder = 2;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            autoMove += 1;
+            changeYutzero();
+        }
+        else if (autoMove == 2)
+        {
+            transform.position = obj3.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
+            maxmoveYutcount = pastYutcount3;
+            Yutorder = 3;
+            Gamemanager.Instance.Footholdbox.positiondestory();
+            autoMove += 1;
+            changeYutzero();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void AutoMoveClear()
+    {
+        autoMove = 0;
+    }
+
 }

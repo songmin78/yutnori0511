@@ -56,6 +56,7 @@ public class Playtimer : MonoBehaviour
         ReturnTimeStay,//윷타이머가 안 돌아가게 관리하는 코드
         TutorialTime,//튜토리얼 레드팀일때 들어가는 코드
         TutorialMove,//튜토리얼 레드팀일때 들어가는 코드
+        AutoRed,//레드팀AI
     }
     private eRule curTimer = eRule.Throwtime;
 
@@ -104,6 +105,10 @@ public class Playtimer : MonoBehaviour
         ChangeAnimator();
         if (curTimer == eRule.Throwtime)//던지기 버튼을 안 누르면 자동으로 던져지도록하는 부분
         {
+            if(tutorialStageCheck == false && teamred == true)
+            {
+                Gamemanager.Instance.AutoClickRed();
+            }
             waityuttime();
             timecalculate();
             //cheangeyuttime();//윷 던지기 버튼을 누를때 작동
@@ -148,6 +153,7 @@ public class Playtimer : MonoBehaviour
 
     public void StayTurnTime()//이 스크립트가 작동 안되게 바꾸는 코드 
     {
+        Time.timeScale = 0;
         curTimer = eRule.ReturnTimeStay;
     }
 
@@ -516,4 +522,14 @@ public class Playtimer : MonoBehaviour
         }
     }
 
+
+    //RedTeam AI
+    public void RedSelect()
+    {
+        Maxthrowtime = throwtime;//초 초기화
+        Gamemanager.Instance.Yutstartbuttons.YutThrowClick();
+        curTimer = eRule.Movetime;
+        Text.text = "이동 턴";
+        Gamemanager.Instance.PlayerTimeChange();
+    }
 }

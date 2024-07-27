@@ -810,4 +810,15 @@ public class Yutstartbutton : MonoBehaviour
         Gamemanager.Instance.RecycleTurnPass(recycleCheck);
         Gamemanager.Instance.TutorialStory.TimeOff();
     }
+
+    //·¹µåÆÀAI»ý¼º
+    public  void YutThrowClick()
+    {
+        yutdisposition.Clear();
+        Stickcount = 0;
+        yutstart = true;
+        startyutnbutton();
+
+    }
+
 }

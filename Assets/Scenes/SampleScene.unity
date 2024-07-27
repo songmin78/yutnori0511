@@ -4104,6 +4104,7 @@ MonoBehaviour:
   CurryRed: 0
   WinerTeamCanvas: {fileID: 1194949555}
   WinerTeamString: {fileID: 556248201}
+  redThrowTime: 1.5
 --- !u!4 &586645290
 Transform:
   m_ObjectHideFlags: 0
@@ -9832,12 +9833,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialStageCheck: 0
+  MaxyutThrow: 0
   TestObj: {fileID: 2122488333}
   teamred: 0
   teamblue: 0
-  throwtime: 5
+  throwtime: 6
   Maxthrowtime: 0
-  waitmovetime: 20
+  waitmovetime: 25
   Maxwaitmovetime: 0
   timegage: {fileID: 1950449413}
   timegagePlayer: {fileID: 457109354}
