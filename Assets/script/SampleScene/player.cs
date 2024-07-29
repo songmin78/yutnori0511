@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     bool tutorialCheck = false;
 
     //레드팀 자동 윷놀이 부분
-    int autoMove;
+    //int autoMove;
 
     public enum eRule
     {
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
         }
         else if(yutcontrol == eRule.autoPlayRed)
         {
-            RandomMoveRed();
+            //RandomMoveRed();
         }
 
     }
@@ -956,10 +956,21 @@ public class Player : MonoBehaviour
 
     public void RandomMoveRed()
     {
+        float autoMove = Gamemanager.Instance.AutoMove;
         moveyutcount();
         if (shortcutCheck == true)
         {
             fastAutoRedTeamMove();
+            Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
+            Gamemanager.Instance.holdboxPosCheck(maxmoveYutcount, gameObject);
+            if (NextTurnCheck == true)
+            {
+                NextTurnCheck = false;
+                Gamemanager.Instance.turnendcheck(oneYut, twoYut, threeYut);
+            }
+            movecheck = false;
+            Gamemanager.Instance.DesYutButton();
+            return;
         }
         GameObject obj1 = Gamemanager.Instance.Footholdbox.poscheck1;
         GameObject obj2 = Gamemanager.Instance.Footholdbox.poscheck2;
@@ -972,7 +983,7 @@ public class Player : MonoBehaviour
             maxmoveYutcount = moveYutcount1;
             Yutorder = 1;
             Gamemanager.Instance.Footholdbox.positiondestory();
-            autoMove += 1;
+            Gamemanager.Instance.AutoMoveUp();
             changeYutzero();
         }
         else if (autoMove == 1)
@@ -982,7 +993,7 @@ public class Player : MonoBehaviour
             maxmoveYutcount = moveYutcount2;
             Yutorder = 2;
             Gamemanager.Instance.Footholdbox.positiondestory();
-            autoMove += 1;
+            Gamemanager.Instance.AutoMoveUp();
             changeYutzero();
         }
         else if (autoMove == 2)
@@ -992,7 +1003,7 @@ public class Player : MonoBehaviour
             maxmoveYutcount = moveYutcount3;
             Yutorder = 3;
             Gamemanager.Instance.Footholdbox.positiondestory();
-            autoMove += 1;
+            Gamemanager.Instance.AutoMoveUp();
             changeYutzero();
         }
         Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
@@ -1008,6 +1019,7 @@ public class Player : MonoBehaviour
 
     private void fastAutoRedTeamMove()//지름길에 들어올경우
     {
+        float autoMove = Gamemanager.Instance.AutoMove;
         GameObject obj1 = Gamemanager.Instance.Footholdbox.shortcutcheck1;
         GameObject obj2 = Gamemanager.Instance.Footholdbox.shortcutcheck2;
         GameObject obj3 = Gamemanager.Instance.Footholdbox.shortcutcheck3;
@@ -1019,7 +1031,7 @@ public class Player : MonoBehaviour
             maxmoveYutcount = pastYutcount1;
             Yutorder = 1;
             Gamemanager.Instance.Footholdbox.positiondestory();
-            autoMove += 1;
+            Gamemanager.Instance.AutoMoveUp();
             changeYutzero();
         }
         else if (autoMove == 1)
@@ -1029,7 +1041,7 @@ public class Player : MonoBehaviour
             maxmoveYutcount = pastYutcount2;
             Yutorder = 2;
             Gamemanager.Instance.Footholdbox.positiondestory();
-            autoMove += 1;
+            Gamemanager.Instance.AutoMoveUp();
             changeYutzero();
         }
         else if (autoMove == 2)
@@ -1039,18 +1051,13 @@ public class Player : MonoBehaviour
             maxmoveYutcount = pastYutcount3;
             Yutorder = 3;
             Gamemanager.Instance.Footholdbox.positiondestory();
-            autoMove += 1;
+            Gamemanager.Instance.AutoMoveUp();
             changeYutzero();
         }
         else
         {
             return;
         }
-    }
-
-    public void AutoMoveClear()
-    {
-        autoMove = 0;
     }
 
 }

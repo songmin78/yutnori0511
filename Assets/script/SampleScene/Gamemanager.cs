@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -109,6 +108,14 @@ public class Gamemanager : MonoBehaviour
     [SerializeField]float maxRedThrowTime;
     float redMoveTime = 1.5f;
     [SerializeField]float maxRedMoveTime = 1.5f;
+    int autoMove;
+    public float AutoMove
+    {
+        get
+        {
+            return autoMove;
+        }
+    }
 
     public enum eRule
     {
@@ -269,7 +276,7 @@ public class Gamemanager : MonoBehaviour
         }
         else if(curState == eRule.AutomaticRed && tutorialStageCheck == false)
         {
-            ThowRed();
+            ThrowRed();
         }
         else if(curState == eRule.AutoMoveRedTeam && tutorialStageCheck == false)
         {
@@ -621,7 +628,8 @@ public class Gamemanager : MonoBehaviour
             //yutstartbutton.getbackYut();
             //Player.MoveCheckControl();
             Yutstartbuttons.NotCheckTrue();
-            Player.AutoMoveClear();
+            autoMove = 0;
+            //Player.AutoMoveClear();
             if (tutorialStageCheck == true && onlyStory2 == true)
             {
                 onlyStory2 = false;
@@ -1382,7 +1390,7 @@ public class Gamemanager : MonoBehaviour
     public void selectTeam()
     {
         DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
-        Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+        //Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
         Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
         selectcharactor(objred[1].gameObject);
         Player = objred[1].gameObject.GetComponent<Player>();
@@ -1446,7 +1454,7 @@ public class Gamemanager : MonoBehaviour
 
     //레드팀AI 만들어보기(실험 부분)
 
-    private void ThowRed()
+    private void ThrowRed()
     {
         if(maxRedThrowTime < 0)
         {
@@ -1467,25 +1475,15 @@ public class Gamemanager : MonoBehaviour
         if(maxRedMoveTime < 0)
         {
             maxRedMoveTime = redMoveTime;
-            //for(int iNum = 0; iNum < objred.Count; iNum++)
-            //{
-            //    DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
-            //    Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
-            //    Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
-            //    selectcharactor(objred[iNum].gameObject);
-            //    Player = objred[iNum].gameObject.GetComponent<Player>();
-            //    Player.ChangeAutoTime();
-            //}
 
-            Player = objred[Random.Range(0,objred.Count)].gameObject.GetComponent<Player>();
-            if (Player.gameObject.activeSelf == false)
+            Player = objred[Random.Range(0,objred.Count)].gameObject.GetComponent<Player>();//레드팀 플래이어중 랜덤으로 선정됨
+            if (Player.gameObject.activeSelf == false)//만약에 선택된 플레이어가 업힌 상태라면
             {
-                for(int iNum = 0; iNum < objred.Count; iNum++)
+                for(int iNum = 0; iNum < objred.Count; iNum++)//0번 레드팀부터 차례대로 올려 움직일수 있게 설정
                 {
-                    if (objred[iNum].gameObject.activeSelf == true)
+                    if (objred[iNum].gameObject.activeSelf == true)//업힌 상태가 아니라면
                     {
                         Player = objred[iNum].gameObject.GetComponent<Player>();
-                        return;
                     }
                     else
                     {
@@ -1493,11 +1491,26 @@ public class Gamemanager : MonoBehaviour
                     }
                 }
             }
+            if(Player.GoPlayer == false && Yutstartbuttons.Yutnumber == -1)//빽도가 떴는데 필드캐릭터를 건든 경우
+            {
+                for (int iNum = 0; iNum < objred.Count; iNum++)//0번 레드팀부터 차례대로 올려 움직일수 있게 설정
+                {
+                    if (Player.GoPlayer == true)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Player = objred[iNum].gameObject.GetComponent<Player>();
+                    }
+                }
+            }
             DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
-            Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
+            //Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
             Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
-            selectcharactor(Player.gameObject);
-            Player.AutoRedTime();
+            //selectcharactor(Player.gameObject);
+            //Player.AutoRedTime();
+            Player.RandomMoveRed();
         }
         else
         {
@@ -1508,5 +1521,10 @@ public class Gamemanager : MonoBehaviour
     public void AutoClickRed()
     {
         curState = eRule.AutomaticRed;
+    }
+
+    public void AutoMoveUp()
+    {
+        autoMove += 1;
     }
 }

@@ -528,8 +528,12 @@ public class Playtimer : MonoBehaviour
     {
         Maxthrowtime = throwtime;//초 초기화
         Gamemanager.Instance.Yutstartbuttons.YutThrowClick();
+        if (Gamemanager.Instance.Yutstartbuttons.Yutnumber > 3)
+        {
+            return;
+        }
         curTimer = eRule.Movetime;
         Text.text = "이동 턴";
-        Gamemanager.Instance.PlayerTimeChange();
+            Gamemanager.Instance.PlayerTimeChange();
     }
 }
