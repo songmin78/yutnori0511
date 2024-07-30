@@ -1456,6 +1456,10 @@ public class Gamemanager : MonoBehaviour
 
     private void ThrowRed()
     {
+        if(throwbutton.gameObject.activeSelf == true)
+        {
+            throwbutton.gameObject.SetActive(false);
+        }
         if(maxRedThrowTime < 0)
         {
             maxRedThrowTime = redThrowTime;
