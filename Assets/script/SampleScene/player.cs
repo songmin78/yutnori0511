@@ -958,7 +958,7 @@ public class Player : MonoBehaviour
     {
         float autoMove = Gamemanager.Instance.AutoMove;
         moveyutcount();
-        if (shortcutCheck == true)
+        if (shortcutCheck == true && maxmoveYutcount != 44)
         {
             fastAutoRedTeamMove();
             Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
@@ -978,6 +978,10 @@ public class Player : MonoBehaviour
 
         if (autoMove == 0)
         {
+            if(MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount1 )
+            {
+                Gamemanager.Instance.ExitRedTeamAi(gameObject);
+            }
             transform.position = obj1.transform.position;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
             maxmoveYutcount = moveYutcount1;
@@ -988,6 +992,10 @@ public class Player : MonoBehaviour
         }
         else if (autoMove == 1)
         {
+            if (MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount2)
+            {
+                Gamemanager.Instance.ExitRedTeamAi(gameObject);
+            }
             transform.position = obj2.transform.position;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
             maxmoveYutcount = moveYutcount2;
@@ -998,6 +1006,10 @@ public class Player : MonoBehaviour
         }
         else if (autoMove == 2)
         {
+            if (MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount3)
+            {
+                Gamemanager.Instance.ExitRedTeamAi(gameObject);
+            }
             transform.position = obj3.transform.position;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
             maxmoveYutcount = moveYutcount3;

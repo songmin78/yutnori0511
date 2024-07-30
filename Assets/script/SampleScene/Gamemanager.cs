@@ -109,6 +109,7 @@ public class Gamemanager : MonoBehaviour
     float redMoveTime = 1.5f;
     [SerializeField]float maxRedMoveTime = 1.5f;
     int autoMove;
+    float RedTime = 0.5f;
     public float AutoMove
     {
         get
@@ -129,6 +130,7 @@ public class Gamemanager : MonoBehaviour
         GameClear,//게임이 클리어 할때 작동되게 하는 부분
         AutomaticRed,//자동으로 레드팀이 돌아 가도록 설정 
         AutoMoveRedTeam,//자동으로 레드팀이 돌아 가도록 설정 
+        RedAiWait,//레드팀Ai가 잠깐 기다리는 코드부분
     }
     private eRule curState = eRule.Preferencetime;
 
@@ -281,6 +283,18 @@ public class Gamemanager : MonoBehaviour
         else if(curState == eRule.AutoMoveRedTeam && tutorialStageCheck == false)
         {
             AutoMoveRed();
+        }
+        else if(curState == eRule.RedAiWait && tutorialStageCheck == false)
+        {
+            if(RedTime < 0)
+            {
+                curState = eRule.AutoMoveRedTeam;
+                RedTime = 0.3f;
+            }
+            else
+            {
+                RedTime -= Time.deltaTime;
+            }
         }
 
     }
@@ -1249,7 +1263,7 @@ public class Gamemanager : MonoBehaviour
     /// TurnCycleCheck == 말을 잡고 다시 돌렸을때 true가 되도록 설정 되어있음
     /// </summary>
     /// <param name="_recycleCheck"></param>
-    public void RecycleTurnPass( bool _recycleCheck)//여기서 문제 발생 07/20일자
+    public void RecycleTurnPass( bool _recycleCheck)//여기서 문제 발생 07/20일자 해결
     {
         if(_recycleCheck == true && TurnCycleCheck == false)//모나 윷이 안 뜰 경우
         {
@@ -1509,12 +1523,29 @@ public class Gamemanager : MonoBehaviour
                     }
                 }
             }
+            if(Yutstartbuttons.Yutnumber == -1)
+            {
+                bool StopRed = false;
+                for (int iNum = 0; iNum < listObjectWhereFootHold.Count; iNum++)//현재 필드위를 다 확인
+                {
+                    if (listObjectWhereFootHold[iNum].objPlayer.tag == "RedTeam")//레드팀이 있을 경우
+                    {
+                        StopRed = true;
+                        continue;
+                    }
+                }
+                if(StopRed == false)//레드팀이 없을 경우
+                {
+                    return;
+                }
+            }
             DesYutButton();//나갈수 있는 버튼을 삭제하는 부분 다른 플레이어를 선택 할때 삭제하도록 설정
             //Footholdbox.movedestory();//이동 표식을 맵 밖으로 이동
             Footholdbox.ExitPlayerFalse();// 말이 나갈수 있을때 그 위치에 이동 표시가 뜨는것을 방지하기 위한 코드로 이동함
             //selectcharactor(Player.gameObject);
             //Player.AutoRedTime();
             Player.RandomMoveRed();
+            //curState = eRule.RedAiWait;
         }
         else
         {
@@ -1530,5 +1561,38 @@ public class Gamemanager : MonoBehaviour
     public void AutoMoveUp()
     {
         autoMove += 1;
+    }
+
+    public void SelectRed()
+    {
+        Yutbox.gameObject.SetActive(false);
+        throwbutton.gameObject.SetActive(false);
+        Yuttimer.SetActive(false);
+        PlayerTimer.SetActive(true);
+    }
+
+    public void ExitRedTeamAi(GameObject objRed)
+    {
+        cObjectWhereFootHold data = listObjectWhereFootHold.Find(x => x.objPlayer == objRed);
+        listObjectWhereFootHold.Remove(data);
+        if (objred.Find(x => x.gameObject == objRed) != null)
+        {
+            objred.Remove(objRed);
+        }
+        Player.DesYutPlayer();
+        Footholdbox.positiondestory();
+        Player.ManagerYutorderCheck(ClearNumber);
+        objRed.gameObject.SetActive(false);
+
+        if (objred.Count == 0)
+        {
+            Debug.Log("레드팀 클리어");
+            WinerRed = true;
+            teamWinCheck();
+            curState = eRule.GameClear;
+            Playtimer.StayTurnTime();
+        }
+
+        Player.ExitTurnPass();
     }
 }

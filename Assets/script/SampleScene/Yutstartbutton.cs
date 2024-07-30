@@ -31,7 +31,7 @@ public class Yutstartbutton : MonoBehaviour
     [Header("윷 던지기 버튼")]
     //0은 앞면 1은 뒷면 즉 빽도는 0 0 0 1이 떠야함
     [SerializeField] Button startbutton;
-    bool yutstart;
+    [SerializeField]bool yutstart;
     bool randomcheck;//윷이 뭘 떴는지 확인 해주는 코드
     int randomcount;
     int Stickcount;
@@ -55,7 +55,7 @@ public class Yutstartbutton : MonoBehaviour
     [SerializeField] GameObject Look3;
     [SerializeField] GameObject Look4;
     [SerializeField] TMP_Text LookText;
-    bool recycleCheck;//모나 윷이 뜰때 시간 코드가 안 돌아가게 도와주는 코드
+    [SerializeField]bool recycleCheck;//모나 윷이 뜰때 시간 코드가 안 돌아가게 도와주는 코드
 
     [Header("윷 보여주기 등록")]
     [SerializeField] TMP_Text Blue1;
@@ -325,7 +325,7 @@ public class Yutstartbutton : MonoBehaviour
             //Debug.Log(Stickcount);
             yutlist();
             yutstart = false;
-            if (oneyut != 0 && twoyut != 0 && threeyut != 0 && reCheck == true)//3번연속으로 모 또는 윷이 뜰 경우
+            if (oneyut != 0 && twoyut != 0 && threeyut != 0 && reCheck == true || threeyut != 0 && reCheck == true)//3번연속으로 모 또는 윷이 뜰 경우
             {
                 Gamemanager.Instance.nextturn();
                 Gamemanager.Instance.Playtimer.cheangeyuttime(recycleCheck);//false

@@ -10,11 +10,11 @@ public class Playtimer : MonoBehaviour
     [SerializeField, Tooltip("튜토리얼 스테이지에 있을때 True로 쓰기")] bool tutorialStageCheck;
     float tutorialTime = 1.5f;
     float MaxtutorialTime;
-    bool buttonTutorial = true;
+    //bool buttonTutorial = true;
     float yutThrow = 1.5f;
-    [SerializeField]float MaxyutThrow;
-    bool tutorialCheck1 = true ;
-    bool tutorialCheck2 = true ;
+    [SerializeField] float MaxyutThrow;
+    bool tutorialCheck1 = true;
+    bool tutorialCheck2 = true;
 
     Animator animator;
     [Header("일반게임")]
@@ -30,11 +30,11 @@ public class Playtimer : MonoBehaviour
     }
     [Header("윷을 던지기 까지의 남은 시간 정리")]
     [SerializeField] float throwtime;
-    [SerializeField]float Maxthrowtime;//확인 용
+    [SerializeField] float Maxthrowtime;//확인 용
     bool throwwaitcheck;//던지기는 것을 기다림
     [Header("윷을 던진후 캐릭터 이동을 위한 지속 시간 정리")]
     [SerializeField] float waitmovetime;
-    [SerializeField]float Maxwaitmovetime;//확인용
+    [SerializeField] float Maxwaitmovetime;//확인용
     bool playermovecheck;//윷을 던진후 움직이는것을 기다리는 부분
     [Header("기타")]
     //[SerializeField] public bool checktime;//윷을 던졌을때 true로 전환(밖에서 받아옴)
@@ -46,7 +46,7 @@ public class Playtimer : MonoBehaviour
     //public bool returnyut;//모나 윷이 뜰때 바로 시간이 돌아가는것을 방지
     [Header("빽도 관련 부분")]
     [SerializeField] float BackTime;
-    [SerializeField]float MaxBackTime;
+    [SerializeField] float MaxBackTime;
 
     public enum eRule
     {
@@ -89,7 +89,7 @@ public class Playtimer : MonoBehaviour
         {
             curTimer = eRule.TutorialTime;
         }
-        else if(teamred == true && tutorialStageCheck == true && tutorialCheck2 == true)
+        else if (teamred == true && tutorialStageCheck == true && tutorialCheck2 == true)
         {
             curTimer = eRule.TutorialMove;
         }
@@ -101,11 +101,15 @@ public class Playtimer : MonoBehaviour
 
         //yuttest();//윷을 다시 던지기 위한 코드 윷 또는 모가 뜰 경우<- 굳이 업데이트 돌려야하나?
         //changeteam();//차례가 끝나면 팀 변경 <- 굳이 업데이트문으로 돌릴 이유가 없을
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Maxwaitmovetime = 1;
+        }
 
         ChangeAnimator();
         if (curTimer == eRule.Throwtime)//던지기 버튼을 안 누르면 자동으로 던져지도록하는 부분
         {
-            if(tutorialStageCheck == false && teamred == true)
+            if (tutorialStageCheck == false && teamred == true)
             {
                 Gamemanager.Instance.AutoClickRed();
             }
@@ -119,9 +123,9 @@ public class Playtimer : MonoBehaviour
             PlayTimeCalCulate();
             //timecalculate();
         }
-        else if(curTimer == eRule.BackChangeTimer)//필드에 자기말이 없을때 빽도가 뜨면 턴을 넘기도록 만든 curTime
+        else if (curTimer == eRule.BackChangeTimer)//필드에 자기말이 없을때 빽도가 뜨면 턴을 넘기도록 만든 curTime
         {
-            if(MaxBackTime < 0)
+            if (MaxBackTime < 0)
             {
                 MaxBackTime = BackTime;
                 BackChangeTurn();
@@ -135,7 +139,7 @@ public class Playtimer : MonoBehaviour
         {
             return;
         }
-        else if(curTimer == eRule.TutorialTime)
+        else if (curTimer == eRule.TutorialTime)
         {
             //if(buttonTutorial == true)
             //{
@@ -167,7 +171,7 @@ public class Playtimer : MonoBehaviour
 
     public void startturn(int _startteam)//먼저 시작할 팀 설정
     {
-        switch(_startteam)
+        switch (_startteam)
         {
             case 0:
                 teamred = true; break;
@@ -224,7 +228,7 @@ public class Playtimer : MonoBehaviour
         {
             animator.SetFloat("TurnCheck", 1);
         }
-        else if(teamred == true)
+        else if (teamred == true)
         {
             animator.SetFloat("TurnCheck", 0);
         }
@@ -420,15 +424,15 @@ public class Playtimer : MonoBehaviour
 
     }
 
-    public void  changeteam()
+    public void changeteam()
     {
-        if(teamblue == true)
+        if (teamblue == true)
         {
             Gamemanager.Instance.Chageplayteam(1);
             //animator.SetFloat("CharacterChange", 0);
             //Gamemanager.Instance.teamfalsecheck();
         }
-        else if(teamred == true)
+        else if (teamred == true)
         {
             Gamemanager.Instance.Chageplayteam(2);
             //animator.SetFloat("CharacterChange", 1);
@@ -507,7 +511,7 @@ public class Playtimer : MonoBehaviour
 
     private void automaticMove()
     {
-        if(tutorialStageCheck == true)
+        if (tutorialStageCheck == true)
         {
             if (MaxyutThrow < 0)
             {
@@ -534,6 +538,6 @@ public class Playtimer : MonoBehaviour
         }
         curTimer = eRule.Movetime;
         Text.text = "이동 턴";
-            Gamemanager.Instance.PlayerTimeChange();
+            Gamemanager.Instance.SelectRed();
     }
 }
