@@ -329,6 +329,7 @@ public class Playtimer : MonoBehaviour
             Text.text = "윷 던지기 턴";
             Gamemanager.Instance.Yutstartbuttons.TextNull();
             Gamemanager.Instance.Yutstartbuttons.NullText();
+            Gamemanager.Instance.Yutstartbuttons.ClaerYutCount();
             Gamemanager.Instance.TimeOverChange();
             Gamemanager.Instance.EndTurnCheck();//턴 체인지
             Debug.Log("던지기로 변경");

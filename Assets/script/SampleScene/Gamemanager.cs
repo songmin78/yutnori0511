@@ -1536,6 +1536,7 @@ public class Gamemanager : MonoBehaviour
                 }
                 if(StopRed == false)//레드팀이 없을 경우
                 {
+                    Yutstartbuttons.ClaerYutCount();
                     return;
                 }
             }

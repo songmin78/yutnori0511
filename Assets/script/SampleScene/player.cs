@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float twoYut;
     [SerializeField] public float threeYut;
     [SerializeField, Tooltip("플레이어가 출발을 하면 True로 전환")] bool goPlayer;
+    bool redExitCheck = false;
     public bool GoPlayer
     {
         get
@@ -708,6 +709,7 @@ public class Player : MonoBehaviour
                 Yutorder = 1;
                 Gamemanager.Instance.Footholdbox.ExitPlayer1();
                 Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+                redExitCheck = true;
                 return;
             }
             else if(Gamemanager.Instance.Footholdbox.Yutfoothold[49].transform == moveYut && moveYutcount1 != 0 && iNum != 0)
@@ -716,6 +718,7 @@ public class Player : MonoBehaviour
                 Yutorder = 1;
                 Gamemanager.Instance.Footholdbox.ExitPlayer1();
                 Gamemanager.Instance.PosClearYut(gameObject, Yutorder);
+                redExitCheck = true;
                 return;
             }
         }
@@ -958,7 +961,7 @@ public class Player : MonoBehaviour
     {
         float autoMove = Gamemanager.Instance.AutoMove;
         moveyutcount();
-        if (shortcutCheck == true && maxmoveYutcount != 44)
+        if (shortcutCheck == true && maxmoveYutcount != 44)//지름길에 있는 경우
         {
             fastAutoRedTeamMove();
             Gamemanager.Instance.MovePlayerFootHold(gameObject, (int)maxmoveYutcount);
@@ -978,7 +981,7 @@ public class Player : MonoBehaviour
 
         if (autoMove == 0)
         {
-            if(MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount1 )
+            if(MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount1 || redExitCheck ==  true)
             {
                 Gamemanager.Instance.ExitRedTeamAi(gameObject);
             }
@@ -992,7 +995,7 @@ public class Player : MonoBehaviour
         }
         else if (autoMove == 1)
         {
-            if (MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount2)
+            if (MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount2 || redExitCheck == true)
             {
                 Gamemanager.Instance.ExitRedTeamAi(gameObject);
             }
@@ -1006,7 +1009,7 @@ public class Player : MonoBehaviour
         }
         else if (autoMove == 2)
         {
-            if (MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount3)
+            if (MaxmoveYutcount == 49 && MaxmoveYutcount == moveYutcount3 || redExitCheck == true)
             {
                 Gamemanager.Instance.ExitRedTeamAi(gameObject);
             }
