@@ -40,7 +40,7 @@ public class Yutstartbutton : MonoBehaviour
     [Header("기 타")]
     //[SerializeField] Image timegage;
     //윷이 앞면인지 뒷면인 확인 해주는 부분
-    int chageyut;
+    int chageYut;
     [SerializeField]float stayyut = 1;//모 또는 윷에 걸릴때 잠깐 기다리는 시간
     bool stayyutcheck;//1초 기다리는 시간을 체크
     [Header("스크립트오브젝트를 관리")]
@@ -297,12 +297,12 @@ public class Yutstartbutton : MonoBehaviour
                     {
                         Stickcount += randomcount;
                     }
-                    chageyut += 1;
+                    chageYut += 1;
                     Yutcount();
                 }
                 else// 0 즉 앞면에 걸릴 경우
                 {
-                    chageyut += 1;
+                    chageYut += 1;
                     Yutcount();
                 }
                 if (yutstick == 3 && Stickcount == 0 && randomcount == 1)//마지막 윷에서 전부 앞면 이면서 마지막 윷만 뒷면일 경우(빽도)
@@ -363,7 +363,7 @@ public class Yutstartbutton : MonoBehaviour
         for (int yutstick = 0; yutstick < 4; yutstick++)
         {
             randomcount = 1;
-            chageyut += 1;
+            chageYut += 1;
             Yutcount();
         }
         Debug.Log("빽도");
@@ -539,7 +539,7 @@ public class Yutstartbutton : MonoBehaviour
         //}
         #endregion
         //리스트로 만들고 싶은 부분 => 리스트 1번의 값이 0일 경우 윷을 앞면으로 돌리기 1일 경우 윷을 뒷면으로 돌리기
-        switch (chageyut)
+        switch (chageYut)
         {
             case 1:
                 if (randomcount == 1)
@@ -607,7 +607,7 @@ public class Yutstartbutton : MonoBehaviour
             stayyut = 1;
             //stayyutcheck = false;
             Gamemanager.Instance.Playtimer.BackReturnCheck();
-            chageyut = 0;
+            chageYut = 0;
             curButton = eRule.YutStartButton1;
         }
         else
@@ -623,7 +623,7 @@ public class Yutstartbutton : MonoBehaviour
         yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut4.transform.rotation = Quaternion.Euler(0, 0, 0);
         lookReturnYut();
-        chageyut = 0;
+        chageYut = 0;
     }
 
    public void ClaerYutCount()
@@ -650,7 +650,7 @@ public class Yutstartbutton : MonoBehaviour
         {
             return;
         }
-        chageyut = 0;
+        chageYut = 0;
         yut1.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut2.transform.rotation = Quaternion.Euler(0, 0, 0);
         yut3.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -713,7 +713,7 @@ public class Yutstartbutton : MonoBehaviour
         for (int yutstick = 0; yutstick < 3; yutstick++)
         {
             randomcount = 1;
-            chageyut += 1;
+            chageYut += 1;
             Yutcount();
         }
         //yutdisposition.Add(randomcount);
@@ -732,7 +732,7 @@ public class Yutstartbutton : MonoBehaviour
         for (int yutstick = 0; yutstick < 2; yutstick++)
         {
             randomcount = 1;
-            chageyut += 1;
+            chageYut += 1;
             Yutcount();
         }
         //yutdisposition.Add(randomcount);
@@ -783,7 +783,7 @@ public class Yutstartbutton : MonoBehaviour
         for (int yutstick = 0; yutstick < 2; yutstick++)
         {
             randomcount = 1;
-            chageyut += 1;
+            chageYut += 1;
             Yutcount();
         }
         yutlist();
@@ -800,7 +800,7 @@ public class Yutstartbutton : MonoBehaviour
         for (int yutstick = 0; yutstick < 1; yutstick++)
         {
             randomcount = 1;
-            chageyut += 1;
+            chageYut += 1;
             Yutcount();
         }
         yutlist();
