@@ -49,7 +49,12 @@ public class StartButtonmanager : MonoBehaviour
 
         gameexit.onClick.AddListener(() =>
         {
+//ryu
+//에디터 에서만 실행되도록 조건부 컴파일
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
+#endif
+
             Application.Quit();//어플을 종료
         });
 
