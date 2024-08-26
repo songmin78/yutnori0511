@@ -501,6 +501,7 @@ public class Gamemanager : MonoBehaviour
     //시작하고 팀 체인지가 안되는 현상이 있음 07/05일자
     private void startturn()//처음에 누가 먼저 시작하는지 알려주는 코드
     {
+        Time.timeScale = 1;
         animator = startcheck.gameObject.GetComponentInChildren<Animator>();
         Maxstartturnyut -= Time.deltaTime;
         if (Maxstartturnyut < 2)//3초가 지난 경우

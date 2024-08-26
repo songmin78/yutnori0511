@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SceneChange : MonoBehaviour
 {
+    [SerializeField] bool Tutocheck;
     [Header("게임이 끝났을 때 부분 버튼")]
     [SerializeField] Button AgainButton;//다시하기 버튼
     [SerializeField] Button LobiButton;//로비로 돌아가는 버튼
@@ -29,11 +30,18 @@ public class SceneChange : MonoBehaviour
             SceneManager.LoadSceneAsync(0);
         });
 
-        menuButton.onClick.AddListener(() =>
+        if(Tutocheck == true)
         {
-            Time.timeScale = 0;
-            MenuScene.gameObject.SetActive(true);
-        });
+            return;
+        }
+        else
+        {
+            menuButton.onClick.AddListener(() =>
+            {
+                Time.timeScale = 0;
+                MenuScene.gameObject.SetActive(true);
+            });
+        }
 
         LobbyScene.onClick.AddListener(() =>
         {

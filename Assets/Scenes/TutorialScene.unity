@@ -1968,6 +1968,7 @@ MonoBehaviour:
   threeyut: 0
   zeromovecheck: 0
   startbutton: {fileID: 1353190356}
+  yutstart: 0
   yutstarttimer: 0
   stayyut: 1
   Playtimemanager: {fileID: 2031114142}
@@ -1976,6 +1977,7 @@ MonoBehaviour:
   Look3: {fileID: 1097411364}
   Look4: {fileID: 996049409}
   LookText: {fileID: 297892330}
+  recycleCheck: 0
   Blue1: {fileID: 524628457}
   Blue2: {fileID: 1043965593}
   Blue3: {fileID: 197468541}
@@ -4662,6 +4664,9 @@ MonoBehaviour:
   CurryRed: 0
   WinerTeamCanvas: {fileID: 1194949555}
   WinerTeamString: {fileID: 556248201}
+  redThrowTime: 1.5
+  maxRedThrowTime: 0
+  maxRedMoveTime: 1.5
 --- !u!4 &586645290
 Transform:
   m_ObjectHideFlags: 0
@@ -5654,8 +5659,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3cbe6ac22103f459dbac36f2dc328c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tutocheck: 1
   AgainButton: {fileID: 1501912631}
   LobiButton: {fileID: 1069963446}
+  menuButton: {fileID: 0}
+  MenuScene: {fileID: 0}
+  LobbyScene: {fileID: 0}
+  PlayButton: {fileID: 0}
 --- !u!4 &869612942
 Transform:
   m_ObjectHideFlags: 0
